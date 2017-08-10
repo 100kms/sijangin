@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/marketmainlist_item_image_food"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/marketmainlist_item_text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:layout_toRightOf="@+id/marketmainlist_item_image_food"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:text="땅땅치킨" />
+
+    <Button
+        android:id="@+id/marketmainlist_item_btn_way"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/marketmainlist_item_image_food"
+        android:layout_below="@+id/marketmainlist_item_text_name"
+        android:text="위치보기"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>

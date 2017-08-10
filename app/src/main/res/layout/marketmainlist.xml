@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#666666">
+
+        <Button
+            android:id="@+id/marketmainlist_btn_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="시장 설명"/>
+
+        <Button
+            android:id="@+id/marketmainlist_btn_way"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="찾아 오는길"/>
+
+        <Button
+            android:id="@+id/marketmainlist_btn_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="먹거리"/>
+
+        <Button
+            android:id="@+id/marketmainlist_btn_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="후기"/>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/marketmainlist_layout_info">
+
+            <TextView
+                android:id="@+id/marketmainlist_text_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="50dp"
+                android:text="신성 시장"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop ="10dp"/>
+
+            <ImageView
+                android:id = "@+id/marketmainlist_image_main"
+                android:layout_width="250dp"
+                android:layout_height="200dp"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:id="@+id/marketmainlist_btn_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/marketmainlist_image_main"
+                android:layout_marginLeft="10dp"
+                android:background="#00ff0000"
+                android:text="\u003E"
+                android:textSize="30dp"
+                android:layout_centerInParent="true"/>
+
+            <Button
+                android:id="@+id/marketmainlist_btn_prev"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/marketmainlist_image_main"
+                android:text="\u003C"
+                android:textSize="30dp"
+                android:background="#00ff0000"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/marketmainlist_text_context"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_below="@+id/marketmainlist_image_main"
+                android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/marketmainlist_layout_way">
+
+
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/marketmainlist_layout_food">
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/marketmainlist_listview_food"/>
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+
+</LinearLayout>

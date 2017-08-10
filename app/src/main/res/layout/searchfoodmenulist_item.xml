@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="170dp"
+    android:orientation="horizontal" >
+    <!-- OO음식점의 음식 이미지-->
+    <ImageView
+        android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="17dp"
+        android:layout_marginBottom="17dp"
+        android:layout_marginTop="17dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="3"
+        android:background="#000000"/>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.7">
+
+            <!-- OO음식점 이름 이미지-->
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/searchfoodmenulist_item_TextView_store_name_id"
+                android:layout_marginRight="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="17dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="땅땅치킨"
+                android:gravity="bottom|left"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:typeface="sans"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="별점"
+                android:gravity="bottom|left"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:typeface="sans"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:orientation="horizontal">
+            <!-- 위치보기 이미지버튼-->
+            <ImageButton
+                android:layout_marginRight="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="3"
+                android:id="@+id/searchfoodmenulist_item_ImageBtn_where_id"/>
+            <!-- OO 시장 이미지버튼-->
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp"
+    >
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/reviewlist_item_btn_market"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:text="자양시장"
+            android:textColor="#000000"/>
+
+        <TextView
+            android:id="@+id/reviewlist_item_text_userid"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:textSize="20dp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#000000"/>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RatingBar
+                android:id="@+id/reviewlist_item_ratingbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:max="6"
+                android:stepSize="0.5"
+                style="?android:attr/ratingBarStyleSmall"
+                />
+            <TextView
+                android:id="@+id/reviewlist_item_text_created"
+                android:layout_width="150dp"
+                android:layout_height="30dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="100dp"
+                android:textSize="10dp"
+                android:textColor="#000000"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/revielist_item_img_review1"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img2"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/revielist_item_img_review2"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img1"
+            android:visibility="gone"/>
+
+        <ImageView
+            android:id="@+id/revielist_item_img_review3"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/img3"
+            android:visibility="gone"/>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/reviewlist_item_text_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reviewlist_item_text_created"
+        android:textSize="13dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:textColor="#000000"/>
+
+
+
+</LinearLayout>
