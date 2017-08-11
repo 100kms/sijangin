@@ -1,6 +1,7 @@
 package org.androidtown.sijang;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class ReviewList_Adapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if(convertView == null) {
             holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -69,6 +70,14 @@ public class ReviewList_Adapter extends BaseAdapter{
 
 
         holder.market_btn.setText(reviewData.market_btn);
+        holder.market_btn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent =  new Intent(mContext, MarketMainList.class);
+                mContext.startActivity(intent);
+            }
+        });
         holder.userid.setText(reviewData.userid);
         holder.created.setText(reviewData.created);
         holder.review.setText(reviewData.review);

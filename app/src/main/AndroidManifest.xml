@@ -22,6 +22,7 @@
         <activity android:name=".MarketInfo"/>
         <activity android:name=".ReviewList"/>
         <activity android:name=".SearchFoodMenuList"/>
+        <activity android:name=".MarketMainList"/>
     </application>
 
 </manifest>
