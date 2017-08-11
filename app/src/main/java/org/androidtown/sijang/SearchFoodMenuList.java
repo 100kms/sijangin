@@ -31,8 +31,7 @@ public class SearchFoodMenuList extends AppCompatActivity {
         data2 = new ArrayList<SearchFoodMenuList_Item>();
         data3 = new ArrayList<SearchFoodMenuList_Item>();
 
-
-        // data2.add(new SearchFoodMenuList_Item(R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a));
+//        data2.add(new SearchFoodMenuList_Item(R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a));
 //
 //        switch(i){
 //            case "0" :

@@ -37,21 +37,14 @@ public class MainActivity extends AppCompatActivity {
         ImageButton food_btn = (ImageButton)findViewById(R.id.imageButton3);
         ImageButton review_btn = (ImageButton)findViewById(R.id.imageButton4);
 
+
+
         food_btn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), FoodMenuList.class);
                 startActivity(intent);
-            }
-        });
-
-        review_btn.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent reviewIntent = new Intent(getApplicationContext(), ReviewList.class);
-                startActivity(reviewIntent);
             }
         });
     }

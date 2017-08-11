@@ -19,7 +19,9 @@
 
         <activity android:name=".ChangeActivity"/>
         <activity android:name=".FoodMenuList"/>
+        <activity android:name=".MarketInfo"/>
         <activity android:name=".ReviewList"/>
+        <activity android:name=".SearchFoodMenuList"/>
     </application>
 
 </manifest>
