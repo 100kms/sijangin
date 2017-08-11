@@ -98,13 +98,13 @@ public class MarketMainList extends MainActivity {
 
         switch (count){
             case 0 :
-                img_info.setImageResource(R.drawable.image1);
+                img_info.setImageResource(R.drawable.img1);
                 break;
             case 1 :
-                img_info.setImageResource(R.drawable.image2);
+                img_info.setImageResource(R.drawable.img2);
                 break;
             case 2 :
-                img_info.setImageResource(R.drawable.image3);
+                img_info.setImageResource(R.drawable.img3);
                 break;
         }
     }
