@@ -18,7 +18,7 @@ public class SearchFoodMenuList extends AppCompatActivity {
     static ArrayList<SearchFoodMenuList_Item> data2;
     static ArrayList<SearchFoodMenuList_Item> data3;
     protected int position; // 메뉴위치(위에서부터 0번시작)
-
+    //멍청이민수
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
