@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //리뷰버튼
         review_btn.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -56,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     /*Button.OnClickListener mClickListener = new View.OnClickListener() {
