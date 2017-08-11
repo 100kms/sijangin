@@ -45,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        review_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent reviewIntent = new Intent(getApplicationContext(), ReviewList.class);
+                startActivity(reviewIntent);
+            }
+        });
     }
 
     /*Button.OnClickListener mClickListener = new View.OnClickListener() {

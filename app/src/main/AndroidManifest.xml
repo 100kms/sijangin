@@ -19,6 +19,7 @@
 
         <activity android:name=".ChangeActivity"/>
         <activity android:name=".FoodMenuList"/>
+        <activity android:name=".ReviewList"/>
     </application>
 
 </manifest>
