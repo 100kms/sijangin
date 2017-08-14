@@ -30,6 +30,8 @@ public class MenuInfo extends Activity implements OnMapReadyCallback{
 
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         //TextView tv = (TextView)findViewById(R.id.textview3);
         //tv.setText("위치나오는곳" + data);
 
@@ -43,16 +45,17 @@ public class MenuInfo extends Activity implements OnMapReadyCallback{
         markerOptions.position(SEOUL);
         markerOptions.title("서울");
         markerOptions.snippet("한국의 수도");
-        map.addMarker(markerOptions);
+        map.addMarker(markerOptions).showInfoWindow();
 
-        Log.d("a", "a");
+        Log.d("aaa", "aaa");
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
-        map.animateCamera(CameraUpdateFactory.zoomTo(10));
+        map.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
+
 
     //확인 버튼 클릭 , 액티비티 닫기
     public void mOnClose(View v){
-            finish();
+        finish();
     }
 
     //액티비티 이벤트
