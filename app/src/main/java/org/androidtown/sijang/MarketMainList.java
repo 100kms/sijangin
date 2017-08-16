@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -24,6 +25,7 @@ public class MarketMainList extends MainActivity {
         Button btn_info = (Button)findViewById(R.id.marketmainlist_btn_info);
         Button btn_way = (Button)findViewById(R.id.marketmainlist_btn_way);
         Button btn_food = (Button)findViewById(R.id.marketmainlist_btn_food);
+        Button btn_review = (Button)findViewById(R.id.marketmainlist_btn_review);
 
         Button btn_next = (Button)findViewById(R.id.marketmainlist_btn_next);
         Button btn_prev = (Button)findViewById(R.id.marketmainlist_btn_prev);
@@ -51,8 +53,9 @@ public class MarketMainList extends MainActivity {
         });
 
         final RelativeLayout layout_info = (RelativeLayout)findViewById(R.id.marketmainlist_layout_info);
-        final RelativeLayout layout_way = (RelativeLayout)findViewById(R.id.marketmainlist_layout_way);
-        final RelativeLayout layout_food = (RelativeLayout)findViewById(R.id.marketmainlist_layout_food);
+        final LinearLayout layout_way = (LinearLayout)findViewById(R.id.marketmainlist_layout_way);
+        final LinearLayout layout_food = (LinearLayout)findViewById(R.id.marketmainlist_layout_food);
+        final LinearLayout layout_review = (LinearLayout)findViewById(R.id.marketmainlist_layout_review);
 
         food_listview = (ListView)findViewById(R.id.marketmainlist_listview_food);
         marketMainList_adapter = new MarketMainList_Adapter(this);
@@ -70,6 +73,7 @@ public class MarketMainList extends MainActivity {
                 layout_info.setVisibility(View.VISIBLE);
                 layout_way.setVisibility(View.INVISIBLE);
                 layout_food.setVisibility(View.INVISIBLE);
+                layout_review.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -79,6 +83,7 @@ public class MarketMainList extends MainActivity {
                 layout_info.setVisibility(View.INVISIBLE);
                 layout_way.setVisibility(View.VISIBLE);
                 layout_food.setVisibility(View.INVISIBLE);
+                layout_review.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -88,6 +93,17 @@ public class MarketMainList extends MainActivity {
                 layout_info.setVisibility(View.INVISIBLE);
                 layout_way.setVisibility(View.INVISIBLE);
                 layout_food.setVisibility(View.VISIBLE);
+                layout_review.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        btn_review.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                layout_info.setVisibility(View.INVISIBLE);
+                layout_way.setVisibility(View.INVISIBLE);
+                layout_food.setVisibility(View.INVISIBLE);
+                layout_review.setVisibility(View.VISIBLE);
             }
         });
     }

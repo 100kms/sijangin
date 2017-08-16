@@ -67,6 +67,7 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(mContext, MenuInfo.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     Log.d(s, "as" + position);
                     mContext.startActivity(intent);
 
@@ -82,6 +83,7 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
                 public void onClick(View v) {
 
                     Intent intent = new Intent(mContext, MarketInfo.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     Log.d(s, "as" + position);
                     mContext.startActivity(intent);
 
