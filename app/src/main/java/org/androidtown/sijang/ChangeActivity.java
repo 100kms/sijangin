@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 public class ChangeActivity extends AppCompatActivity {
 
+    //aabb_prettyje
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
