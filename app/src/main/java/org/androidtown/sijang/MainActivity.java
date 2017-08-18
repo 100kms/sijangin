@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
-
+//
     //ImageButton button = (ImageButton)findViewById(R.id.imageButton);
     EditText editText;
     String marketname="미입력";
