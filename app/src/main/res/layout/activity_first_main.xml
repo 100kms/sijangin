@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/backintext"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.androidtown.sijang.FirstMainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/button_chagne"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp"
+        android:background="#91191818"
+        android:textColor="#fafafa"
+        android:text="Click to Start" />
+</FrameLayout>
