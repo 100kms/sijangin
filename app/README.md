@@ -9,4 +9,8 @@
 1. 나는 요즘 너무 힘이든다.
 2. 구글맵API키 변경(매니패스트 값 추가), SearchFoodMenuList(이미지추가)
 ---
-####
+#### 2017 8,19 je
+1. 시장인 로고 변경
+2. 구글 로그인 서비스 1차 추가
+3. 첫화면 추가 -> FirstMainActivity
+4. MainActivity 그림 변경

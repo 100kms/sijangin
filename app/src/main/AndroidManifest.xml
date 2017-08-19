@@ -9,15 +9,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyB9UIOtH-mMLGV_IuTCat6EECxrcFejqgY"
-            />
+            android:value="AIzaSyB9UIOtH-mMLGV_IuTCat6EECxrcFejqgY" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,14 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ChangeActivity"/>
-        <activity android:name=".FoodMenuList"/>
-        <activity android:name=".MarketInfo"/>
-        <activity android:name=".ReviewList"/>
-        <activity android:name=".MenuInfo" android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".SearchFoodMenuList"/>
-        <activity android:name=".MarketMainList"/>
+        <activity android:name=".ChangeActivity" />
+        <activity android:name=".FoodMenuList" />
+        <activity android:name=".MarketInfo" />
+        <activity android:name=".ReviewList" />
+        <activity
+            android:name=".MenuInfo"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity android:name=".SearchFoodMenuList" />
+        <activity android:name=".MarketMainList" />
+        <activity android:name=".FirstMainActivity"></activity>
     </application>
 
 </manifest>

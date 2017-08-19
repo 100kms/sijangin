@@ -104,7 +104,7 @@ public class FoodMenuList extends AppCompatActivity {
 
                 adapter = new FoodMenuList_Adapter(getApplicationContext(), R.layout.foodmenulist_item, data);
 
-                lv = (ListView) findViewById(R.id.foodmenulist_listview);
+                //lv = (ListView) findViewById(R.id.foodmenulist_listview);
 
             } catch (Exception e) {
                 System.out.print("kkk222222");

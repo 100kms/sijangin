@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "943043913776",
+    "project_id": "firebase-sijangin"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943043913776:android:83a4f4af4df2ab0b",
+        "android_client_info": {
+          "package_name": "org.androidtown.sijang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943043913776-gld3m8k8f6d0bc31chmhri9lu0o89hn2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "943043913776-btg9g9pa4sb7h2kb1c1n1i7cosjusup9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.androidtown.sijang",
+            "certificate_hash": "c6eb71fcad4fdc5284b4017c72d7450f0c109a72"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCm-uc2jZ0iNBUQfhZ08NSRpQASwLqDdYI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
