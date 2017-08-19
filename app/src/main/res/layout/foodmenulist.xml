@@ -8,72 +8,77 @@
         <LinearLayout>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="100dp" />
+                android:layout_height="130dp" />
         </LinearLayout>
     </TableRow>
 
 
     <TableRow>
+
         <Button
-            android:layout_marginLeft="50dp"
-            android:id="@+id/one"
+            android:id="@+id/foodmenulist_one"
+            android:layout_width="20dp"
+            android:layout_height="120dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="1"/>
+            android:background="@drawable/foodmenulist_bob"
+            />
+
         <Button
-            android:layout_marginRight="50dp"
-            android:id="@+id/two"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/foodmenulist_two"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="2"/>
+            android:layout_width="20dp"
+            android:layout_height="120dp"
+            android:background="@drawable/foodmenulist_chi" />
     </TableRow>
     <TableRow>
         <Button
-            android:layout_marginLeft="50dp"
-            android:id="@+id/three"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/foodmenulist_three"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="3"/>
+            android:layout_height="120dp"
+            android:layout_width="20dp"
+            android:background="@drawable/foodmenulist_fork" />
+
         <Button
-            android:layout_marginRight="50dp"
-            android:id="@+id/four"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/foodmenulist_four"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="4"/>
+            android:layout_width="20dp"
+            android:layout_height="120dp"
+            android:background="@drawable/foodmenulist_mid"
+            />
 
     </TableRow>
     <TableRow>
         <Button
-            android:layout_marginLeft="50dp"
-            android:id="@+id/five"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/foodmenulist_five"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="5"/>
+            android:layout_height="120dp"
+            android:layout_width="20dp"
+            android:background="@drawable/foodmenulist_beun"/>
         <Button
-            android:layout_marginRight="50dp"
-            android:id="@+id/six"
+            android:layout_marginRight="40dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/foodmenulist_six"
             android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="6"/>
+            android:layout_height="120dp"
+            android:layout_width="20dp"
+            android:background="@drawable/foodmenulist_etc"/>
 
-
-    </TableRow>
-
-
-    <TableRow>
-
-        <Button
-            android:layout_marginLeft="50dp"
-            android:id="@+id/seven"
-            android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="7"/>
-        <Button
-            android:layout_marginRight="50dp"
-            android:id="@+id/eight"
-            android:layout_weight="1"
-            android:layout_height="100dp"
-            android:text="8"/>
 
     </TableRow>
 

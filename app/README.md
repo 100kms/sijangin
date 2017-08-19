@@ -15,3 +15,8 @@
 3. 첫화면 추가 -> FirstMainActivity 
 //타이틀바 삭제(extends FragmentActivity),매니페스트변경
 4. MainActivity 그림 변경
+
+#### 2017 8.19
+1. foodmenulist 수정
+2. searchmenulist 틀만 수정
+3. 타이틀바 색 수정

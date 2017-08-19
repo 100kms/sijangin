@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
@@ -100,8 +101,11 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
 
         // Set Icon
         //음식
-        ImageView icon = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageView_food_image_id);
-        icon.setImageResource(mItems.get(position).mIcon_food);
+        //ImageView icon = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageView_food_image_id);
+        //icon.setImageResource(mItems.get(position).mIcon_food);
+        LinearLayout l = (LinearLayout)convertView.findViewById(R.id.searchfoodmenulist_item_ImageView_food_image_id) ;
+        l.setBackgroundResource(mItems.get(position).mIcon_food);
+
 
         /*
         //음식점이름

@@ -2,20 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="170dp"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id">
     <!-- OO음식점의 음식 이미지-->
-    <ImageView
-        android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id"
-        android:layout_marginRight="10dp"
-        android:layout_marginLeft="17dp"
-        android:layout_marginBottom="17dp"
-        android:layout_marginTop="17dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="3"
-        android:background="#000000"/>
+
 
     <LinearLayout
         android:orientation="vertical"

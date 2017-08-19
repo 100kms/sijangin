@@ -39,16 +39,32 @@ public class MenuInfo extends Activity implements OnMapReadyCallback{
 
     public void onMapReady(final GoogleMap map){
 
+        double a = 37.57;
+        double b = 126.97;
         LatLng SEOUL = new LatLng(37.56,126.97);
+        LatLng SEOUL2 = new LatLng(a,b);
+        double c = SEOUL2.latitude ;
 
         MarkerOptions markerOptions = new MarkerOptions();
+        MarkerOptions marketOptions2 = new MarkerOptions();
         markerOptions.position(SEOUL);
+        marketOptions2.position(SEOUL2);
+
+
         markerOptions.title("서울");
         markerOptions.snippet("한국의 수도");
+
+        marketOptions2.title("서울2");
+        marketOptions2.snippet("한국의 수도2");
+
+
         map.addMarker(markerOptions).showInfoWindow();
+        map.addMarker(marketOptions2).showInfoWindow();
 
         Log.d("aaa", "aaa");
-        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL));
+
+
+        map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL2));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
     }
 
