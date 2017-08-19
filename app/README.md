@@ -12,5 +12,6 @@
 #### 2017 8.19 je
 1. 시장인 로고 변경
 2. 구글 로그인 서비스 1차 추가
-3. 첫화면 추가 -> FirstMainActivity
+3. 첫화면 추가 -> FirstMainActivity 
+//타이틀바 삭제(extends FragmentActivity),매니페스트변경
 4. MainActivity 그림 변경
