@@ -20,3 +20,7 @@
 1. foodmenulist 수정
 2. searchmenulist 틀만 수정
 3. 타이틀바 색 수정
+
+#### 2017.8.23 je
+1. MainActivity 버튼 수정
+2. 지도 버튼 삽입
