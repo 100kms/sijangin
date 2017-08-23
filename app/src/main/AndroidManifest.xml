@@ -13,7 +13,8 @@ package="org.androidtown.sijang">
     android:label="@string/app_name"
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    android:largeHeap="true">
     <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyB9UIOtH-mMLGV_IuTCat6EECxrcFejqgY" />
@@ -27,7 +28,7 @@ package="org.androidtown.sijang">
               android:theme="@android:style/Theme.Dialog" />
     <activity android:name=".SearchFoodMenuList" />
     <activity android:name=".MarketMainList" />
-
+    <activity android:name=".ReviewListSort" />
     <activity android:name=".FirstMainActivity"
               android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
         <intent-filter>

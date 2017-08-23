@@ -2,6 +2,7 @@ package org.androidtown.sijang;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,15 +52,15 @@ public class ReviewList_Adapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.reviewlist_item, null);
 
 
-
-            holder.market_btn = (Button) convertView.findViewById(R.id.reviewlist_item_btn_market);
+            holder.market_text = (TextView) convertView.findViewById(R.id.reviewlist_item_text_market);
+            holder.replace_text = (TextView) convertView.findViewById(R.id.reviewlist_item_text_replace);
             holder.userid = (TextView) convertView.findViewById(R.id.reviewlist_item_text_userid);
             holder.created = (TextView) convertView.findViewById(R.id.reviewlist_item_text_created);
             holder.review = (TextView) convertView.findViewById(R.id.reviewlist_item_text_review);
             holder.star = (RatingBar) convertView.findViewById(R.id.reviewlist_item_ratingbar);
-            holder.img_1 = (ImageView) convertView.findViewById(R.id.revielist_item_img_review1);
-            holder.img_2 = (ImageView) convertView.findViewById(R.id.revielist_item_img_review2);
-            holder.img_3 = (ImageView) convertView.findViewById(R.id.revielist_item_img_review3);
+            holder.img_1 = (ImageView) convertView.findViewById(R.id.reviewlist_item_img_review1);
+            holder.img_2 = (ImageView) convertView.findViewById(R.id.reviewlist_item_img_review2);
+            holder.img_3 = (ImageView) convertView.findViewById(R.id.reviewlist_item_img_review3);
 
             convertView.setTag(holder);
         } else{
@@ -69,8 +70,8 @@ public class ReviewList_Adapter extends BaseAdapter{
         ReviewList_Adapter.Data reviewData =  list.get(position);
 
 
-        holder.market_btn.setText(reviewData.market_btn);
-        holder.market_btn.setOnClickListener(new View.OnClickListener() {
+        holder.market_text.setText(reviewData.market_text);
+        holder.market_text.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -78,6 +79,7 @@ public class ReviewList_Adapter extends BaseAdapter{
                 mContext.startActivity(intent);
             }
         });
+        holder.replace_text.setText(reviewData.replace_text);
         holder.userid.setText(reviewData.userid);
         holder.created.setText(reviewData.created);
         holder.review.setText(reviewData.review);
@@ -115,15 +117,13 @@ public class ReviewList_Adapter extends BaseAdapter{
         }
         count = 0;
 
-
-
-
         return convertView;
     }
 
-    public void additem(String market_btn, String userid, String created, String review, float star, int[] img){
+    public void additem(String market_text ,String replace_text, String userid, String created, String review, float star, int[] img){
         Data addinfo = new Data();
-        addinfo.market_btn = market_btn;
+        addinfo.market_text = market_text+" > ";
+        addinfo.replace_text = replace_text;
         addinfo.userid = userid;
         addinfo.created = created;
         addinfo.review = review;
@@ -134,7 +134,8 @@ public class ReviewList_Adapter extends BaseAdapter{
     }
 
     private class ViewHolder{
-        public Button market_btn;
+        public TextView market_text;
+        public TextView replace_text;
         public TextView userid;
         public TextView created;
         public TextView review;
@@ -145,12 +146,12 @@ public class ReviewList_Adapter extends BaseAdapter{
     }
 
     public class Data{
-        public String market_btn;
+        public String market_text;
+        public String replace_text;
         public String userid;
         public String created;
         public String review;
         public float star;
         public int[] img;
-
     }
 }
