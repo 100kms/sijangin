@@ -8,15 +8,11 @@
     <ListView
         android:layout_weight="1"
         android:id="@+id/reviewList_listview"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0dp"
         android:divider="#cccccc"
         >
     </ListView>
-
-
-
-
 </LinearLayout>

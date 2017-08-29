@@ -61,9 +61,4 @@ public class ReviewList extends MainActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-
-
-
-
 }
