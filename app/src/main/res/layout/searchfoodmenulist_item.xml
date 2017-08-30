@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="170dp"
-    android:orientation="horizontal"
-    android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id">
-    <!-- OO음식점의 음식 이미지-->
+    android:layout_height="200dp"
+    android:background="#ffffff"
+    >
 
-
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        card_view:cardCornerRadius="15dp"
+        card_view:cardElevation="5dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:layout_weight="2">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="0.7">
-
-            <!-- OO음식점 이름 이미지-->
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/searchfoodmenulist_item_TextView_store_name_id"
-                android:layout_marginRight="7dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginBottom="4dp"
-                android:layout_marginTop="17dp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="땅땅치킨"
-                android:gravity="bottom|left"
-                android:textColor="#000000"
-                android:textSize="25sp"
-                android:typeface="sans"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:text="별점"
-                android:gravity="bottom|left"
-                android:textColor="#000000"
-                android:textSize="10sp"
-                android:typeface="sans"/>
-        </LinearLayout>
-
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:orientation="horizontal">
-            <!-- 위치보기 이미지버튼-->
-            <ImageButton
-                android:layout_marginRight="2dp"
+            android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="3dp"
+
+                >
+                <!-- 위치보기 이미지버튼-->
+                <ImageButton
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="90dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitXY"
+                    android:background="#00000000"
+                    android:id="@+id/searchfoodmenulist_item_ImageBtn_where_id"/>
+
+
+                <!-- OO 시장 이미지버튼-->
+                <ImageButton
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="110dp"
+                    android:layout_height="40dp"
+                    android:scaleType="fitXY"
+                    android:background="#00000000"
+                    android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"/>
+
+            </LinearLayout>
+
+            <!--
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="3"
-                android:id="@+id/searchfoodmenulist_item_ImageBtn_where_id"/>
-            <!-- OO 시장 이미지버튼-->
-            <ImageButton
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
-                android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"/>
+                android:orientation="vertical"
+                android:layout_weight="0.7"
+                android:baselineAligned="false">
+
+                OO음식점 이름 이미지
+                <TextView
+                    android:layout_weight="1"
+                    android:id="@+id/searchfoodmenulist_item_TextView_store_name_id"
+                    android:layout_marginRight="7dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginTop="17dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="땅땅치킨"
+                    android:gravity="bottom|left"
+                    android:textColor="#000000"
+                    android:textSize="25sp"
+                    android:typeface="sans"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:text="별점"
+                    android:gravity="bottom|left"
+                    android:textColor="#000000"
+                    android:textSize="10sp"
+                    android:typeface="sans"
+
+                    />
+            </LinearLayout>
+    -->
         </LinearLayout>
-    </LinearLayout>
+    </android.support.v7.widget.CardView>
 </LinearLayout>

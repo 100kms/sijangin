@@ -8,7 +8,7 @@
         <LinearLayout>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="130dp" />
+                android:layout_height="60dp" />
         </LinearLayout>
     </TableRow>
 

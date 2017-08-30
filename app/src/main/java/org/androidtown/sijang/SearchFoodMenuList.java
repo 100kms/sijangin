@@ -35,34 +35,34 @@ public class SearchFoodMenuList extends AppCompatActivity {
 
         switch(i){
             case "0" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_c, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_c, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_c, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test5, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
 
                 break;
             case "1" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_c, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
                 break;
             case "2" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.store_image, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.store_image, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test5, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "자양"));
                 break;
             case "3" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_a, R.drawable.store_name, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.searchfoodmenulist_b, R.drawable.store_name, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.store_image, R.drawable.store_name, R.drawable.where, R.drawable.market, "자양"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test1,R.drawable.where, R.drawable.market, "신성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
+                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
                 break;
         }
 

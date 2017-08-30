@@ -51,8 +51,6 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
 
-
-
         //Intent intent = new Intent(SearchFoodMenuList.MenuInfo.class);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -60,18 +58,15 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
 
             holder = new ViewHolder();
 
-
             holder.where_imgbtn = (ImageButton) convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_where_id);
             holder.where_imgbtn.setOnClickListener(new View.OnClickListener() {
                 String s = "Tag";
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(mContext, MenuInfo.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     Log.d(s, "as" + position);
                     mContext.startActivity(intent);
-
                 }
 
             });
@@ -82,13 +77,10 @@ public class SearchFoodMenuList_Adapter extends BaseAdapter {
 
                 @Override
                 public void onClick(View v) {
-
                     Intent intent = new Intent(mContext, MarketInfo.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     Log.d(s, "as" + position);
                     mContext.startActivity(intent);
-
-
                 }
 
             });
@@ -133,7 +125,7 @@ class SearchFoodMenuList_Item {
     int mIcon_market; // 시장
     String mname;
 
-    SearchFoodMenuList_Item(int food, int store, int where, int market, String name) {
+    SearchFoodMenuList_Item(int food, int where, int market, String name) {
         mIcon_food = food;
         //mIcon_store = store;
         mIcon_where = where;
