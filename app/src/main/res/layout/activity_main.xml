@@ -20,13 +20,14 @@
             android:layout_marginTop="10dp"
             android:layout_weight="0.3"
             android:text="시장이름 검색"
+            android:textAlignment="center"
             android:textSize="20dp" />
 
         <EditText
             android:id="@+id/editText"
-            android:layout_weight="0.2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -38,31 +39,17 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_centerInParent="true"
+        android:background="#b56b6969"/>
+
     <AbsoluteLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.2"
         android:background="#ffffff">
-
-        <ImageButton
-            android:id="@+id/imageButton9"
-            android:layout_width="104dp"
-            android:layout_height="114dp"
-            android:layout_gravity="center"
-            android:layout_x="115dp"
-            android:layout_y="104dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_3" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="302dp"
-            android:layout_height="105dp"
-            android:layout_x="26dp"
-            android:layout_y="147dp"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_5" />
 
         <ImageButton
             android:id="@+id/imageButton7"
@@ -75,25 +62,15 @@
             app:srcCompat="@drawable/map_1" />
 
         <ImageButton
-            android:id="@+id/imageButton14"
-            android:layout_width="111dp"
-            android:layout_height="109dp"
+            android:id="@+id/imageButton9"
+            android:layout_width="104dp"
+            android:layout_height="114dp"
             android:layout_gravity="center"
-            android:layout_x="231dp"
-            android:layout_y="184dp"
+            android:layout_x="115dp"
+            android:layout_y="104dp"
             android:background="#00ffffff"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_9" />
-
-        <ImageButton
-            android:id="@+id/imageButton8"
-            android:layout_width="111dp"
-            android:layout_height="107dp"
-            android:layout_x="35dp"
-            android:layout_y="80dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_2" />
+            app:srcCompat="@drawable/map_3" />
 
         <ImageButton
             android:id="@+id/imageButton10"
@@ -107,15 +84,15 @@
             app:srcCompat="@drawable/map_4" />
 
         <ImageButton
-            android:id="@+id/imageButton13"
-            android:layout_width="116dp"
-            android:layout_height="116dp"
+            android:id="@+id/imageButton11"
+            android:layout_width="100dp"
+            android:layout_height="115dp"
             android:layout_gravity="center"
-            android:layout_x="166dp"
-            android:layout_y="223dp"
+            android:layout_x="5dp"
+            android:layout_y="186dp"
             android:background="#00ffffff"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_8" />
+            app:srcCompat="@drawable/map_6" />
 
         <ImageButton
             android:id="@+id/imageButton12"
@@ -129,18 +106,57 @@
             app:srcCompat="@drawable/map_7" />
 
         <ImageButton
-            android:id="@+id/imageButton11"
-            android:layout_width="100dp"
-            android:layout_height="115dp"
+            android:id="@+id/imageButton13"
+            android:layout_width="116dp"
+            android:layout_height="116dp"
             android:layout_gravity="center"
-            android:layout_x="5dp"
-            android:layout_y="186dp"
+            android:layout_x="166dp"
+            android:layout_y="223dp"
             android:background="#00ffffff"
             android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_6" />
+            app:srcCompat="@drawable/map_8" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="302dp"
+            android:layout_height="105dp"
+            android:layout_x="26dp"
+            android:layout_y="147dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/map_5" />
+
+        <ImageButton
+            android:id="@+id/imageButton8"
+            android:layout_width="111dp"
+            android:layout_height="107dp"
+            android:layout_x="35dp"
+            android:layout_y="83dp"
+            android:background="#00ffffff"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/map_2" />
+
+        <ImageButton
+            android:id="@+id/imageButton14"
+            android:layout_width="111dp"
+            android:layout_height="109dp"
+            android:layout_gravity="center"
+            android:layout_x="235dp"
+            android:layout_y="181dp"
+            android:background="#00ffffff"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/map_9" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_x="121dp"
+            android:layout_y="355dp"
+            android:text="지도를 클릭하세요"
+            android:textAlignment="center"
+            android:textSize="20dp" />
 
     </AbsoluteLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

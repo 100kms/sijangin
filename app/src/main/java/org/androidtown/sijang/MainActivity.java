@@ -1,6 +1,7 @@
 package org.androidtown.sijang;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -8,12 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 //
     //ImageButton button = (ImageButton)findViewById(R.id.imageButton);
     EditText editText;
     String marketname="미입력";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,11 @@ public class MainActivity extends AppCompatActivity {
         final ImageButton pop_btn = (ImageButton)findViewById(R.id.imageButton2);
         final ImageButton food_btn = (ImageButton)findViewById(R.id.imageButton3);
         final ImageButton review_btn = (ImageButton)findViewById(R.id.imageButton4);
-
+        TextView textView3 = (TextView) findViewById(R.id.textView3);
+        TextView textView = (TextView) findViewById(R.id.textView);
+        Typeface face =Typeface.createFromAsset(getAssets(), "fonts/bfont.ttf");
+        textView3.setTypeface(face);
+        textView.setTypeface(face);
 
         ////////////////////////////실험
         findViewById(R.id.imageButton8).setOnClickListener(
