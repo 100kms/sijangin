@@ -2,10 +2,45 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/backintext2"
+    android:background="#fff42a"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.androidtown.sijang.FirstMainActivity">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="138dp"
+        android:layout_height="158dp"
+        android:layout_gravity="left|top"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/mainlogo1" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="168dp"
+        android:layout_height="169dp"
+        android:layout_gravity="right|top"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/mainlogo2" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="142dp"
+        android:layout_height="207dp"
+        android:layout_gravity="left|bottom"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/mainlogo3" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="149dp"
+        android:layout_height="171dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginBottom="70dp"
+        android:background="@drawable/mainlogo4" />
 
     <Button
         android:id="@+id/button_chagne"
@@ -13,8 +48,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="10dp"
-        android:textSize="20dp"
+        android:layout_x="58dp"
+        android:layout_y="566dp"
         android:background="#91191818"
+        android:text="Click to Start"
         android:textColor="#fafafa"
-        android:text="Click to Start" />
+        android:textSize="20dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="192dp"
+        android:layout_height="187dp"
+        android:layout_gravity="center"
+        android:background="@drawable/seoullogo" />
+
 </FrameLayout>
