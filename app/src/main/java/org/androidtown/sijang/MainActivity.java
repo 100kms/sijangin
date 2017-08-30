@@ -87,12 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
         //인기시장 버튼
         pop_btn.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent event) {
