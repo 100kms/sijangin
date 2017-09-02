@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, ChangeActivity.class);
                         intent.putExtra("value","1번째 페이지");
                         // intent.putExtra("value",textView.getText().toString());
+
                         startActivity(intent);
                     }
                 }
