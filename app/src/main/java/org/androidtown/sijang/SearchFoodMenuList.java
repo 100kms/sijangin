@@ -1,218 +1,197 @@
 package org.androidtown.sijang;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 
 import java.util.ArrayList;
 
-public class SearchFoodMenuList extends AppCompatActivity {
-
-    static SearchFoodMenuList_Adapter adapter2;
-    static SearchFoodMenuList_Adapter adapter3;
-    static ArrayList<SearchFoodMenuList_Item> data2;
-    static ArrayList<SearchFoodMenuList_Item> data3;
-    protected int position; // 메뉴위치(위에서부터 0번시작)
-
+public class SearchFoodMenuList extends AppCompatActivity
+{
+    private ArrayList<String> urlList = new ArrayList<String>();
+    private ListView mListView = null;
+    private ListViewAdapter mAdapter = null;
+    protected ImageLoader imageLoader = ImageLoader.getInstance();
+    private ImageLoaderConfiguration config = null;
+    DisplayImageOptions options = null;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.searchfoodmenulist);
-
-        Intent intent = getIntent();
-        String i = intent.getStringExtra("MenuSelect");
-
-        data2 = new ArrayList<SearchFoodMenuList_Item>();
-        data3 = new ArrayList<SearchFoodMenuList_Item>();
+        //setContentView(R.layout.fragment_list);
+        setImageLoader(options, config, this);
 
 
-        // data2.add(new SearchFoodMenuList_Item(R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a));
+        urlList.add("drawable://" + R.drawable.test1);
+        urlList.add("drawable://" + R.drawable.test2);
+        urlList.add("drawable://" + R.drawable.test3);
+        urlList.add("drawable://" + R.drawable.test4);
+        urlList.add("drawable://" + R.drawable.test5);
+        urlList.add("drawable://" + R.drawable.test6);
 
-        switch(i){
-            case "0" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test5, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
+        urlList.add("drawable://" + R.drawable.test1);
+        urlList.add("drawable://" + R.drawable.test2);
+        urlList.add("drawable://" + R.drawable.test3);
+        urlList.add("drawable://" + R.drawable.test4);
+        urlList.add("drawable://" + R.drawable.test5);
+        urlList.add("drawable://" + R.drawable.test6);
 
-                break;
-            case "1" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
-                break;
-            case "2" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test6, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test5, R.drawable.where, R.drawable.market, "자양"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test4, R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test1, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "자양"));
-                break;
-            case "3" :
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test1,R.drawable.where, R.drawable.market, "신성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test2, R.drawable.where, R.drawable.market, "한성"));
-                data2.add(new SearchFoodMenuList_Item(R.drawable.test3, R.drawable.where, R.drawable.market, "자양"));
-                break;
+        urlList.add("drawable://" + R.drawable.test1);
+        urlList.add("drawable://" + R.drawable.test2);
+        urlList.add("drawable://" + R.drawable.test3);
+        urlList.add("drawable://" + R.drawable.test4);
+        urlList.add("drawable://" + R.drawable.test5);
+        urlList.add("drawable://" + R.drawable.test6);
+
+        /*
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
+*/
+
+
+
+        mListView = (ListView) findViewById(R.id.searchfoodmenulist_listView);
+        mAdapter = new ListViewAdapter(this);
+        mListView.setAdapter(mAdapter);
+    }
+
+
+    private class ViewHolder
+    {
+        public ImageView item_thumbnail;
+        public ImageView where_imgbtn;
+        public ImageView market_imgbtn;
+        //public TextView item_title;
+    }
+
+    public class ListViewAdapter extends BaseAdapter
+    {
+        Context context;
+
+        public ListViewAdapter(Context context)
+        {
+            super();
+            this.context = context;
         }
 
-        adapter2 = new SearchFoodMenuList_Adapter(getApplicationContext(), R.layout.searchfoodmenulist_item, data2);
 
-        ListView lv = (ListView) findViewById(R.id.searchfoodmenulist_listView);
+        @Override
+        public int getCount()
+        {
+            return urlList.size();
+        }
 
-        lv.setAdapter(adapter2);
+        @Override
+        public Object getItem(int position)
+        {
+            return position;
+        }
 
+        @Override
+        public long getItemId(int position)
+        {
+            return position;
+        }
 
-        // 검색버튼을 누를시 해당하는 시장만 목록에 뜨게
-        ImageButton searchbtn = (ImageButton)findViewById(R.id.searchfoodmenulist_ImageBtn_search);
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent)
+        {
+            final ViewHolder holder;
+            if(convertView == null)
+            {
+                holder = new ViewHolder();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                convertView = inflater.inflate(R.layout.searchfoodmenulist_item, parent, false);
 
-        searchbtn.setOnClickListener(new View.OnClickListener() {
+                holder.item_thumbnail = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageView_food_image_id);
+                // holder.item_title = (TextView) convertView.findViewById(R.id.textView1);
 
-            @Override
-            public void onClick(View v) {
-                // Thread2 th = new Thread2();
-
-                EditText st = (EditText)findViewById(R.id.searchfoodmenulist_Edittext_search);
-                String searchtext = st.getText().toString();
-
-/*
-                for(int i=0;  i < data2.size(); i++){
-                    if(data2.get(i).mname == searchtext){
-                        data3.add(new SearchFoodMenuList_Item(data2.get(i).mIcon_food, data2.get(i).mIcon_store, data2.get(i).mIcon_where, data2.get(i).mIcon_market, data2.get(i).mname));
+                holder.where_imgbtn = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_where_id);
+                holder.where_imgbtn.setOnClickListener(new View.OnClickListener() {
+                    String s = "Tag";
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), MenuInfo.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //Log.d(s, "as" + position);
+                        startActivity(intent);
                     }
-                }
 
-                adapter3 = new SearchFoodMenuList_Adapter(getApplicationContext(), R.layout.searchfoodmenulist_item, data3);
+                });
 
-                ListView lv = (ListView) findViewById(R.id.InMenuList);
+                holder.market_imgbtn = (ImageView)convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_market_id);
+                holder.market_imgbtn.setOnClickListener(new View.OnClickListener() {
+                    String s = "Tag";
 
-                //데이터가 수정될때 adpater.notifyDataSetChanged();
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), MarketInfo.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //Log.d(s, "as" + position);
+                        startActivity(intent);
+                    }
 
-                adapter2.notifyDataSetChanged();
-                lv.removeAllViews();
-                adapter2.
+                });
 
 
-                lv.setAdapter(adapter3);
-*/
-
-
-                //
-                Intent searchintent = new Intent(getApplicationContext(), SearchFoodMenuList.class);
-
-                switch (searchtext) {
-
-                    case "신성":
-                        searchintent.putExtra("SubMenuSelect", "0");
-                        startActivity(searchintent);
-                        break;
-                    case "신성시장":
-                        searchintent.putExtra("SubMenuSelect", "1");
-                        startActivity(searchintent);
-                        break;
-                    case "자양":
-                        searchintent.putExtra("SubMenuSelect", "2");
-                        startActivity(searchintent);
-                        break;
-                    case "한성":
-                        searchintent.putExtra("SubMenuSelect", "3");
-                        startActivity(searchintent);
-                        break;
-                    default: //position의 값이 위에서 지정한 case에 하나도 맞지 않을경우
-                        //실행코드
-                        break;
-                }
+                convertView.setTag(holder);
             }
-        });
-
-
-    }
-}
-
-
-/*
-public class SearchFoodMenuList extends AppCompatActivity {
-
-    static SearchFoodMenuList_Adapter adapter2;
-    protected int position; // 메뉴위치(위에서부터 0번시작)
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.searchfoodmenulist);
-
-        Intent intent = getIntent();
-        String i = intent.getStringExtra("MenuSelect");
-
-        // 검색버튼을 누를시 해당하는 시장만 목록에 뜨게
-        ImageButton searchbtn = (ImageButton)findViewById(R.id.SearchButton);
-
-        searchbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText st = (EditText)findViewById(R.id.SearchText);
-                String searchtext = st.getText().toString();
-
-                Intent searchintent = new Intent(getApplicationContext(), SearchFoodMenuList.class);
-
-                switch (searchtext) {
-
-                    case "신성":
-                        searchintent.putExtra("SubMenuSelect", "0");
-                        startActivity(searchintent);
-                        break;
-                    case "신성시장":
-                        searchintent.putExtra("SubMenuSelect", "1");
-                        startActivity(searchintent);
-                        break;
-                    case "자양":
-                        searchintent.putExtra("SubMenuSelect", "2");
-                        startActivity(searchintent);
-                        break;
-                    case "자양시장":
-                        searchintent.putExtra("SubMenuSelect", "3");
-                        startActivity(searchintent);
-                        break;
-                    default: //position의 값이 위에서 지정한 case에 하나도 맞지 않을경우
-                        //실행코드
-                        break;
-                }
+            else
+            {
+                holder = (ViewHolder) convertView.getTag();
             }
-        });
 
+            imageLoader.displayImage(urlList.get(position), holder.item_thumbnail, options);
+            //imageLoader.displayImage(urlList.get(position), holder.where_imgbtn, options);
+            //imageLoader.displayImage(urlList.get(position), holder.market_imgbtn, options);
+            //holder.item_title.setText(position+"");
 
-        ArrayList<SearchFoodMenuList_Item> data2 = new ArrayList<SearchFoodMenuList_Item>();
-
-        // data2.add(new SearchFoodMenuList_Item(R.drawable.a, R.drawable.a, R.drawable.a, R.drawable.a));
-
-        switch(i){
-            case "0" :
-
-            case "1" :
-
-            case "2" :
-
-            case "3" :
-
-                break;
+            return convertView;
         }
+    }
 
-        adapter2 = new SearchFoodMenuList_Adapter(getApplicationContext(), R.layout.searchfoodmenulist_item, data2);
+    public void setImageLoader(DisplayImageOptions options, ImageLoaderConfiguration config,Context context){
+        options = new DisplayImageOptions.Builder()
+                .considerExifParams(true)
+                .cacheInMemory(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .displayer(new FadeInBitmapDisplayer(300))
+                .build();
 
-        ListView lv = (ListView) findViewById(R.id.InMenuList);
+        config = new ImageLoaderConfiguration.Builder(context)
+                .defaultDisplayImageOptions(options)
+                .memoryCache(new WeakMemoryCache())
+                .writeDebugLogs().build();
 
-        lv.setAdapter(adapter2);
-
+        options = new DisplayImageOptions.Builder().considerExifParams(true).cacheInMemory(true)
+                .build();
+        ImageLoader.getInstance().init(config);
     }
 }
-*/

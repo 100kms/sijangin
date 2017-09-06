@@ -17,42 +17,50 @@
         android:layout_height="match_parent"
         >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id"
+
             >
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/searchfoodmenulist_item_ImageView_food_image_id"
+                />
 
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="3dp"
+                android:layout_alignParentBottom="true"
 
                 >
                 <!-- 위치보기 이미지버튼-->
-                <ImageButton
+                <ImageView
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:scaleType="fitXY"
+                    android:src="@drawable/where"
                     android:background="#00000000"
                     android:id="@+id/searchfoodmenulist_item_ImageBtn_where_id"/>
 
 
                 <!-- OO 시장 이미지버튼-->
-                <ImageButton
+                <ImageView
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="10dp"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:scaleType="fitXY"
+                    android:src="@drawable/market"
                     android:background="#00000000"
-                    android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"/>
+                    android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"
+                    android:onClick=""/>
 
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

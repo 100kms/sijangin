@@ -5,37 +5,6 @@
     android:orientation="vertical"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:orientation="horizontal"
-        android:paddingLeft="40dp"
-        android:paddingRight="30dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        >
-        <EditText
-
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:hint="검색어를 입력하세요"
-            android:layout_weight="1"
-            android:id="@+id/searchfoodmenulist_Edittext_search"
-            android:layout_marginRight="30dp"
-            android:textColor="#991122"
-            />
-
-        <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_gravity="center"
-            android:src="@drawable/food"
-            android:background="#00000000"
-            android:id="@+id/searchfoodmenulist_ImageBtn_search"/>
-
-    </LinearLayout>
-
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
