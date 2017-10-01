@@ -62,4 +62,13 @@
         android:layout_gravity="center"
         android:background="@drawable/seoullogo" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="30dp" />
+
 </FrameLayout>
