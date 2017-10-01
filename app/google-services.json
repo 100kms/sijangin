@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "943043913776",
-    "project_id": "firebase-sijangin"
+    "project_number": "963403457970",
+    "firebase_url": "https://fir-test-92325.firebaseio.com",
+    "project_id": "fir-test-92325",
+    "storage_bucket": "fir-test-92325.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:943043913776:android:83a4f4af4df2ab0b",
+        "mobilesdk_app_id": "1:963403457970:android:83a4f4af4df2ab0b",
         "android_client_info": {
           "package_name": "org.androidtown.sijang"
         }
       },
       "oauth_client": [
         {
-          "client_id": "943043913776-gld3m8k8f6d0bc31chmhri9lu0o89hn2.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "943043913776-btg9g9pa4sb7h2kb1c1n1i7cosjusup9.apps.googleusercontent.com",
+          "client_id": "963403457970-o0a8rk9jvhojbsk1ocgbp9o9bam21a5q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "org.androidtown.sijang",
-            "certificate_hash": "c6eb71fcad4fdc5284b4017c72d7450f0c109a72"
+            "certificate_hash": "14d01c5d38d33b5da3f58e7cd2705cf10692cf81"
           }
+        },
+        {
+          "client_id": "963403457970-jocqrbvgf6k3ko8qi27vvq8afqmm0n5a.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCm-uc2jZ0iNBUQfhZ08NSRpQASwLqDdYI"
+          "current_key": "AIzaSyBh96d0W1O4GeGGk1XY-nYxn059vXwi_QM"
         }
       ],
       "services": {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963403457970-jocqrbvgf6k3ko8qi27vvq8afqmm0n5a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

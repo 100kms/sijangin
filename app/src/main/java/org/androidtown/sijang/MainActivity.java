@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     pop_btn.setImageResource(R.drawable.popular_change);
                 } else if(action==MotionEvent.ACTION_UP){
                     pop_btn.setImageResource(R.drawable.popular);
-                    Intent intent = new Intent(getApplicationContext(), FoodMenuList.class);
+                    Intent intent = new Intent(getApplicationContext(), FireActivity.class);
                     startActivity(intent);}
                 return true;
             }});
