@@ -1,8 +1,12 @@
 package org.androidtown.sijang;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -22,6 +26,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            System.out.println("쓰기권한이 없었네 ????" );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            }, 466);
+        }
+
+        if ((ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            System.out.println("리드권한이 없었네 ????" );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+            }, 466);
+        }
+
+
+
 
         findViewById(R.id.imageButton).setOnClickListener(
                 new Button.OnClickListener() {
@@ -89,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //인기시장 버튼
+        /*
         pop_btn.setOnTouchListener(new View.OnTouchListener(){
             public boolean onTouch(View v, MotionEvent event) {
                 int action=event.getAction();
@@ -98,6 +122,20 @@ public class MainActivity extends AppCompatActivity {
                 } else if(action==MotionEvent.ACTION_UP){
                     pop_btn.setImageResource(R.drawable.popular);
                     Intent intent = new Intent(getApplicationContext(), FireActivity.class);
+                    startActivity(intent);}
+                return true;
+            }});
+        */
+
+        pop_btn.setOnTouchListener(new View.OnTouchListener(){
+            public boolean onTouch(View v, MotionEvent event) {
+                int action=event.getAction();
+
+                if(action==MotionEvent.ACTION_DOWN) {
+                    pop_btn.setImageResource(R.drawable.popular_change);
+                } else if(action==MotionEvent.ACTION_UP){
+                    pop_btn.setImageResource(R.drawable.popular);
+                    Intent intent = new Intent(getApplicationContext(), Fire2Activity.class);
                     startActivity(intent);}
                 return true;
             }});

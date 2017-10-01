@@ -9,43 +9,29 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-public class FireActivity extends AppCompatActivity {
+public class Fire2Activity extends AppCompatActivity {
 
     Button btnDel;
-    EditText editDel;
-    Button btnPost;
-    EditText editTitle, editCcontent;
+    Button btnLoad;
 
     final int REQ_CODE_SELECT_IMAGE = 100;
 
-
-    ListView listView;
-    ListAdapter adapter;
-    List<Bbs> datas = new ArrayList<>();
 
     // Write a message to the database
     FirebaseDatabase database;
@@ -57,7 +43,7 @@ public class FireActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fire);
+        setContentView(R.layout.activity_fire2);
 
         // 1. 파이어베이스 연결 - DB Connection
         database = FirebaseDatabase.getInstance();
@@ -69,21 +55,15 @@ public class FireActivity extends AppCompatActivity {
 
         // 3. 레퍼런스 기준으로 데이터베이스에 쿼리를 날리는데, 자동으로 쿼리가 된다.
         //    ( * 파이어 베이스가
-        bbsRef.addValueEventListener(postListener);
+        //bbsRef.addValueEventListener(postListener);
 
         // 4. 리스트뷰에 목록 세팅
-        listView = (ListView) findViewById(R.id.listView);
-        adapter = new ListAdapter(datas, this);
-        listView.setAdapter(adapter);
+
 
         // 위젯.
-        btnDel = (Button) findViewById(R.id.btnDel);
-        editDel = (EditText) findViewById(R.id.editDel);
-
-        btnPost = (Button) findViewById(R.id.btnPost);
-        editTitle = (EditText) findViewById(R.id.editTitle);
-        editCcontent = (EditText) findViewById(R.id.editContent);
-
+        btnDel = (Button) findViewById(R.id.btnDel2);
+        btnLoad = (Button)findViewById(R.id.btnLoad);
+/*
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,17 +97,11 @@ public class FireActivity extends AppCompatActivity {
                 //titleRef.setValue("해결!");
             }
         });
-
+*/
+        //갤러리 가서 이미지 추가
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //데이터 삭제
-                /*
-                bbsRef = database.getReference("bbs").child(editDel.getText().toString());
-                bbsRef.removeValue();
-                */
-
-                //갤러리 가서 이미지 추가
                 Intent intent = new Intent(Intent.ACTION_PICK);
                 intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
                 intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -135,8 +109,31 @@ public class FireActivity extends AppCompatActivity {
             }
         });
 
-    }
 
+        // 파이어베이스에서 이미지 로드
+        btnLoad.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+
+                StorageReference islandRef = rootReference.child("imageine dragon/ba4");
+                StorageReference islandRef2 = rootReference.child("imageine dragon/IMG_20170430_214142911.jpg");
+
+
+                ImageView img1 = (ImageView)findViewById(R.id.imageload);
+                ImageView img2 = (ImageView)findViewById(R.id.imageload2);
+
+                Glide.with(getApplicationContext()).using(new FirebaseImageLoader())
+                        .load(islandRef).into(img1);
+                Glide.with(getApplicationContext()).using(new FirebaseImageLoader())
+                        .load(islandRef2).into(img2);
+
+            }
+        });
+
+    }
+/*
     // 5. 파이어베이스가 호출해주는 이벤트 리스너 콜백
     // ValueEventListener : 경로의 전체 내용에 대한 변경을 읽고 수신 대기합니다.
     ValueEventListener postListener = new ValueEventListener() {
@@ -162,7 +159,7 @@ public class FireActivity extends AppCompatActivity {
             // ...
         }
     };
-
+*/
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -173,18 +170,12 @@ public class FireActivity extends AppCompatActivity {
 
                 rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
 
-                //File rfile = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/폴더명");
 
                 Uri file = Uri.fromFile(new File(getPath(data.getData())));
-                String temp = file.getLastPathSegment();
-                temp = "ba4";
-
-                StorageReference riversRef = rootReference.child("imageine dragon/" + temp);
-                //StorageReference riversRef = rootReference.child("imageine dragon/" + file.getLastPathSegment());
-                System.out.println("저장된 파일 이름 >>>>>>>>>>> : " + file.getLastPathSegment().toString());
+                StorageReference riversRef = rootReference.child("imageine dragon/" + "sajin");
                 UploadTask uploadTask = riversRef.putFile(file);
 
-                    // Register observers to listen for when the download is done or if it fails
+                // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception exception) {

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="64dp"
+    android:paddingRight="64dp"
+    android:paddingTop="16dp"
+    tools:context="org.androidtown.sijang.FireActivity">
+
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:scaleType="fitXY"
+    android:id="@+id/imageload"
+    android:background="@drawable/market"
+    />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:scaleType="fitXY"
+        android:id="@+id/imageload2"
+        android:background="@drawable/market"
+        android:layout_below="@+id/imageload"
+        android:layout_alignStart="@+id/btnDel2"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnDel2"
+        android:layout_above="@+id/btnLoad"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="10dp" />
+
+    <Button
+        android:text="Load"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/btnLoad" />
+
+</RelativeLayout>
