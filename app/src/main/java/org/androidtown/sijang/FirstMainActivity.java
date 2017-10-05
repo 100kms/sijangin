@@ -1,11 +1,13 @@
 package org.androidtown.sijang;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -13,6 +15,7 @@ import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -21,8 +24,12 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 public class FirstMainActivity extends FragmentActivity {
-
     private CallbackManager callbackManager;
+    LoginButton login_button;
+    String id;
+    String name;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
 
 
     @Override
@@ -43,32 +50,40 @@ public class FirstMainActivity extends FragmentActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("public_profile", "email"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+        login_button = (LoginButton)findViewById(R.id.login_button);
+        login_button.setReadPermissions("email", "public_profile", "user_friends");
+        // Callback registration
+        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.v("result",object.toString());
-                    }
-                });
+                GraphRequest request =GraphRequest.newMeRequest(loginResult.getAccessToken() ,
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    id = (String)object.get("id");
+                                    name = (String)object.get("name");
+                                    Toast.makeText(getApplicationContext(), "로그인 성공"+name+" : "+id, Toast.LENGTH_SHORT).show();
 
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender,birthday");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
+                                    pref = getSharedPreferences("user_info", MODE_PRIVATE);
+                                    editor = pref.edit();
+                                    editor.putString("user_id", id);
+                                    editor.putString("user_name", name);
+                                    editor.commit();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                request.executeAsync();
             }
-
             @Override
             public void onCancel() {
-
+                Toast.makeText(getApplicationContext(), "취소.", Toast.LENGTH_SHORT).show();
             }
-
             @Override
-            public void onError(FacebookException error) {
-                Log.e("LoginErr",error.toString());
+            public void onError(FacebookException exception) {
+                Log.e("페북에러" , exception.toString());
             }
         });
 
