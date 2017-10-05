@@ -19,12 +19,15 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MenuInfo extends Activity implements OnMapReadyCallback{
 
+    GoogleMap gmap;
+    MarkerOptions markerOptions3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.menu_info);
-
+        markerOptions3 = new MarkerOptions();
         Intent intent = getIntent();
         String data = intent.getStringExtra("SubMenuSelect");
 
@@ -39,14 +42,17 @@ public class MenuInfo extends Activity implements OnMapReadyCallback{
 
     public void onMapReady(final GoogleMap map){
 
+        gmap = map;
+
         double a = 37.57;
         double b = 126.97;
         LatLng SEOUL = new LatLng(37.56,126.97);
         LatLng SEOUL2 = new LatLng(a,b);
         double c = SEOUL2.latitude ;
 
-        MarkerOptions markerOptions = new MarkerOptions();
+        final MarkerOptions markerOptions = new MarkerOptions();
         MarkerOptions marketOptions2 = new MarkerOptions();
+
         markerOptions.position(SEOUL);
         marketOptions2.position(SEOUL2);
 
@@ -63,9 +69,27 @@ public class MenuInfo extends Activity implements OnMapReadyCallback{
 
         Log.d("aaa", "aaa");
 
+        map.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                map.clear();
 
+                //markerOptions3.icon(Bit);
+                markerOptions3.position(latLng);
+
+                map.addMarker(markerOptions3);
+                System.out.println("레티튜드 : >>>> " + latLng.latitude);
+                System.out.println("롱티튜드 : >>>> " + latLng.longitude);
+
+            }
+
+            });
         map.moveCamera(CameraUpdateFactory.newLatLng(SEOUL2));
         map.animateCamera(CameraUpdateFactory.zoomTo(17));
+
+        // 맵 스크롤(드래그) 안되게 막는거
+        //map.getUiSettings().setScrollGesturesEnabled(false);
+        map.getUiSettings().setAllGesturesEnabled(false);
     }
 
 

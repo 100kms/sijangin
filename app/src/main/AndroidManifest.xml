@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.androidtown.sijang">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -59,7 +59,9 @@
         <activity android:name=".FireActivity" />
         <activity android:name=".Bbs" />
         <activity android:name=".ListAdapter" />
-        <activity android:name=".Fire2Activity"></activity>
+        <activity android:name=".Fire2Activity" />
+        <activity android:name=".MainReviewList_Adapter" />
+        <activity android:name=".Review_Write"></activity>
     </application>
 
 </manifest>

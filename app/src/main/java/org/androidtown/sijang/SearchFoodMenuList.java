@@ -28,6 +28,10 @@ public class SearchFoodMenuList extends AppCompatActivity
     protected ImageLoader imageLoader = ImageLoader.getInstance();
     private ImageLoaderConfiguration config = null;
     DisplayImageOptions options = null;
+
+    Intent intent;
+    String foodmenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,27 +40,77 @@ public class SearchFoodMenuList extends AppCompatActivity
         //setContentView(R.layout.fragment_list);
         setImageLoader(options, config, this);
 
+        intent = getIntent();
+        foodmenu = intent.getStringExtra("MenuSelect");
 
-        urlList.add("drawable://" + R.drawable.test1);
-        urlList.add("drawable://" + R.drawable.test2);
-        urlList.add("drawable://" + R.drawable.test3);
-        urlList.add("drawable://" + R.drawable.test4);
-        urlList.add("drawable://" + R.drawable.test5);
-        urlList.add("drawable://" + R.drawable.test6);
+        switch(foodmenu){
 
-        urlList.add("drawable://" + R.drawable.test1);
-        urlList.add("drawable://" + R.drawable.test2);
-        urlList.add("drawable://" + R.drawable.test3);
-        urlList.add("drawable://" + R.drawable.test4);
-        urlList.add("drawable://" + R.drawable.test5);
-        urlList.add("drawable://" + R.drawable.test6);
+            //전체보기 클릭시
+            case "0" :
+                urlList.add("drawable://" + R.drawable.koreanfood1);
+                urlList.add("drawable://" + R.drawable.koreanfood2);
+                urlList.add("drawable://" + R.drawable.koreanfood3);
+                urlList.add("drawable://" + R.drawable.chicken1);
+                urlList.add("drawable://" + R.drawable.chicken2);
+                urlList.add("drawable://" + R.drawable.chicken3);
+                urlList.add("drawable://" + R.drawable.chicken4);
+                urlList.add("drawable://" + R.drawable.meat1);
+                urlList.add("drawable://" + R.drawable.meat2);
+                urlList.add("drawable://" + R.drawable.meat3);
+                urlList.add("drawable://" + R.drawable.meat4);
+                urlList.add("drawable://" + R.drawable.meat5);
+                urlList.add("drawable://" + R.drawable.meat6);
+                urlList.add("drawable://" + R.drawable.noodle1);
+                urlList.add("drawable://" + R.drawable.noodle2);
+                urlList.add("drawable://" + R.drawable.noodle3);
+                urlList.add("drawable://" + R.drawable.bun1);
+                urlList.add("drawable://" + R.drawable.bun2);
+                urlList.add("drawable://" + R.drawable.bun3);
+                urlList.add("drawable://" + R.drawable.bun4);
+                break;
 
-        urlList.add("drawable://" + R.drawable.test1);
-        urlList.add("drawable://" + R.drawable.test2);
-        urlList.add("drawable://" + R.drawable.test3);
-        urlList.add("drawable://" + R.drawable.test4);
-        urlList.add("drawable://" + R.drawable.test5);
-        urlList.add("drawable://" + R.drawable.test6);
+            // 한식 클릭시
+            case "1" :
+                urlList.add("drawable://" + R.drawable.koreanfood1);
+                urlList.add("drawable://" + R.drawable.koreanfood2);
+                urlList.add("drawable://" + R.drawable.koreanfood3);
+                break;
+
+            // 치킨 클릭시
+            case "2" :
+                urlList.add("drawable://" + R.drawable.chicken1);
+                urlList.add("drawable://" + R.drawable.chicken2);
+                urlList.add("drawable://" + R.drawable.chicken3);
+                urlList.add("drawable://" + R.drawable.chicken4);
+                break;
+
+            // 구이&회 클릭시
+            case "3" :
+                urlList.add("drawable://" + R.drawable.meat1);
+                urlList.add("drawable://" + R.drawable.meat2);
+                urlList.add("drawable://" + R.drawable.meat3);
+                urlList.add("drawable://" + R.drawable.meat4);
+                urlList.add("drawable://" + R.drawable.meat5);
+                urlList.add("drawable://" + R.drawable.meat6);
+                break;
+
+            // 면류 클릭시
+            case "4" :
+                urlList.add("drawable://" + R.drawable.noodle1);
+                urlList.add("drawable://" + R.drawable.noodle2);
+                urlList.add("drawable://" + R.drawable.noodle3);
+                break;
+
+            // 분식 클릭시
+            case "5" :
+                urlList.add("drawable://" + R.drawable.bun1);
+                urlList.add("drawable://" + R.drawable.bun2);
+                urlList.add("drawable://" + R.drawable.bun3);
+                urlList.add("drawable://" + R.drawable.bun4);
+                break;
+        }
+
+       // urlList.add("drawable://" + R.drawable.test6);
 
         /*
         urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");

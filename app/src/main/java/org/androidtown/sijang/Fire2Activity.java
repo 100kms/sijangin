@@ -29,6 +29,7 @@ public class Fire2Activity extends AppCompatActivity {
 
     Button btnDel;
     Button btnLoad;
+    Button btnData;
 
     final int REQ_CODE_SELECT_IMAGE = 100;
 
@@ -51,7 +52,7 @@ public class Fire2Activity extends AppCompatActivity {
 
 
         // 2. CRUD 작업의 기준이 되는 노드를 레퍼러느로 가져온다.
-        bbsRef = database.getReference("bbs");
+        //bbsRef = database.getReference("bbs");
 
         // 3. 레퍼런스 기준으로 데이터베이스에 쿼리를 날리는데, 자동으로 쿼리가 된다.
         //    ( * 파이어 베이스가
@@ -63,6 +64,7 @@ public class Fire2Activity extends AppCompatActivity {
         // 위젯.
         btnDel = (Button) findViewById(R.id.btnDel2);
         btnLoad = (Button)findViewById(R.id.btnLoad);
+        btnData = (Button)findViewById(R.id.btndata);
 /*
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,6 +133,14 @@ public class Fire2Activity extends AppCompatActivity {
 
             }
         });
+
+        btnData.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent = new Intent(getApplicationContext(), FireActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
     }
 /*

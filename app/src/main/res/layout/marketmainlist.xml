@@ -1,198 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#cccccc">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#666666">
-
-        <Button
-            android:id="@+id/marketmainlist_btn_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="시장 설명"/>
-
-        <Button
-            android:id="@+id/marketmainlist_btn_way"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="찾아 오는길"/>
-
-        <Button
-            android:id="@+id/marketmainlist_btn_food"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="먹거리"/>
-
-        <Button
-            android:id="@+id/marketmainlist_btn_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="후기"/>
-
-    </LinearLayout>
-
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/marketmainlist_layout_info">
 
-            <TextView
-                android:id="@+id/marketmainlist_text_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="50dp"
-                android:text="신성 시장"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop ="10dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:id="@+id/marketmainlist_layout_info"
+            android:orientation="vertical">
 
             <ImageView
                 android:id = "@+id/marketmainlist_image_main"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_centerInParent="true"/>
+                android:scaleType="fitXY"/>
 
-            <Button
-                android:id="@+id/marketmainlist_btn_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/marketmainlist_image_main"
-                android:layout_marginLeft="10dp"
-                android:background="#00ff0000"
-                android:text="\u003E"
-                android:textSize="30dp"
-                android:layout_centerInParent="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="vertical"
+                android:background="#ffcc4d">
 
-            <Button
-                android:id="@+id/marketmainlist_btn_prev"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toLeftOf="@+id/marketmainlist_image_main"
-                android:text="\u003C"
-                android:textSize="30dp"
-                android:background="#00ff0000"
-                android:layout_centerInParent="true"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="신성 시장"
+                    android:textSize="20dp"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="교통수단 : 지하철 4호선 한성대 입구역"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:text="#땅땅치킨, #네네치킨"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/marketmainlist_text_context"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@+id/marketmainlist_image_main"
+                android:layout_height="300dp"
+                android:background="#ffffff"
                 android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"/>
 
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/marketmainlist_layout_way">
-
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/marketmainlist_layout_food">
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/marketmainlist_listview_food"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/marketmainlist_layout_review"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/board"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp">
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_height="500dp"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제목"
-                    android:background="@color/colorPrimary"
-                    android:layout_marginRight="5dp"/>
-
-                <EditText
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.7"/>
+                    android:layout_height="50dp"
+                    android:background="#ffcc4d"
+                    android:text="MY 시장 지도"/>
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:text="사진" />
+                <fragment
+                    android:id="@+id/Mymap"
+                    class="com.google.android.gms.maps.MapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    />
 
             </LinearLayout>
 
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.8"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/board"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                android:layout_height="500dp"
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="제목"
-                    android:background="@color/colorPrimary"
-                    android:textSize="20dp"
-                    android:layout_marginRight="5dp"/>
-
-                <RatingBar
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:numStars="5"
-                    android:max="6"
-                    android:stepSize="0.5"
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_weight="0.7"/>
+                    android:layout_height="50dp"
+                    android:background="#ffcc4d">
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:text="등록" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="최신 리뷰" />
+
+                    <Button
+                        android:id="@+id/marketmainlist_btn_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text = "리뷰 쓰기"/>
+
+
+                </RelativeLayout>
+
+                <ListView
+                    android:id="@+id/marketmainlist_listview_review"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp">
+
+                </ListView>
+
+
 
             </LinearLayout>
-            
+
         </LinearLayout>
 
 
-    </FrameLayout>
+    </ScrollView>
 
 
 

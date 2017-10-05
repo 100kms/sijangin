@@ -28,8 +28,17 @@
         android:layout_alignStart="@+id/btnDel2"
         android:layout_marginTop="30dp" />
 
+
     <Button
-        android:text="Delete"
+        android:text="DataView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btndata"
+        android:layout_above="@+id/btnDel2"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnDel2"

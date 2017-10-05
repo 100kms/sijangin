@@ -23,7 +23,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
             android:layout_weight="1"
-            android:background="@drawable/foodmenulist_bob"
+            android:background="@drawable/foodmenulist_all"
             />
 
         <Button
@@ -34,7 +34,8 @@
             android:layout_weight="1"
             android:layout_width="20dp"
             android:layout_height="120dp"
-            android:background="@drawable/foodmenulist_chi" />
+            android:background="@drawable/foodmenulist_bob"
+             />
     </TableRow>
     <TableRow>
         <Button
@@ -45,7 +46,8 @@
             android:layout_weight="1"
             android:layout_height="120dp"
             android:layout_width="20dp"
-            android:background="@drawable/foodmenulist_fork" />
+            android:background="@drawable/foodmenulist_chi"
+             />
 
         <Button
             android:layout_marginRight="40dp"
@@ -55,7 +57,8 @@
             android:layout_weight="1"
             android:layout_width="20dp"
             android:layout_height="120dp"
-            android:background="@drawable/foodmenulist_mid"
+            android:background="@drawable/foodmenulist_fork"
+
             />
 
     </TableRow>
@@ -68,7 +71,8 @@
             android:layout_weight="1"
             android:layout_height="120dp"
             android:layout_width="20dp"
-            android:background="@drawable/foodmenulist_beun"/>
+            android:background="@drawable/foodmenulist_mid"
+            />
         <Button
             android:layout_marginRight="40dp"
             android:layout_marginLeft="20dp"
@@ -77,7 +81,8 @@
             android:layout_weight="1"
             android:layout_height="120dp"
             android:layout_width="20dp"
-            android:background="@drawable/foodmenulist_etc"/>
+            android:background="@drawable/foodmenulist_beun"
+            />
 
 
     </TableRow>

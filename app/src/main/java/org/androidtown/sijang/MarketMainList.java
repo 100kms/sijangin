@@ -1,111 +1,53 @@
 package org.androidtown.sijang;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 
 public class MarketMainList extends MainActivity {
 
-    private ListView food_listview = null;
-    private MarketMainList_Adapter marketMainList_adapter = null;
-
+    private ListView mainreview = null;
+    private MainReviewList_Adapter mainreview_adapter = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marketmainlist);
 
+        Button write = (Button)findViewById(R.id.marketmainlist_btn_review);
+
+        write.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MarketMainList.this, Review_Write.class);
+                startActivity(intent);
+            }
+        });
+
+        mainreview = (ListView)findViewById(R.id.marketmainlist_listview_review);
+        mainreview_adapter = new MainReviewList_Adapter(this);
+        mainreview.setAdapter(mainreview_adapter);
+
+        setListViewHeightBasedOnChildren(mainreview);
+
+        int[] img = {};
+        int[] img1 = {R.drawable.img1, R.drawable.img2};
+        int[] img2 = {R.drawable.hyuk1};
+        int[] img3 = {R.drawable.img1, R.drawable.img2, R.drawable.img3};
+
+        mainreview_adapter.additem("자양시장", "해남치킨","keealsgur","2017-07-24","너무너무 맛있었습니다. 여러분 많이오세요!!!!!!!",3.5f, img2);
+        mainreview_adapter.additem("광장시장", "맛나파전", "alstnqkqh","2017-07-24","민수바보",3.5f, img1);
+
         final int[] count = {0};
 
-        Button btn_info = (Button)findViewById(R.id.marketmainlist_btn_info);
-        Button btn_way = (Button)findViewById(R.id.marketmainlist_btn_way);
-        Button btn_food = (Button)findViewById(R.id.marketmainlist_btn_food);
-        Button btn_review = (Button)findViewById(R.id.marketmainlist_btn_review);
-
-        Button btn_next = (Button)findViewById(R.id.marketmainlist_btn_next);
-        Button btn_prev = (Button)findViewById(R.id.marketmainlist_btn_prev);
-
         setImage(count[0]);
-
-        btn_next.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                count[0] ++;
-                if(count[0]==3)
-                    count[0] = 0;
-                setImage(count[0]);
-            }
-        });
-
-        btn_prev.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(count[0]==0)
-                    count[0] = 3;
-                count[0]--;
-                setImage(count[0]);
-            }
-        });
-
-        final RelativeLayout layout_info = (RelativeLayout)findViewById(R.id.marketmainlist_layout_info);
-        final LinearLayout layout_way = (LinearLayout)findViewById(R.id.marketmainlist_layout_way);
-        final LinearLayout layout_food = (LinearLayout)findViewById(R.id.marketmainlist_layout_food);
-        final LinearLayout layout_review = (LinearLayout)findViewById(R.id.marketmainlist_layout_review);
-
-        food_listview = (ListView)findViewById(R.id.marketmainlist_listview_food);
-        marketMainList_adapter = new MarketMainList_Adapter(this);
-        food_listview.setAdapter(marketMainList_adapter);
-
-        marketMainList_adapter.addItem("땅땅치킨");
-        marketMainList_adapter.addItem("짱짱족발");
-        marketMainList_adapter.addItem("부어치킨");
-
-        layout_food.setVisibility(View.INVISIBLE);
-
-        btn_info.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                layout_info.setVisibility(View.VISIBLE);
-                layout_way.setVisibility(View.INVISIBLE);
-                layout_food.setVisibility(View.INVISIBLE);
-                layout_review.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        btn_way.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                layout_info.setVisibility(View.INVISIBLE);
-                layout_way.setVisibility(View.VISIBLE);
-                layout_food.setVisibility(View.INVISIBLE);
-                layout_review.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        btn_food.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                layout_info.setVisibility(View.INVISIBLE);
-                layout_way.setVisibility(View.INVISIBLE);
-                layout_food.setVisibility(View.VISIBLE);
-                layout_review.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        btn_review.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                layout_info.setVisibility(View.INVISIBLE);
-                layout_way.setVisibility(View.INVISIBLE);
-                layout_food.setVisibility(View.INVISIBLE);
-                layout_review.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
     public void setImage(int count){
@@ -123,5 +65,24 @@ public class MarketMainList extends MainActivity {
                 img_info.setImageResource(R.drawable.img3);
                 break;
         }
+    }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView){
+        ListAdapter listAdapter = listView.getAdapter();
+        if(listAdapter == null){
+            return;
+        }
+
+        int totalHeight = 0;
+        for(int i = 0; i<listAdapter.getCount(); i++){
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 }
