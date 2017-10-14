@@ -18,7 +18,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MenuInfo extends Activity implements OnMapReadyCallback{
-  //kkh
+  //kkhd
     GoogleMap gmap;
     MarkerOptions markerOptions3;
 
