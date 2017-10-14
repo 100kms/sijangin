@@ -3,7 +3,6 @@ package org.androidtown.sijang;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -47,22 +46,22 @@ public class MyInfoFavoriteFragment extends Fragment {
 
         //아이디에 맞는 데이터 데이터베이스에서 읽어와서 넣는방식으로 바꿔야함!
 
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun1),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun2),"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun3),"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun4),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken1),"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken2),"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken3),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken4),"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun1),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun2),"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun3),"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.bun4),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken1),"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken2),"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken3),"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(ContextCompat.getDrawable(getContext(), R.drawable.chicken4),"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun2,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun3,"광장시장","광장치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun4,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken1,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken2,"광장시장","광장치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken3,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken4,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun2,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun3,"광장시장","광장치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun4,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken1,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken2,"광장시장","광장치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken3,"자양시장","해남치킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.chicken4,"구의시장","구의킨","민수족발","새마을",3.5f);
         recyclerView.setAdapter(marketRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

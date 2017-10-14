@@ -1,9 +1,7 @@
 package org.androidtown.sijang;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +10,14 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 /**
  * Created by CYSN on 2017-09-26.
  */
-
+//Favorite Market
 public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAdapter.ViewHolder> {
     private Context mContext = null;
     private ArrayList<Data> arrayList;
@@ -27,9 +27,8 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
         arrayList = new ArrayList<Data>();
     }
 
-    public void additem(Drawable market_image, String market_name, String food_name1, String food_name2, String food_name3, float star) {
+    public void additem(int market_image, String market_name, String food_name1, String food_name2, String food_name3, float star) {
         Data addinfo = new Data();
-        Log.i("kkkkk",market_image.toString());
         addinfo.market_image = market_image;
         addinfo.market_name = market_name;
         addinfo.food_name1 = food_name1;
@@ -75,7 +74,10 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
     public void onBindViewHolder(ViewHolder holder, int position) {
         Data marketData = arrayList.get(position);
 
-        holder.market_image.setImageDrawable(marketData.market_image);
+        Glide.with(mContext.getApplicationContext()).load(marketData.market_image).override(100,100).thumbnail(0.1f).into(holder.market_image);
+        /*Glide.with(mContext)
+                .load(marketData.market_image).into(holder.market_image);*/
+        // holder.market_image.setImageDrawable(marketData.market_image);
         holder.market_name.setText(marketData.market_name);
         holder.food_name1.setText(marketData.food_name1);
         holder.food_name2.setText(marketData.food_name2);
@@ -114,7 +116,7 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
     }
 
     public class Data {
-        public Drawable market_image;
+        public int market_image;
         public String market_name;
         public String food_name1;
         public String food_name2;

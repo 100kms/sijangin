@@ -42,6 +42,7 @@ public class FirstMainActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //Intent intent = new Intent(getApplicationContext(), Review_Write.class);
                 startActivity(intent);
             }
         });

@@ -23,6 +23,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".MainActivity" />
+        <activity android:name=".MarketList"/>
         <activity android:name=".ChangeActivity" />
         <activity android:name=".FoodMenuList" />
         <activity android:name=".MarketInfo" />
@@ -61,8 +62,9 @@
         <activity android:name=".ListAdapter" />
         <activity android:name=".Fire2Activity" />
         <activity android:name=".MainReviewList_Adapter" />
-        <activity android:name=".Review_Write"/>
-        <activity android:name=".MyInfoActivity"/>
+        <activity android:name=".Review_Write" />
+        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".DataBase_Write"></activity>
     </application>
 
 </manifest>

@@ -85,8 +85,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         editText = (EditText)findViewById(R.id.editText);
                         marketname = editText.getText().toString();
-                        Intent intent = new Intent(MainActivity.this, ChangeActivity.class);
-                        intent.putExtra("value","1번째 페이지");
+                        Intent intent = new Intent(MainActivity.this, MarketList.class);
+                        intent.putExtra("place", "성종용중");
                         // intent.putExtra("value",textView.getText().toString());
 
                         startActivity(intent);
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                         editText = (EditText)findViewById(R.id.editText);
                         marketname = editText.getText().toString();
                         Intent intent = new Intent(MainActivity.this, ChangeActivity.class);
-                        intent.putExtra("value","3번째 페이지");
+                        intent.putExtra("place", "성종용중");
                         // intent.putExtra("value",textView.getText().toString());
                         startActivity(intent);
                     }
@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     food_btn.setImageResource(R.drawable.food_change);
                 } else if(action==MotionEvent.ACTION_UP){
                     food_btn.setImageResource(R.drawable.food);
+                    //Intent intent = new Intent(getApplicationContext(), FoodMenuList.class);
                     Intent intent = new Intent(getApplicationContext(), FoodMenuList.class);
                     startActivity(intent);}
                 return true;

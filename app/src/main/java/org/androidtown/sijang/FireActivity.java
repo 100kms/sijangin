@@ -65,7 +65,7 @@ public class FireActivity extends AppCompatActivity {
 
 
         // 2. CRUD 작업의 기준이 되는 노드를 레퍼러느로 가져온다.
-        bbsRef = database.getReference("지도");
+        bbsRef = database.getReference("시장");
 
         // 3. 레퍼런스 기준으로 데이터베이스에 쿼리를 날리는데, 자동으로 쿼리가 된다.
         //    ( * 파이어 베이스가

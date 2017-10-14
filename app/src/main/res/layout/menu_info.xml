@@ -53,10 +53,22 @@
 
     <!-- 닫기 버튼 -->
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:text="즐겨찾기"
+            android:textSize="15sp"
+            android:textColor="#ff7a00"
+            android:padding="16dp"
+            android:gravity="center"
+            android:background="#00000000"
+            android:id="@+id/favorite_btn"
+            android:onClick="mfavorite"/>
         <Button
             android:text="확인"
             android:textSize="15sp"

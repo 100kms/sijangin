@@ -4,6 +4,7 @@ package org.androidtown.sijang;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MenuInfo extends Activity implements OnMapReadyCallback {
+
+    SharedPreferences pref;
 
     private Handler stopHandler;
     private Bundle bundle;
@@ -42,10 +49,13 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
     FirebaseStorage firebaseStorage;
     StorageReference rootReference;
     DatabaseReference bbsRef;
-    DatabaseReference bbsRef2;
+    DatabaseReference bookmark_Ref;
+    Button favoritebtn;
     Latitude ltt;
-    double a2;
-    double b2;
+    double temp_longitude;
+    double temp_latitude;
+    String market_name;
+    String store_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,14 +70,21 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
         String market = intent.getStringExtra("market_key");
         String store = intent.getStringExtra("store_key");
 
+
+
+        favoritebtn = (Button)findViewById(R.id.favorite_btn);
+
         // 1. 파이어베이스 연결 - DB Connection
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
+
+
 
         System.out.println("one-4");
         // 2. CRUD 작업의 기준이 되는 노드를 레퍼러느로 가져온다.
         //bbsRef = database.getReference("지도").child("삼선").child("종로곱창");
         bbsRef = database.getReference("지도").child(market).child(store);
+
 
         // 3. 레퍼런스 기준으로 데이터베이스에 쿼리를 날리는데, 자동으로 쿼리가 된다.
         //    ( * 파이어 베이스가
@@ -79,10 +96,11 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
                     //String key = snapshot.getKey();
                     //System.out.println("asdasndl >> " + snapshot.getValue(Latitude.class).toString());
                     ltt = snapshot.getValue(Latitude.class); // 컨버팅되서 Bbs로........
-                    a2 = ltt.getLatitudetitude();
-                    b2 = ltt.getLongitude();
-                    System.out.println(" 에이는 : " + a2);
-                    System.out.println(" 비는 : " + b2);
+                    temp_latitude = ltt.getLatitudetitude();
+                    temp_longitude = ltt.getLongitude();
+                    store_name = snapshot.getRef().getParent().getKey().toString();
+                    market_name = snapshot.getRef().getParent().getParent().getKey().toString() + "시장";
+
 
                     // change메서드 안에서 onMapReady를 불러와주는 역할을 넣음
                     // 여기다 넣은것은 이 데이터를 가져오는것이 생명주기를 무시하고, 액티비티 자체가 실행될때 데이터를 가져오기 때문에 데이터를 먼저가져오고 맵을 그리는 순으로 만들기 위해서이다
@@ -95,6 +113,7 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
                 Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
             }
         });
+
 
 
         stopHandler = new Handler() {
@@ -126,16 +145,16 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
         System.out.println("one-9");
         gmap = map;
 
-        double fire_latitude = a2;
-        double fire_longitude = b2;
+        double fire_latitude = temp_latitude;
+        double fire_longitude = temp_longitude;
         LatLng place = new LatLng(fire_latitude,fire_longitude);
         //LatLng SEOUL = new LatLng(37.56,126.97);
         //LatLng SEOUL2 = new LatLng(a,b);
         //double c = SEOUL2.latitude ;
 
-        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
-        //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fire_latitude, fire_longitude), 15));
-        gmap.addMarker(new MarkerOptions().position(new LatLng(fire_latitude, fire_longitude)).title("장소명").snippet("야경 뒤지는곳")).showInfoWindow();
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
+        //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fire_latitude, fire_longitude), 13));
+        gmap.addMarker(new MarkerOptions().position(new LatLng(fire_latitude, fire_longitude)).title(market_name).snippet(store_name)).showInfoWindow();
 
         /*
         final MarkerOptions markerOptions = new MarkerOptions();
@@ -179,13 +198,31 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
 
         // 맵 스크롤(드래그) 안되게 막는거
         //map.getUiSettings().setScrollGesturesEnabled(false);
-        map.getUiSettings().setAllGesturesEnabled(false);
+        //map.getUiSettings().setAllGesturesEnabled(false);
     }
 
 
     //확인 버튼 클릭 , 액티비티 닫기
     public void mOnClose(View v){
         finish();
+    }
+
+    public void mfavorite(View v){
+        pref = getSharedPreferences("user_info", MODE_PRIVATE);
+        String id = pref.getString("user_id", "");
+        System.out.println("아이디다 시발 " + id);
+
+        bookmark_Ref = database.getReference("사용자").child(id);
+        String market_key = bookmark_Ref.push().getKey();
+
+        Map<String, String> bookmarkValues = new HashMap<>();
+        bookmarkValues.put("latitude", Double.toString(temp_latitude));
+        bookmarkValues.put("longitude", Double.toString(temp_longitude));
+        bookmarkValues.put("시장이름", market_name);
+
+        DatabaseReference market_keyRef = bookmark_Ref.child(market_key);
+        market_keyRef.setValue(bookmarkValues);
+
     }
 
     //액티비티 이벤트

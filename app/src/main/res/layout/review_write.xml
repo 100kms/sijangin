@@ -98,6 +98,28 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <RatingBar
+                    android:id="@+id/write_ratingbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:max="5"
+                    android:numStars="5"
+                    android:stepSize="1" />
+
+                <TextView
+                    android:id="@+id/write_text_rating"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:orientation="horizontal">
