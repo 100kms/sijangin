@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class SearchFoodMenuList extends AppCompatActivity
 {
-    private ArrayList<String> urlList = new ArrayList<String>();
+    private ArrayList<SearchFood> urlList = new ArrayList<SearchFood>();
     private ListView mListView = null;
     private ListViewAdapter mAdapter = null;
     protected ImageLoader imageLoader = ImageLoader.getInstance();
@@ -32,6 +32,7 @@ public class SearchFoodMenuList extends AppCompatActivity
     Intent intent;
     String foodmenu;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -40,6 +41,30 @@ public class SearchFoodMenuList extends AppCompatActivity
         //setContentView(R.layout.fragment_list);
         setImageLoader(options, config, this);
 
+        SearchFood sf[][] = new SearchFood[6][10];
+        sf[1][0] = new SearchFood("drawable://" + R.drawable.koreanfood1, "광장", "순희네빈대떡");
+        sf[1][1] = new SearchFood("drawable://" + R.drawable.koreanfood2, "까치산", "다시오는순대국");
+        sf[1][2] = new SearchFood("drawable://" + R.drawable.koreanfood3, "통인", "곽가네음식");
+        sf[2][0] = new SearchFood("drawable://" + R.drawable.chicken1, "화양", "장터치킨");
+        sf[2][1] = new SearchFood("drawable://" + R.drawable.chicken2, "성대", "털보닭집");
+        sf[2][2] = new SearchFood("drawable://" + R.drawable.chicken3, "청량리", "종구네통닭");
+        sf[2][3] = new SearchFood("drawable://" + R.drawable.chicken4, "신원", "아저씨강정");
+        sf[3][0] = new SearchFood("drawable://" + R.drawable.meat1, "인헌", "우리동네고깃집");
+        sf[3][1] = new SearchFood("drawable://" + R.drawable.meat2, "성대", "시래불고기화풍정");
+        sf[3][2] = new SearchFood("drawable://" + R.drawable.meat3, "가락", "한영상회");
+        sf[3][3] = new SearchFood("drawable://" + R.drawable.meat4, "삼선", "MOCKBAR");
+        sf[3][4] = new SearchFood("drawable://" + R.drawable.meat5, "삼선", "종로곱창");
+        sf[3][5] = new SearchFood("drawable://" + R.drawable.meat6, "길음", "난이네곱창");
+
+        sf[4][1] = new SearchFood("drawable://" + R.drawable.noodle1, "남부", "홍두깨부추칼국수" );
+        sf[4][2] = new SearchFood("drawable://" + R.drawable.noodle2, "신성", "할머니손칼국수" );
+        sf[4][3] = new SearchFood("drawable://" + R.drawable.noodle3, "동부", "짬뽕이네" );
+
+        sf[5][1] = new SearchFood("drawable://" + R.drawable.bun1, "자양", "명동분식" );
+        sf[5][2] = new SearchFood("drawable://" + R.drawable.bun2, "통인", "정할머니기름떡볶이" );
+        sf[5][3] = new SearchFood("drawable://" + R.drawable.bun3, "도깨비", "동문샘터분식" );
+        sf[5][4] = new SearchFood("drawable://" + R.drawable.bun4, "숭인", "제일분식" );
+
         intent = getIntent();
         foodmenu = intent.getStringExtra("MenuSelect");
 
@@ -47,70 +72,80 @@ public class SearchFoodMenuList extends AppCompatActivity
 
             //전체보기 클릭시
             case "0" :
-                urlList.add("drawable://" + R.drawable.koreanfood1);
-                urlList.add("drawable://" + R.drawable.koreanfood2);
-                urlList.add("drawable://" + R.drawable.koreanfood3);
-                urlList.add("drawable://" + R.drawable.chicken1);
-                urlList.add("drawable://" + R.drawable.chicken2);
-                urlList.add("drawable://" + R.drawable.chicken3);
-                urlList.add("drawable://" + R.drawable.chicken4);
-                urlList.add("drawable://" + R.drawable.meat1);
-                urlList.add("drawable://" + R.drawable.meat2);
-                urlList.add("drawable://" + R.drawable.meat3);
-                urlList.add("drawable://" + R.drawable.meat4);
-                urlList.add("drawable://" + R.drawable.meat5);
-                urlList.add("drawable://" + R.drawable.meat6);
-                urlList.add("drawable://" + R.drawable.noodle1);
-                urlList.add("drawable://" + R.drawable.noodle2);
-                urlList.add("drawable://" + R.drawable.noodle3);
-                urlList.add("drawable://" + R.drawable.bun1);
-                urlList.add("drawable://" + R.drawable.bun2);
-                urlList.add("drawable://" + R.drawable.bun3);
-                urlList.add("drawable://" + R.drawable.bun4);
+                urlList.add(sf[1][0]);
+                urlList.add(sf[1][1]);
+                urlList.add(sf[1][2]);
+
+                urlList.add(sf[2][0]);
+                urlList.add(sf[2][1]);
+                urlList.add(sf[2][2]);
+                urlList.add(sf[2][3]);
+
+                urlList.add(sf[3][0]);
+                urlList.add(sf[3][1]);
+                urlList.add(sf[3][2]);
+                urlList.add(sf[3][3]);
+                urlList.add(sf[3][4]);
+                urlList.add(sf[3][5]);
+
+                urlList.add(sf[4][1]);
+                urlList.add(sf[4][2]);
+                urlList.add(sf[4][3]);
+
+                urlList.add(sf[5][1]);
+                urlList.add(sf[5][2]);
+                urlList.add(sf[5][3]);
+                urlList.add(sf[5][4]);
+
                 break;
 
             // 한식 클릭시
             case "1" :
-                urlList.add("drawable://" + R.drawable.koreanfood1);
-                urlList.add("drawable://" + R.drawable.koreanfood2);
-                urlList.add("drawable://" + R.drawable.koreanfood3);
+                urlList.add(sf[1][0]);
+                urlList.add(sf[1][1]);
+                urlList.add(sf[1][2]);
+
                 break;
 
             // 치킨 클릭시
             case "2" :
-                urlList.add("drawable://" + R.drawable.chicken1);
-                urlList.add("drawable://" + R.drawable.chicken2);
-                urlList.add("drawable://" + R.drawable.chicken3);
-                urlList.add("drawable://" + R.drawable.chicken4);
+                urlList.add(sf[2][0]);
+                urlList.add(sf[2][1]);
+                urlList.add(sf[2][2]);
+                urlList.add(sf[2][3]);
+
                 break;
 
             // 구이&회 클릭시
             case "3" :
-                urlList.add("drawable://" + R.drawable.meat1);
-                urlList.add("drawable://" + R.drawable.meat2);
-                urlList.add("drawable://" + R.drawable.meat3);
-                urlList.add("drawable://" + R.drawable.meat4);
-                urlList.add("drawable://" + R.drawable.meat5);
-                urlList.add("drawable://" + R.drawable.meat6);
+                urlList.add(sf[3][0]);
+                urlList.add(sf[3][1]);
+                urlList.add(sf[3][2]);
+                urlList.add(sf[3][3]);
+                urlList.add(sf[3][4]);
+                urlList.add(sf[3][5]);
+
                 break;
 
             // 면류 클릭시
             case "4" :
-                urlList.add("drawable://" + R.drawable.noodle1);
-                urlList.add("drawable://" + R.drawable.noodle2);
-                urlList.add("drawable://" + R.drawable.noodle3);
+                urlList.add(sf[4][1]);
+                urlList.add(sf[4][2]);
+                urlList.add(sf[4][3]);
+
                 break;
 
             // 분식 클릭시
             case "5" :
-                urlList.add("drawable://" + R.drawable.bun1);
-                urlList.add("drawable://" + R.drawable.bun2);
-                urlList.add("drawable://" + R.drawable.bun3);
-                urlList.add("drawable://" + R.drawable.bun4);
+                urlList.add(sf[5][1]);
+                urlList.add(sf[5][2]);
+                urlList.add(sf[5][3]);
+                urlList.add(sf[5][4]);
+
                 break;
         }
 
-       // urlList.add("drawable://" + R.drawable.test6);
+        // urlList.add("drawable://" + R.drawable.test6);
 
         /*
         urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
@@ -175,7 +210,7 @@ public class SearchFoodMenuList extends AppCompatActivity
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent)
+        public View getView(final int position, View convertView, ViewGroup parent)
         {
             final ViewHolder holder;
             if(convertView == null)
@@ -188,22 +223,33 @@ public class SearchFoodMenuList extends AppCompatActivity
                 // holder.item_title = (TextView) convertView.findViewById(R.id.textView1);
 
                 holder.where_imgbtn = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_where_id);
+
+                /*
                 holder.where_imgbtn.setOnClickListener(new View.OnClickListener() {
                     String s = "Tag";
+
+                    // 위치보기
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), MenuInfo.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         //Log.d(s, "as" + position);
+                        System.out.println(">>>>>>>>" + urlList.get(position).url);
+                        System.out.println(">>>>>>>>" + urlList.get(position).storename);
+                        System.out.println(">>>>>>>>" + urlList.get(position).marketname);
+                        System.out.println(">>>>>>>>>>>>>>>" + urlList.get(position));
+                        intent.putExtra("zkey", urlList.get(position).marketname);
+
                         startActivity(intent);
                     }
 
                 });
-
+                */
                 holder.market_imgbtn = (ImageView)convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_market_id);
                 holder.market_imgbtn.setOnClickListener(new View.OnClickListener() {
                     String s = "Tag";
 
+                    // 시장 보기
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), MarketInfo.class);
@@ -222,7 +268,26 @@ public class SearchFoodMenuList extends AppCompatActivity
                 holder = (ViewHolder) convertView.getTag();
             }
 
-            imageLoader.displayImage(urlList.get(position), holder.item_thumbnail, options);
+
+            holder.where_imgbtn.setOnClickListener(new View.OnClickListener() {
+                String s = "Tag";
+
+                // 위치보기
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), MenuInfo.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    //Log.d(s, "as" + position);
+                    intent.putExtra("market_key", urlList.get(position).marketname);
+                    intent.putExtra("store_key", urlList.get(position).storename);
+
+                    startActivity(intent);
+                }
+
+            });
+
+            imageLoader.displayImage(urlList.get(position).url , holder.item_thumbnail, options);
+            // imageLoader.displayImage(urlList.get(position), holder.item_thumbnail, options);
             //imageLoader.displayImage(urlList.get(position), holder.where_imgbtn, options);
             //imageLoader.displayImage(urlList.get(position), holder.market_imgbtn, options);
             //holder.item_title.setText(position+"");
