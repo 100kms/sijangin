@@ -62,7 +62,7 @@
         <activity android:name=".Fire2Activity" />
         <activity android:name=".MainReviewList_Adapter" />
         <activity android:name=".Review_Write"/>
-        <activity android:name=".Review_Write2"/>
+        <activity android:name=".MyInfoActivity"/>
     </application>
 
 </manifest>

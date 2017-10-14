@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                     pop_btn.setImageResource(R.drawable.popular_change);
                 } else if(action==MotionEvent.ACTION_UP){
                     pop_btn.setImageResource(R.drawable.popular);
-                    Intent intent = new Intent(getApplicationContext(), Fire2Activity.class);
+                    Intent intent = new Intent(getApplicationContext(), MyInfoActivity.class);
                     startActivity(intent);}
                 return true;
             }});

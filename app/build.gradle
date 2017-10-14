@@ -32,6 +32,7 @@ dependencies {
 
 
     compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.labo.kaji:fragmentanimations:0.1.0'
     compile 'com.google.android.gms:play-services-maps:10.2.0'
     compile 'com.google.android.gms:play-services-location:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'

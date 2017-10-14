@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:weightSum="1"
+    tools:context="org.androidtown.sijang.FireActivity">
+    <FrameLayout
+        android:id="@+id/myInfo_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.1">
+        <RelativeLayout
+            android:id="@+id/myInfo_wellCome_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/mainback"/>
+            <TextView
+                android:id="@+id/myInfo_wellCome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="용석님 반갑습니다."
+                android:textSize="18dp"
+                android:textStyle="bold"
+                />
+        </RelativeLayout>
+    </FrameLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*"
+        android:layout_weight="0.9">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/myInfo_myReviewBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="-5dp"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp"
+                android:layout_marginTop="-5dp"
+                android:onClick="onClickViewChange"
+                android:text="내 리뷰 보기" />
+
+            <Button
+                android:id="@+id/myInfo_myFavoriteBtn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/editContent"
+                android:layout_marginLeft="-5dp"
+                android:layout_marginRight="-5dp"
+                android:layout_marginTop="-5dp"
+                android:layout_marginBottom="-5dp"
+                android:onClick="onClickViewChange"
+                android:hint="즐겨찾기" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
