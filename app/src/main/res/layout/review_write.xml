@@ -13,6 +13,7 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/write_edit_title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
@@ -24,11 +25,32 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/write_btn_add"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사진칸 추가"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/write_btn_del"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="사진칸 삭제"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/mainreviewlist_item_img_review1"
+                    android:id="@+id/write_image_one"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:paddingRight="30dp"
@@ -36,32 +58,36 @@
                     android:src="@drawable/mainlogo1"/>
 
                 <ImageView
-                    android:id="@+id/mainreviewlist_item_img_review2"
+                    android:id="@+id/write_image_two"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:paddingRight="30dp"
                     android:scaleType="fitXY"
+                    android:visibility="gone"
                     android:src="@drawable/mainlogo1"/>
 
                 <ImageView
-                    android:id="@+id/mainreviewlist_item_img_review3"
+                    android:id="@+id/write_image_three"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:paddingRight="30dp"
                     android:scaleType="fitXY"
+                    android:visibility="gone"
                     android:src="@drawable/mainlogo1"/>
 
 
             </LinearLayout>
 
             <EditText
+                android:id="@+id/write_edit_content"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
                 android:hint="내용을 입력해주세요"
-                android:background="@drawable/board"/>
+                android:background="@drawable/board"
+                android:gravity="top"/>
 
             <fragment
                 android:id="@+id/reviewmap_map"

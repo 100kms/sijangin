@@ -8,113 +8,83 @@
     android:weightSum="1"
     tools:context="org.androidtown.sijang.MainActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!--<TableLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp">-->
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_weight="0.3"
-            android:text="시장이름 검색"
-            android:textAlignment="center"
-            android:textSize="20dp" />
+        <!--<TableRow>-->
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2" />
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="3"-->
+                <!--android:background="@drawable/map_1"/>-->
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_weight="0.4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map2"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_2" />-->
 
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="0.7"-->
+                <!--android:background="@drawable/map_3" />-->
 
-    </LinearLayout>
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map4"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_4" />-->
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.7dp"
-        android:layout_centerInParent="true"
-        android:background="#b56b6969"/>
+        <!--</TableRow>-->
 
+        <!--<TableRow>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map5"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_6"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map6"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_7" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map7"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_8" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/main_btn_map8"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/map_9" />-->
+
+        <!--</TableRow>-->
+        <!--</TableLayout>-->
     <AbsoluteLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="0.2"
         android:background="#ffffff">
 
-        <ImageButton
-            android:id="@+id/imageButton7"
-            android:layout_width="115dp"
-            android:layout_height="117dp"
-            android:layout_x="145dp"
-            android:layout_y="18dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_1" />
 
-        <ImageButton
-            android:id="@+id/imageButton9"
-            android:layout_width="104dp"
-            android:layout_height="114dp"
-            android:layout_gravity="center"
-            android:layout_x="115dp"
-            android:layout_y="104dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_3" />
 
-        <ImageButton
-            android:id="@+id/imageButton10"
-            android:layout_width="93dp"
-            android:layout_height="111dp"
-            android:layout_gravity="center"
-            android:layout_x="177dp"
-            android:layout_y="110dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_4" />
 
-        <ImageButton
-            android:id="@+id/imageButton11"
-            android:layout_width="100dp"
-            android:layout_height="115dp"
-            android:layout_gravity="center"
-            android:layout_x="5dp"
-            android:layout_y="186dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_6" />
-
-        <ImageButton
-            android:id="@+id/imageButton12"
-            android:layout_width="84dp"
-            android:layout_height="103dp"
-            android:layout_gravity="center"
-            android:layout_x="92dp"
-            android:layout_y="242dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_7" />
-
-        <ImageButton
-            android:id="@+id/imageButton13"
-            android:layout_width="116dp"
-            android:layout_height="116dp"
-            android:layout_gravity="center"
-            android:layout_x="166dp"
-            android:layout_y="223dp"
-            android:background="#00ffffff"
-            android:scaleType="centerInside"
-            app:srcCompat="@drawable/map_8" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -157,6 +127,12 @@
             android:textSize="20dp" />
 
     </AbsoluteLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_centerInParent="true"
+        android:background="#b56b6969"/>
 
     <LinearLayout
         android:layout_width="match_parent"
