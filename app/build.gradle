@@ -9,7 +9,7 @@ android {
     }
     defaultConfig {
         applicationId "org.androidtown.sijang"
-        minSdkVersion 21
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -42,7 +42,7 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.google.firebase:firebase-storage:10.2.0'
-    compile 'com.firebaseui:firebase-ui-storage:0.6.0'
+    compile 'com.firebaseui:firebase-ui-storage:1.2.0'
     testCompile 'junit:junit:4.12'
 }
 

@@ -92,21 +92,23 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
         bbsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+
                     //String key = snapshot.getKey();
                     //System.out.println("asdasndl >> " + snapshot.getValue(Latitude.class).toString());
-                    ltt = snapshot.getValue(Latitude.class); // 컨버팅되서 Bbs로........
+                    ltt = dataSnapshot.getValue(Latitude.class); // 컨버팅되서 Bbs로........
                     temp_latitude = ltt.getLatitudetitude();
                     temp_longitude = ltt.getLongitude();
-                    store_name = snapshot.getRef().getParent().getKey().toString();
-                    market_name = snapshot.getRef().getParent().getParent().getKey().toString() + "시장";
+
+                    store_name = dataSnapshot.getRef().getKey().toString();
+                    market_name = dataSnapshot.getRef().getParent().getKey().toString() + "시장";
 
 
                     // change메서드 안에서 onMapReady를 불러와주는 역할을 넣음
                     // 여기다 넣은것은 이 데이터를 가져오는것이 생명주기를 무시하고, 액티비티 자체가 실행될때 데이터를 가져오기 때문에 데이터를 먼저가져오고 맵을 그리는 순으로 만들기 위해서이다
                     // 이렇게 안하면, 데이터를 먼저 가져오라고 해도 맵을 먼저 그려버리고 그 뒤에 액티비티자체가 실행이 다되고 데이터를 가져오기 때문에
                     Mapchange();
-                }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

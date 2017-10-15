@@ -39,7 +39,7 @@ public class MarketList extends MainActivity {
 
         System.out.println("플레이스 : " + s);
 
-        marketRef = database.getReference("시장").child("용중");
+        marketRef = database.getReference("시장").child(s);
 
 
         marketRef.addValueEventListener(marketListListener);

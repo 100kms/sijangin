@@ -66,7 +66,7 @@ public class DataBase_Write extends AppCompatActivity {
         firebaseStorage = FirebaseStorage.getInstance();
 
         rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
-        review_marketRef = database.getReference("시장").child("중광동성").child("청량리시장");
+        //review_marketRef = database.getReference("시장").child("중광동성").child("청량리시장");
 
         //review_userRef = database.getReference("리뷰").child("개인별").child("변수아이디");
         //review_allRef = database.getReference("리뷰").child("전체");
@@ -76,8 +76,9 @@ public class DataBase_Write extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                String title = e_title.getText().toString();
-                String content = e_content.getText().toString();
+                String title2 = e_title.getText().toString();
+                String content2 = e_content.getText().toString();
+                review_marketRef = database.getReference("시장").child(title2).child(content2);
 
                 String market_key = review_marketRef.push().getKey();
 

@@ -10,6 +10,11 @@ import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 
 /**
@@ -36,6 +41,20 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         addinfo.review = review;
         addinfo.star = star;
         addinfo.img = img;
+
+        arrayList.add(addinfo);
+        notifyItemInserted(arrayList.size()-1);
+    }
+    public void additem(String market_text ,String replace_text, String userid, String created, String review, float star,int[] img, String img_url){
+        Data addinfo = new Data();
+        addinfo.market_text = market_text+" > ";
+        addinfo.replace_text = replace_text;
+        addinfo.userid = userid;
+        addinfo.created = created;
+        addinfo.review = review;
+        addinfo.star = star;
+        addinfo.img = img;
+        addinfo.img_url = img_url;
 
         arrayList.add(addinfo);
         notifyItemInserted(arrayList.size()-1);
@@ -124,6 +143,14 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_2.setVisibility(View.VISIBLE);
                     holder.img_3.setImageResource(reviewData.img[2]);
                     holder.img_3.setVisibility(View.VISIBLE);
+                    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+                    StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+
+                    StorageReference islandRef = rootReference.child(reviewData.img_url+"1");
+                    System.out.println("이미지 출력 : " + reviewData.img_url+"1" );
+                    Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader())
+                            .load(islandRef).thumbnail(0.1f).override(200,300)
+                            .into(holder.img_2);
                     break;
             }
         }
@@ -183,5 +210,6 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public String review;
         public float star;
         public int[] img;
+        public String img_url;
     }
 }

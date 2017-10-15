@@ -143,33 +143,6 @@ public class Fire2Activity extends AppCompatActivity {
 
 
     }
-/*
-    // 5. 파이어베이스가 호출해주는 이벤트 리스너 콜백
-    // ValueEventListener : 경로의 전체 내용에 대한 변경을 읽고 수신 대기합니다.
-    ValueEventListener postListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            // 위에 선언한 저장소인 datas를 초기화하고
-            datas.clear();
-            // bbs 레퍼런스의 스냅샷을 가져와서 레퍼런스의 자식노드를 바복문을 통해 하나씩 꺼내서 처리.
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                String key = snapshot.getKey();
-                Bbs bbs = snapshot.getValue(Bbs.class); // 컨버팅되서 Bbs로........
-                bbs.key = key;
-                datas.add(bbs);
-            }
-            Collections.reverse(datas);
-            adapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            // Getting Post failed, log a message
-            Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
-            // ...
-        }
-    };
-*/
     @Override
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
