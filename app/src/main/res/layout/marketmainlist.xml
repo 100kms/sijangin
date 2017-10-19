@@ -5,6 +5,7 @@
     android:background="#cccccc">
 
     <ScrollView
+        android:id="@+id/market_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="신성 시장"
+                    android:id="@+id/marketmainlist_text_name"
                     android:textSize="20dp"
                     android:layout_weight="1"/>
 

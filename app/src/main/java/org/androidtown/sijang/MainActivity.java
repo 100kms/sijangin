@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         editText = (EditText)findViewById(R.id.editText);
                         marketname = editText.getText().toString();
                         Intent intent = new Intent(MainActivity.this, MarketList.class);
-                        intent.putExtra("place", "성종용중");
+                        intent.putExtra("place", "중광동성");
                         // intent.putExtra("value",textView.getText().toString());
 
                         startActivity(intent);

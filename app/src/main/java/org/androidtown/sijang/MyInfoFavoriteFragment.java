@@ -46,22 +46,13 @@ public class MyInfoFavoriteFragment extends Fragment {
 
         //아이디에 맞는 데이터 데이터베이스에서 읽어와서 넣는방식으로 바꿔야함!
 
-        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun2,"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun3,"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun4,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken1,"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken2,"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken3,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken4,"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun2,"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun3,"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.bun4,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken1,"구의시장","구의킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken2,"광장시장","광장치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken3,"자양시장","해남치킨","민수족발","새마을",3.5f);
-        marketRecyclerAdapter.additem(R.drawable.chicken4,"구의시장","구의킨","민수족발","새마을",3.5f);
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+        marketRecyclerAdapter.additem(R.drawable.bun1,"자양시장");
+
         recyclerView.setAdapter(marketRecyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

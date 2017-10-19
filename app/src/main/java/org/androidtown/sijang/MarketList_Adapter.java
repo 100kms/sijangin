@@ -1,108 +1,105 @@
 package org.androidtown.sijang;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.id.list;
 
 /**
  * Created by hyuk on 2017-07-03.
  */
 
-public class MarketList_Adapter extends BaseAdapter{
+public class MarketList_Adapter extends BaseAdapter {
     private Context mContext = null;
-    private ArrayList<Data> list = new ArrayList<Data>();
+    private List<Market_Data> datas = new ArrayList<>();
+    private String place;
+    LayoutInflater inflater;
+    FirebaseStorage firebaseStorage;
+    StorageReference rootReference;
 
-    public MarketList_Adapter(Context mContext){
+
+    public MarketList_Adapter(List<Market_Data> datas, Context mContext, String place) {
         super();
         this.mContext = mContext;
+        this.datas = datas;
+        this.place = place;
+        this.inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return datas.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return datas.get(position);
     }
 
     @Override
-    public long getItemId(int position) { return position;}
+    public long getItemId(int position) {
+        return position;
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-        if(convertView == null) {
-            holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if (convertView == null) {
             convertView = inflater.inflate(R.layout.marketlist_item, null);
-
-
-            holder.market_image = (ImageView) convertView.findViewById(R.id.marketlist_item_image_market);
-            holder.market_name = (TextView) convertView.findViewById(R.id.marketlist_item_text_name);
-            holder.star = (RatingBar) convertView.findViewById(R.id.marketlist_item_ratingbar);
-            holder.food_name1 = (TextView) convertView.findViewById(R.id.marketlist_item_text_food1);
-            holder.food_name2 = (TextView) convertView.findViewById(R.id.marketlist_item_text_food2);
-            holder.food_name3 = (TextView) convertView.findViewById(R.id.marketlist_item_text_food3);
-
-            convertView.setTag(holder);
-        } else{
-            holder = (ViewHolder)convertView.getTag();
         }
 
+        RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.market_layout);
+        TextView market_name = (TextView) convertView.findViewById(R.id.marketlist_item_text_name);
+        TextView market_address = (TextView) convertView.findViewById(R.id.marketlist_item_text_address);
+        ImageView market_img = (ImageView) convertView.findViewById(R.id.marketlist_item_image_market);
 
-        Data marketData =  list.get(position);
+        final Market_Data market_data = datas.get(position);
+        market_name.setText(market_data.get시장이름());
+        market_address.setText(market_data.get주소());
 
-        holder.market_image.setImageDrawable(marketData.market_image);
-        holder.market_name.setText(marketData.market_name);
-        holder.food_name1.setText(marketData.food_name1);
-        holder.food_name2.setText(marketData.food_name2);
-        holder.food_name3.setText(marketData.food_name3);
-        holder.star.setRating(marketData.star);
+        firebaseStorage = FirebaseStorage.getInstance();
+        rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
 
 
+        /*StorageReference marketImageRef = rootReference.child(market_data.get시장이름()+"/1");
+        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(market_img);*/
 
+        relativeLayout.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MarketMainList.class);
+                intent.putExtra("market_name",market_data.get시장이름());
+                intent.putExtra("place", place);
+                intent.putExtra("위도", market_data.get위도());
+                intent.putExtra("경도", market_data.get경도());
+                intent.putExtra("주소", market_data.get주소());
+                intent.putExtra("내용", market_data.get내용());
+                //기타값추가
+                mContext.startActivity(intent);
+            }
+        });
 
         return convertView;
-    }
-
-    public void additem(Drawable market_image, String market_name, String food_name1, String food_name2, String food_name3, float star){
-        Data addinfo = new Data();
-        addinfo.market_image = market_image;
-        addinfo.market_name = market_name;
-        addinfo.food_name1 = food_name1;
-        addinfo.food_name2 = food_name2;
-        addinfo.food_name3 = food_name3;
-        addinfo.star = star;
-
-        list.add(addinfo);
-    }
-
-    private class ViewHolder{
-        public ImageView market_image;
-        public TextView market_name;
-        public TextView food_name1;
-        public TextView food_name2;
-        public TextView food_name3;
-        public RatingBar star;
-    }
-
-    public class Data{
-        public Drawable market_image;
-        public String market_name;
-        public String food_name1;
-        public String food_name2;
-        public String food_name3;
-        public float star;
 
     }
+
 }

@@ -5,16 +5,7 @@ package org.androidtown.sijang;
  */
 
 public class Market_Data {
-    private String 시장이름, 교통수단, 내용, 소개, 사진경로, ab;
-    private long 경도, 위도;
-
-    public String getAb() {
-        return ab;
-    }
-
-    public void setAb(String ab) {
-        this.ab = ab;
-    }
+    private String 시장이름, 경도, 위도, 교통수단, 내용, 소개, 사진경로, 주소;
 
     public String get시장이름() {
         return 시장이름;
@@ -22,6 +13,22 @@ public class Market_Data {
 
     public void set시장이름(String 시장이름) {
         this.시장이름 = 시장이름;
+    }
+
+    public String get경도() {
+        return 경도;
+    }
+
+    public void set경도(String 경도) {
+        this.경도 = 경도;
+    }
+
+    public String get위도() {
+        return 위도;
+    }
+
+    public void set위도(String 위도) {
+        this.위도 = 위도;
     }
 
     public String get교통수단() {
@@ -56,22 +63,11 @@ public class Market_Data {
         this.사진경로 = 사진경로;
     }
 
-    public long get경도() {
-        return 경도;
+    public String get주소() {
+        return 주소;
     }
 
-    public void set경도(long 경도) {
-        this.경도 = 경도;
+    public void set주소(String 주소) {
+        this.주소 = 주소;
     }
-
-    public long get위도() {
-        return 위도;
-    }
-
-    public void set위도(long 위도) {
-        this.위도 = 위도;
-    }
-
-
-
 }

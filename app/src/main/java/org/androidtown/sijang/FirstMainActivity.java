@@ -4,101 +4,124 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.EditText;
 
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.kakao.auth.ErrorCode;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeResponseCallback;
+import com.kakao.usermgmt.response.model.UserProfile;
+import com.kakao.util.exception.KakaoException;
+import com.kakao.util.helper.log.Logger;
 
-import org.json.JSONObject;
 
 public class FirstMainActivity extends FragmentActivity {
-    private CallbackManager callbackManager;
-    LoginButton login_button;
+
+    SessionCallback callback;
     String id;
-    String name;
     SharedPreferences pref;
+    SharedPreferences check_pref;
     SharedPreferences.Editor editor;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_first_main);
+        check_pref = getSharedPreferences("user_info", MODE_PRIVATE);
+        if(check_pref.getString("user_id","").equalsIgnoreCase("")){
+            callback = new SessionCallback();
+            Session.getCurrentSession().addCallback(callback);
+        }else{
+            Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
 
-        Button change_btn = (Button)findViewById(R.id.button_chagne);
-        change_btn.setOnClickListener(new View.OnClickListener(){
 
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                //Intent intent = new Intent(getApplicationContext(), Review_Write.class);
-                startActivity(intent);
-            }
-        });
+        Button empty_btn = (Button)findViewById(R.id.empty_btn);
 
-        callbackManager = CallbackManager.Factory.create();
+        empty_btn.setOnClickListener(
+                new Button.OnClickListener() {
+                    public void onClick(View v) {
+                        Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        );
 
-        login_button = (LoginButton)findViewById(R.id.login_button);
-        login_button.setReadPermissions("email", "public_profile", "user_friends");
-        // Callback registration
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                GraphRequest request =GraphRequest.newMeRequest(loginResult.getAccessToken() ,
-                        new GraphRequest.GraphJSONObjectCallback() {
-                            @Override
-                            public void onCompleted(JSONObject object, GraphResponse response) {
-                                try {
-                                    id = (String)object.get("id");
-                                    name = (String)object.get("name");
-                                    Toast.makeText(getApplicationContext(), "로그인 성공"+name+" : "+id, Toast.LENGTH_SHORT).show();
-
-                                    pref = getSharedPreferences("user_info", MODE_PRIVATE);
-                                    editor = pref.edit();
-                                    editor.putString("user_id", id);
-                                    editor.putString("user_name", name);
-                                    editor.commit();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
-                request.executeAsync();
-            }
-            @Override
-            public void onCancel() {
-                Toast.makeText(getApplicationContext(), "취소.", Toast.LENGTH_SHORT).show();
-            }
-            @Override
-            public void onError(FacebookException exception) {
-                Log.e("페북에러" , exception.toString());
-            }
-        });
 
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //간편로그인시 호출 ,없으면 간편로그인시 로그인 성공화면으로 넘어가지 않음
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            System.out.println("===========if===========================");
+            return;
+        }
+        System.out.println("===========noif===========================");
         super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 
+
+    private class SessionCallback implements ISessionCallback {
+
+        @Override
+        public void onSessionOpened() {
+
+            UserManagement.requestMe(new MeResponseCallback() {
+
+                @Override
+                public void onFailure(ErrorResult errorResult) {
+                    String message = "failed to get user info. msg=" + errorResult;
+                    Logger.d(message);
+
+                    ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
+                    if (result == ErrorCode.CLIENT_ERROR_CODE) {
+                        finish();
+                    } else {
+                        //redirectMainActivity();
+                    }
+                }
+
+                @Override
+                public void onSessionClosed(ErrorResult errorResult) {
+
+                }
+
+                @Override
+                public void onNotSignedUp() {
+                }
+
+                @Override
+                public void onSuccess(UserProfile userProfile) {
+                    //로그인에 성공하면 로그인한 사용자의 일련번호, 닉네임, 이미지url등을 리턴합니다.
+                    //사용자 ID는 보안상의 문제로 제공하지 않고 일련번호는 제공합니다.
+                    pref = getSharedPreferences("user_info", MODE_PRIVATE);
+                    editor = pref.edit();
+                    editor.putString("user_name", userProfile.getNickname());
+                    editor.putString("user_id", Long.toString(userProfile.getId()));
+                    editor.commit();
+                    Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            });
+
+        }
+
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            // 세션 연결이 실패했을때
+            // 어쩔때 실패되는지는 테스트를 안해보았음 ㅜㅜ
+        }
+    }
 }
-
-
-
-
-
-
-

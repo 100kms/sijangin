@@ -27,14 +27,10 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
         arrayList = new ArrayList<Data>();
     }
 
-    public void additem(int market_image, String market_name, String food_name1, String food_name2, String food_name3, float star) {
+    public void additem(int market_image, String market_name) {
         Data addinfo = new Data();
         addinfo.market_image = market_image;
         addinfo.market_name = market_name;
-        addinfo.food_name1 = food_name1;
-        addinfo.food_name2 = food_name2;
-        addinfo.food_name3 = food_name3;
-        addinfo.star = star;
 
         arrayList.add(addinfo);
     }
@@ -42,10 +38,6 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
     public static class ViewHolder extends RecyclerView.ViewHolder implements  View.OnClickListener{
         public ImageView market_image;
         public TextView market_name;
-        public TextView food_name1;
-        public TextView food_name2;
-        public TextView food_name3;
-        public RatingBar star;
         public Context context;
         public Button delete_button;
         public MarketRecyclerAdapter marketRecyclerAdapter;
@@ -54,10 +46,6 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
             super(itemView);
             this.market_image = (ImageView) itemView.findViewById(R.id.marketlist_item_image_market);
             this.market_name = (TextView) itemView.findViewById(R.id.marketlist_item_text_name);
-            this.star = (RatingBar) itemView.findViewById(R.id.marketlist_item_ratingbar);
-            this.food_name1 = (TextView) itemView.findViewById(R.id.marketlist_item_text_food1);
-            this.food_name2 = (TextView) itemView.findViewById(R.id.marketlist_item_text_food2);
-            this.food_name3 = (TextView) itemView.findViewById(R.id.marketlist_item_text_food3);
             this.delete_button = (Button) itemView.findViewById(R.id.market_deleteBtn);
             this.context = context;
             this.marketRecyclerAdapter = marketRecyclerAdapter;
@@ -79,10 +67,6 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
                 .load(marketData.market_image).into(holder.market_image);*/
         // holder.market_image.setImageDrawable(marketData.market_image);
         holder.market_name.setText(marketData.market_name);
-        holder.food_name1.setText(marketData.food_name1);
-        holder.food_name2.setText(marketData.food_name2);
-        holder.food_name3.setText(marketData.food_name3);
-        holder.star.setRating(marketData.star);
 
 
     }
@@ -118,10 +102,6 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<MarketRecyclerAd
     public class Data {
         public int market_image;
         public String market_name;
-        public String food_name1;
-        public String food_name2;
-        public String food_name3;
-        public float star;
 
     }
 }

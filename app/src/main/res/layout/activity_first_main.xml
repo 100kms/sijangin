@@ -8,7 +8,7 @@
     tools:context="org.androidtown.sijang.FirstMainActivity">
 
     <Button
-        android:id="@+id/button_chagne"
+        android:id="@+id/empty_btn"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
@@ -28,13 +28,11 @@
         android:layout_gravity="center"
         android:background="@drawable/marketlogopic3" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/label"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="30dp" />
+    <com.kakao.usermgmt.LoginButton
+        android:id="@+id/com_kakao_login"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom"
+        android:layout_margin="40dp"/>
 
 </FrameLayout>

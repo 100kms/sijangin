@@ -44,6 +44,7 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.2.0'
     compile 'com.firebaseui:firebase-ui-storage:1.2.0'
     testCompile 'junit:junit:4.12'
+    compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 }
 
 

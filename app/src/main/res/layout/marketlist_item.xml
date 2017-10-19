@@ -15,6 +15,7 @@
         android:weightSum="1">
 
         <RelativeLayout
+            android:id="@+id/market_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.1"
@@ -38,29 +39,18 @@
                 android:textColor="#000000"
                 android:textSize="30dp" />
 
-            <RatingBar
-                android:id="@+id/marketlist_item_ratingbar"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/marketlist_item_text_name"
-                android:layout_marginLeft="8dp"
-                android:layout_toRightOf="@+id/marketlist_item_image_market"
-                android:isIndicator="true"
-                android:numStars="5"
-                android:rating="3.5"
-                android:stepSize="0.5" />
+
 
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:layout_below="@+id/marketlist_item_ratingbar"
+                android:layout_below="@+id/marketlist_item_text_name"
                 android:layout_toRightOf="@+id/marketlist_item_image_market"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/marketlist_item_text_food1"
+                    android:id="@+id/marketlist_item_text_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
@@ -69,39 +59,6 @@
                     android:text="food1"
                     android:textColor="#000000"
                     android:textSize="10dp" />
-
-                <TextView
-                    android:id="@+id/marketlist_item_text_food2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="food2"
-                    android:textColor="#000000"
-                    android:textSize="10dp" />
-
-                <TextView
-                    android:id="@+id/marketlist_item_text_food3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="food3"
-                    android:textColor="#000000"
-                    android:textSize="10dp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
 
             </LinearLayout>
 
