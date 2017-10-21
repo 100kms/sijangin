@@ -2,16 +2,14 @@ package org.androidtown.sijang;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
-import com.facebook.FacebookSdk;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -43,6 +41,22 @@ public class FirstMainActivity extends FragmentActivity {
         }else{
             Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
             startActivity(intent);
+        }
+
+        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            System.out.println("쓰기권한이 없었네 ????" );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            }, 466);
+        }
+
+        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            System.out.println("리드권한이 없었네 ????" );
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            }, 466);
         }
 
 
