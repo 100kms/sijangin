@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,9 +28,9 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
-
 import org.androidtown.sijang.MyInfoActivity;
 import org.androidtown.sijang.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,54 +41,19 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout linearLayout;
-    private String[] drawerMneu = {
+    public static String[] drawerMneu = {
             "내 정보 보기",
             "공지사항",
             "시장IN 정보",
             "로그아웃",
     };//main_drawer_listView
     private DrawerLayout drawerLayout = null;
-    private ActionBarDrawerToggle dtToggle = null;
+    private ActionBarDrawerToggle toggle = null;
     private RecyclerView recyclerView;
     private MainDrawerViewAdapter mainDrawerViewAdapter;
     private MaterialMenuDrawable materialMenu;
     private boolean isDrawerOpened = false;
     private int              actionBarMenuState;
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        switch (id)
-        {
-
-            case android.R.id.home:
-            {
-                drawerLayout.openDrawer(GravityCompat.START);
-                Log.i("kkkk","-------------");
-                if(!drawerLayout.isDrawerOpen(linearLayout)) {
-                    Log.i("kkkk","sdfdsfdsfsdfd");
-                    return true;
-                }
-            }
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        // dtToggle.syncState();
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        dtToggle.onConfigurationChanged(newConfig);
-    }
 
 
 
@@ -148,45 +114,15 @@ public class MainActivity extends AppCompatActivity {
         String b = pref.getString("user_name", "");
         Toast.makeText(getApplicationContext(), a + " : " + b, Toast.LENGTH_SHORT).show();
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+     Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
+        toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.app_name, R.string.app_name);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.main_menu_drawable);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
+        drawerLayout.addDrawerListener(toggle);
 
-        materialMenu = new MaterialMenuDrawable(this, Color.WHITE, MaterialMenuDrawable.Stroke.THIN);
-        toolbar.setNavigationIcon(materialMenu);
-
-        drawerLayout.setDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                materialMenu.setTransformationOffset(
-                        MaterialMenuDrawable.AnimationState.BURGER_ARROW,
-                        isDrawerOpened ? 2 - slideOffset : slideOffset
-                );
-            }
-
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                isDrawerOpened = true;
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                isDrawerOpened = false;
-            }
-
-            @Override
-            public void onDrawerStateChanged(int newState) {
-                if(newState == DrawerLayout.STATE_IDLE) {
-                    if(isDrawerOpened) {
-                        ((MaterialMenuDrawable)(toolbar.getNavigationIcon())).animateIconState(MaterialMenuDrawable.IconState.ARROW);
-                        // menu.setIconState(MaterialMenuDrawable.IconState.ARROW);
-                    } else {
-                        ((MaterialMenuDrawable)(toolbar.getNavigationIcon())).animateIconState(MaterialMenuDrawable.IconState.BURGER);
-                        // menu.setIconState(MaterialMenuDrawable.IconState.BURGER);
-                    }
-                }
-            }
-        });
 
 
         tabLayout = (TabLayout)findViewById(R.id.main_tabLayout);
@@ -224,6 +160,29 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        toggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        toggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (toggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
     public class PageAdapter extends FragmentStatePagerAdapter {
         public PageAdapter(FragmentManager manager){
             super(manager);

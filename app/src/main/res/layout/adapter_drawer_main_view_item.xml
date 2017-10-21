@@ -4,25 +4,32 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:gravity="center"
     android:orientation="vertical"
-    android:weightSum="1"
-    android:layout_gravity="center"
-    >
+    android:weightSum="1">
 
-    <TextView
-        android:gravity="center"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:textSize="20dp"
-        android:background="#96c6eb"
-        android:id="@+id/drawer_main_textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#727070"/>
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/drawer_main_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:layout_weight="0.2"/>
+        <TextView
+            android:id="@+id/drawer_main_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:textSize="15dp"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
 
 
 </LinearLayout>
