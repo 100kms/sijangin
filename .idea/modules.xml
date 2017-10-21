@@ -4,8 +4,10 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/sijangin.iml" filepath="$PROJECT_DIR$/sijangin.iml" />
       <module fileurl="file://$PROJECT_DIR$/sijangin2.iml" filepath="$PROJECT_DIR$/sijangin2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sijangin4.iml" filepath="$PROJECT_DIR$/sijangin4.iml" />
     </modules>
   </component>
 </project>
