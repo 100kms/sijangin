@@ -31,20 +31,26 @@ dependencies {
     //compile 'com.google.android.gms:play-services-auth:8.4.0'
 
 
+    compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.labo.kaji:fragmentanimations:0.1.0'
-    compile 'com.google.android.gms:play-services-maps:10.2.0'
-    compile 'com.google.android.gms:play-services-location:10.2.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-    compile 'com.google.firebase:firebase-database:10.2.0'
-    compile 'com.google.firebase:firebase-storage:10.2.0'
+    compile 'com.google.firebase:firebase-database:11.0.4'
+    compile 'com.google.firebase:firebase-storage:11.0.4'
     compile 'com.firebaseui:firebase-ui-storage:1.2.0'
+    compile 'pub.devrel:easypermissions:1.0.1'
+    compile 'com.google.android.gms:play-services:11.0.4'
+    compile 'com.google.android.gms:play-services-maps:11.0.4'
+    compile 'com.google.android.gms:play-services-location:11.0.4'
+    compile 'com.github.polok.routedrawer:library:1.0.0'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.balysv.materialmenu:material-menu:2.0.0'
+    compile 'com.android.support:design:25.0.0'
     testCompile 'junit:junit:4.12'
-    compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
 }
 
 

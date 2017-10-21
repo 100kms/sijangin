@@ -10,11 +10,12 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".GlobalApplication"
+        android:name=".Util.GlobalApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -27,18 +28,16 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".MarketList"/>
-        <activity android:name=".ChangeActivity" />
-        <activity android:name=".FoodMenuList" />
-        <activity android:name=".MarketInfo" />
-        <activity android:name=".ReviewList" />
+        <activity android:name=".MainView.MainActivity" />
+        <activity android:name=".MarketView.MarketList"/>
+        <activity android:name=".FoodView.FoodMenuList" />
+        <activity android:name=".FoodView.MarketInfo" />
+        <activity android:name=".ReviewView.ReviewList" />
         <activity
-            android:name=".MenuInfo"
+            android:name=".FoodView.MenuInfo"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".SearchFoodMenuList" />
-        <activity android:name=".MarketMainList" />
-        <activity android:name=".ReviewListSort" />
+        <activity android:name=".FoodView.SearchFoodMenuList" />
+        <activity android:name=".MarketView.MarketMainList" />
         <activity
             android:name=".FirstMainActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -62,14 +61,12 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".FireActivity" />
         <activity android:name=".Bbs" />
         <activity android:name=".ListAdapter" />
-        <activity android:name=".Fire2Activity" />
         <activity android:name=".MainReviewList_Adapter" />
-        <activity android:name=".Review_Write" />
-        <activity android:name=".MyInfoActivity" />
-        <activity android:name=".DataBase_Write"></activity>
+        <activity android:name=".Data.Review_Write" />
+        <activity android:name=".MyinfoView.MyInfoActivity" />
+        <activity android:name=".Data.DataBase_Write"></activity>
     </application>
 
 </manifest>

@@ -9,9 +9,8 @@
     android:weightSum="1"
     >
 
-
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/myInfo_myReviewView"
+        android:id="@+id/fragment_main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
