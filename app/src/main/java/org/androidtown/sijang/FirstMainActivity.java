@@ -44,7 +44,7 @@ public class FirstMainActivity extends FragmentActivity {
 
 
         Button empty_btn = (Button)findViewById(R.id.empty_btn);
-
+//
         empty_btn.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
