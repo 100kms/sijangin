@@ -61,11 +61,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Bbs" />
-        <activity android:name=".ListAdapter" />
-        <activity android:name=".MainReviewList_Adapter" />
         <activity android:name=".Data.Review_Write" />
-        <activity android:name=".MyinfoView.MyInfoActivity" />
+        <activity android:name=".MyInfoActivity" />
         <activity android:name=".Data.DataBase_Write"></activity>
     </application>
 

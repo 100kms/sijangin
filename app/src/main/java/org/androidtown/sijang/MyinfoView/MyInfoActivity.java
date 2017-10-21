@@ -1,15 +1,19 @@
-package org.androidtown.sijang.MyinfoView;
+package org.androidtown.sijang;
+
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 
-import org.androidtown.sijang.R;
+import org.androidtown.sijang.MyinfoView.MyInfoFavoriteFragment;
+import org.androidtown.sijang.MyinfoView.MyInfoReviewFragment;
+
+import java.io.File;
 
 /**
  * Created by CYSN on 2017-10-05.
@@ -22,39 +26,73 @@ public class MyInfoActivity extends AppCompatActivity {
     private FragmentTransaction fragmentTransaction;
     private MyInfoReviewFragment myInfoReviewFragment;
     private MyInfoFavoriteFragment myInfoFavoriteFragment;
-
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userinfo);
-        RelativeLayout relativeLayout = (RelativeLayout)findViewById(R.id.myInfo_wellCome_layout);
-        myReviewBtn = (Button) findViewById(R.id.myInfo_myReviewBtn);
-        myFavoriteBtn = (Button) findViewById(R.id.myInfo_myFavoriteBtn);
+        myReviewBtn = (Button) findViewById(R.id.myInfo_myReviewView);
+        myFavoriteBtn = (Button) findViewById(R.id.myInfo_myFavoriteView);
+        viewPager = (ViewPager)findViewById(R.id.myInfo_ViewPager);
+        tabLayout = (TabLayout) findViewById(R.id.myInfo_TabLayout);
 
         myInfoReviewFragment = MyInfoReviewFragment.getInstance();
         myInfoFavoriteFragment = MyInfoFavoriteFragment.getInstance();
-       /* fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.add(R.id.myInfo_frameLayout,myInfoReviewFragment);*/
-        relativeLayout.setVisibility(RelativeLayout.GONE);
-        getSupportFragmentManager().beginTransaction().disallowAddToBackStack();
-        getSupportFragmentManager().beginTransaction().replace(R.id.myInfo_frameLayout,myInfoReviewFragment).commit();
-        //fragmentTransaction.commit();
+        TabLayout.Tab favoriteTab = tabLayout.newTab().setIcon(R.drawable.myinfo_favorite);
+        TabLayout.Tab reviewTab = tabLayout.newTab().setIcon(R.drawable.myinfo_review);
+        tabLayout.addTab(favoriteTab);
+        tabLayout.addTab(reviewTab);
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(0);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
     }
-    public void onClickViewChange(View v){
-        if(v.getId() == R.id.myInfo_myFavoriteBtn){
-            getSupportFragmentManager().beginTransaction().replace(R.id.myInfo_frameLayout,myInfoFavoriteFragment).commit();
+    public class PageAdapter extends FragmentStatePagerAdapter{
+        public PageAdapter(FragmentManager manager){
+            super(manager);
         }
-        else if (v.getId() == R.id.myInfo_myReviewBtn){
-            getSupportFragmentManager().beginTransaction().replace(R.id.myInfo_frameLayout,myInfoReviewFragment).commit();
+        @Override
+        public int getCount() {
+            return 2;
         }
 
+        @Override
+        public android.support.v4.app.Fragment getItem(int position) {
+            switch(position)
+            {
+                case 0:
+                    return myInfoReviewFragment;
+                case 1:
+                    return myInfoFavoriteFragment;
+                default:
+                    return null;
+            }
+        }
     }
 
     @Override
     public void onBackPressed() {
-        Log.i("kkkkkk","sss");
         super.onBackPressed();
     }
 }

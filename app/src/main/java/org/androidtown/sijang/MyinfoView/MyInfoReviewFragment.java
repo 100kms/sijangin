@@ -33,10 +33,7 @@ public class MyInfoReviewFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.myInfo_myReviewView);
         return view;
     }
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        return MoveAnimation.create(MoveAnimation.LEFT, enter, 300);
-    }
+
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

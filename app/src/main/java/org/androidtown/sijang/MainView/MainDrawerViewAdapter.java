@@ -39,6 +39,8 @@ public class MainDrawerViewAdapter extends RecyclerView.Adapter<MainDrawerViewAd
         public void onClick(View v) {
             Bundle bundle = new Bundle();
             bundle.putInt("message",1);
+            String data = ((TextView)v).getText().toString();
+            bundle.putString("data",data);
             Message message = new Message();
             message.setData(bundle);
             handler.sendMessage(message);

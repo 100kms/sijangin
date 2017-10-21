@@ -1,5 +1,6 @@
 package org.androidtown.sijang.MainView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
+
+import org.androidtown.sijang.MyInfoActivity;
 import org.androidtown.sijang.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -33,18 +36,14 @@ public class MainActivity extends AppCompatActivity {
     MainFragment mainFragment;
     MainFragment mainFragment2;
     MainFragment mainFragment3;
+    MainFragment mainFragment4;
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout linearLayout;
     private String[] drawerMneu = {
             "내 정보 보기",
             "공지사항",
-            "로그아웃",
-            "내 정보 보기",
-            "공지사항",
-            "로그아웃",
-            "내 정보 보기",
-            "공지사항",
+            "시장IN 정보",
             "로그아웃",
     };//main_drawer_listView
     private DrawerLayout drawerLayout = null;
@@ -108,6 +107,25 @@ public class MainActivity extends AppCompatActivity {
                 switch (message){
                     case 1://close drawer
                         drawerLayout.closeDrawer(linearLayout);
+                        String data = msg.getData().getString("data");
+                        Intent intent = null;
+                            if(data.equals(drawerMneu[0])) {//myMenu
+                                intent = new Intent(getApplicationContext(), MyInfoActivity.class);
+                                startActivity(intent);
+                            }
+                            else if(data.equals(drawerMneu[1])) {// "공지사항",
+
+                            }
+                            else if(data.equals(drawerMneu[2])) {//   "시장IN 정보",
+
+                            }
+                            else if(data.equals(drawerMneu[3])) {//"로그아웃",
+
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(),"Message Error",Toast.LENGTH_SHORT).show();
+                            }
+
                         break;
                 }
             }
@@ -115,8 +133,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         mainDrawerViewAdapter = new MainDrawerViewAdapter(getApplicationContext(), handler);
-        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL));
+        //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        recyclerView.setAdapter(mainDrawerViewAdapter);
+
         for(int i=0; i<drawerMneu.length; i++){
             mainDrawerViewAdapter.addItem(drawerMneu[i]);
             Log.i("kkkkkk",drawerMneu[i]);
@@ -170,10 +190,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         tabLayout = (TabLayout)findViewById(R.id.main_tabLayout);
-        tabLayout.addTab(tabLayout.newTab().setText("홈"));
-        tabLayout.addTab(tabLayout.newTab().setText("지역별"));
-        tabLayout.addTab(tabLayout.newTab().setText("음식별"));
-//        tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
+        tabLayout.addTab(tabLayout.newTab().setText("추천"));
+        tabLayout.addTab(tabLayout.newTab().setText("카테고리"));
+        tabLayout.addTab(tabLayout.newTab().setText("전체 리뷰"));
+        tabLayout.addTab(tabLayout.newTab().setText("가까운 시장"));
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
@@ -182,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
         mainFragment = new MainFragment();
         mainFragment2 = new MainFragment();
         mainFragment3 = new MainFragment();
+        mainFragment4 = new MainFragment();
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -209,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
         }
         @Override
         public int getCount() {
-            return 3;
+            return 4;
         }
 
         @Override
@@ -218,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0 : return mainFragment;
                 case 1 : return  mainFragment2;
                 case 2 : return  mainFragment3;
+                case 3 : return  mainFragment4;
             }
             return null;
         }
