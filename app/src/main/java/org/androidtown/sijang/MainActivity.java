@@ -35,6 +35,17 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("지역별"));
         tabLayout.addTab(tabLayout.newTab().setText("음식별"));
 //        tabLayout.addTab(tabLayout.newTab().setText("리뷰"));
+
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        viewPager = (ViewPager)findViewById(R.id.main_viewPager);
+
+        mainFragment = new MainFragment();
+        mainFragment2 = new MainFragment();
+        mainFragment3 = new MainFragment();
+        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
+        viewPager.setCurrentItem(0);
+        viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -51,15 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        viewPager = (ViewPager)findViewById(R.id.main_viewPager);
-
-        mainFragment = new MainFragment();
-        mainFragment2 = new MainFragment();
-        mainFragment3 = new MainFragment();
-        viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
-        viewPager.setCurrentItem(0);
 
     }
     public class PageAdapter extends FragmentStatePagerAdapter {

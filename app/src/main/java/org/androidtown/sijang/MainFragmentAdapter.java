@@ -56,8 +56,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int position) {
-        Glide.with(context.getApplicationContext()).load(arrayList.get(position)).thumbnail(0.1f)
-                .into(holder.imageView);
+        Glide.with(context.getApplicationContext()).load(arrayList.get(position)).into(holder.imageView);
     }
 
     @Override
