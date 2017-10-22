@@ -3,9 +3,13 @@ package org.androidtown.sijang.MainView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -23,18 +27,33 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import org.androidtown.sijang.MarketView.MarketList;
 import org.androidtown.sijang.MyInfoActivity;
 import org.androidtown.sijang.R;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
 
 public class MainActivity extends AppCompatActivity {
 
     Main_RankFragment mainFragment;
-    MainFragment mainFragment2;
+    Main_Category_Fragment mainFragment2;
     MainFragment mainFragment3;
     MainMapFragment mainFragment4;
+
+    protected Location mLastLocation;
+    private static final int RC_LOCATION = 1;
+    private FusedLocationProviderClient mFusedLocationClient;
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -59,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        getLastLocation();
+
         recyclerView = (RecyclerView) findViewById(R.id.main_drawer_recycler_view);
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
         linearLayout = (LinearLayout)findViewById(R.id.main_drawer_linear_layout);
@@ -135,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager = (ViewPager)findViewById(R.id.main_viewPager);
 
         mainFragment = new Main_RankFragment();
-        mainFragment2 = new MainFragment();
+        mainFragment2 = new Main_Category_Fragment();
         mainFragment3 = new MainFragment();
         mainFragment4 = new MainMapFragment();
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
@@ -202,4 +225,46 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
+
+
+    @SuppressWarnings("MissingPermission")
+    @AfterPermissionGranted(RC_LOCATION)
+    public void getLastLocation(){
+        String[] perms = {android.Manifest.permission.ACCESS_FINE_LOCATION};
+        System.out.println("111111");
+        if(EasyPermissions.hasPermissions(getApplicationContext(), perms)){
+            System.out.println("22222");
+            mFusedLocationClient.getLastLocation().addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                @Override
+
+                public void onComplete(@NonNull Task<Location> task) {
+                    System.out.println("333333" + task.isSuccessful() + "  " + task.getResult());
+                    if(task.isSuccessful() && task.getResult() != null){
+                        System.out.println("444444");
+                        mLastLocation = task.getResult();
+                        try {
+                            Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.KOREA);
+                            List<Address> addresses = geocoder.getFromLocation(mLastLocation.getLatitude(),mLastLocation.getLongitude(),1);
+
+                            if (addresses.size() >0) {
+                                Address address = addresses.get(0);
+
+
+                            }
+
+
+                        } catch (IOException e) {
+                            System.out.println("오류뜸");
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+        }
+        else{
+            EasyPermissions.requestPermissions(this, "This app needs access to your location to know where you are", RC_LOCATION, perms);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package org.androidtown.sijang.MainView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
@@ -9,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,22 +97,47 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     private StorageReference rootReference;
     private DatabaseReference bbsRef;
     private DatabaseReference bookmark_Ref;
-    private Button favoritebtn;
+    private Button mbtn;
     private Latitude ltt;
     private double temp_longitude;
     private double temp_latitude;
     private String market_name;
     private String store_name;
-
+    private String gpsEnabled;
+    View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_main_map, container, false);
+        view = inflater.inflate(R.layout.fragment_main_map, container, false);
 
+        //chkGpsService();
 
-        favoritebtn = (Button)view.findViewById(R.id.favorite_btn);
+        //String gps = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
-        // 1. 파이어베이스 연결 - DB Connection
+        //Log.d(gps, "aaaa");
+
+        //gpscheck();
+
+        Button mbtn = (Button)view.findViewById(R.id.mbtn);
+        mbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gpscheck();
+            }
+        });
+        // gps 여부 체크
+        /*
+        if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            startActivity(intent);
+
+        }
+        */
+        //RefreshThread th = new RefreshThread();
+        //th.start();
+        //refresh();
+
 
         return view;
     }
@@ -120,7 +147,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityCreated(savedInstanceState);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
 
-        getLastLocation();
+
 
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -184,7 +211,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             temp = 5000;
             System.out.println("데이터 사이즈 :" + datas.size());
             for (int j = 0; j < datas.size(); j++) {
-                pita = Math.pow((mylatitude - datas.get(j).get경도()),2) + Math.pow((mylongitude - datas.get(j).get위도()),2);
+                pita = Math.pow((mylatitude - datas.get(j).get위도()),2) + Math.pow((mylongitude - datas.get(j).get경도()),2);
                 calcnum = Math.sqrt(pita);
                 System.out.println("calcnum : " + calcnum);
                 if (calcnum < temp) {
@@ -194,10 +221,13 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             }
             System.out.println("정렬 끝 : " + realnum);
             System.out.println("직전 realnum : " + realnum);
-            LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
-            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
-            gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title("내위치").snippet("설명")).showInfoWindow();
+            System.out.println("내위치 경도: " + mylongitude);
+            System.out.println("내위치 위도 : " + mylatitude);
 
+        LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
+            gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
+            gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소())).showInfoWindow();
+            gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("▼")).showInfoWindow();
 
     }
 
@@ -206,13 +236,13 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     public void getLastLocation(){
         String[] perms = {android.Manifest.permission.ACCESS_FINE_LOCATION};
         System.out.println("111111");
-        if(EasyPermissions.hasPermissions(getApplicationContext(), perms)){
+        if(EasyPermissions.hasPermissions(getActivity().getApplicationContext(), perms)){
             System.out.println("22222");
             mFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                 @Override
 
                 public void onComplete(@NonNull Task<Location> task) {
-                    System.out.println("333333");
+                    System.out.println("333333" + task.isSuccessful() + "  " + task.getResult());
                     if(task.isSuccessful() && task.getResult() != null){
                         System.out.println("444444");
                         mLastLocation = task.getResult();
@@ -228,26 +258,11 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
                                 System.out.println("1나의 위도 : " + mylatitude);
                                 System.out.println("1나의 경도 : " + mylongitude);
 
-
-                                //MarkerOptions marker1 = new MarkerOptions();
-
-                                //gmap.addMarker(marker1).showInfoWindow();
-                                //gmap.addMarker(marker2).showInfoWindow();
-                                //System.out.println("직전 realnum : " + realnum);
-                                //LatLng place = new LatLng(datas.get(realnum).get경도(), datas.get(realnum).get위도());
-                                //LatLng SEOUL = new LatLng(37.56,126.97);
-                                //LatLng SEOUL2 = new LatLng(a,b);
-                                //double c = SEOUL2.latitude ;
-                                //System.out.println("직전 realnum : " + realnum);
-                               // LatLng place = new LatLng(datas.get(realnum).get경도(), datas.get(realnum).get위도());
-                                //gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
-                                //gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get경도(), datas.get(realnum).get위도())).title("내위치").snippet("설명")).showInfoWindow();
-                                //gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get경도(), datas.get(realnum).get위도())).title("내위치").snippet("설명")).showInfoWindow();
-                                //contacts.add(new Contact(address.getLongitude(), address.getLatitude(),address.getCountryName() + " " +address.getLocality()+ " " + address.getFeatureName()));
                             }
 
 
                         } catch (IOException e) {
+                            System.out.println("오류뜸");
                             e.printStackTrace();
                         }
                     }
@@ -268,6 +283,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         double fire_latitude = temp_latitude;
         double fire_longitude = temp_longitude;
         LatLng place = new LatLng(fire_latitude, fire_longitude);
+        getLastLocation();
         //LatLng SEOUL = new LatLng(37.56,126.97);
         //LatLng SEOUL2 = new LatLng(a,b);
         //double c = SEOUL2.latitude ;
@@ -288,5 +304,49 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         mapFragment.getMapAsync(this);
         System.out.println("two-4");
     }
+
+    class RefreshThread extends Thread{
+
+        public void run(){
+            while(true) {
+                try {
+                    Thread.sleep(5000);
+                    refresh();
+                    //ft.detach(getActivity().onAttachFragment();).attach(this).commit();
+                } catch (Exception e) {
+
+                }
+            }
+
+        }
+    }
+
+    public void gpscheck() {
+        String gps = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+        if (!(gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+            Intent intent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            startActivityForResult(intent, 1234);
+        }
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        System.out.println("결과 : " + requestCode + "   "+ resultCode);
+        if(requestCode==1234 && resultCode==0){
+            //여기에 리프레쉬 기능 함수들 넣기??
+
+        }
+    }
+
+    public void refresh(){
+        //FragmentTransaction ft = getFragmentManager().beginTransaction();
+        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.detach(this).attach(this).commit();
+    }
+
 
 }

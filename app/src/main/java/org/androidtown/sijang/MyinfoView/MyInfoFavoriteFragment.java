@@ -8,9 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-
-import com.labo.kaji.fragmentanimations.MoveAnimation;
 
 import org.androidtown.sijang.R;
 
@@ -40,6 +37,7 @@ public class MyInfoFavoriteFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         MarketRecyclerAdapter marketRecyclerAdapter = new MarketRecyclerAdapter(getContext());
+
 
         //아이디에 맞는 데이터 데이터베이스에서 읽어와서 넣는방식으로 바꿔야함!
 

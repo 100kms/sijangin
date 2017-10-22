@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">#ffcc4d</item>
-        <item name="colorPrimaryDark">#97730a</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#efadad</item>
+        <item name="colorPrimaryDark">#efadad</item>
+        <item name="colorAccent">#efadad</item>
     </style>
 
 </resources>

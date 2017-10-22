@@ -1,3 +1,4 @@
+/*
 package org.androidtown.sijang.ReviewView;
 
 import android.os.Bundle;
@@ -19,9 +20,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import org.androidtown.sijang.MyinfoView.ReviewRecyclerAdapter;
 import org.androidtown.sijang.R;
 
+*/
 /**
  * Created by hyuk on 2017-07-02.
- */
+ *//*
+
 public class ReviewList extends AppCompatActivity {
     private RecyclerView recyclerView = null;
     private ReviewRecyclerAdapter reviewRecyclerAdapter = null;
@@ -132,3 +135,4 @@ public class ReviewList extends AppCompatActivity {
 
 
 }
+*/

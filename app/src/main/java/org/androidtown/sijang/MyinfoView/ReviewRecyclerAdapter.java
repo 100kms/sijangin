@@ -16,6 +16,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.androidtown.sijang.R;
+import org.androidtown.sijang.ReviewView.Review;
 
 import java.util.ArrayList;
 
@@ -25,41 +26,25 @@ import java.util.ArrayList;
 
 public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext = null;
-    private ArrayList<Data> arrayList;
+    private ArrayList<Review> arrayList;
     private final int NORMAL_TYPE = 1;
     private final int PROGRESS_TYPE = 2;
     private int progressPos = -1;
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    private StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+    private FirebaseImageLoader firebaseImageLoader = new FirebaseImageLoader();
     public ReviewRecyclerAdapter(Context context){
         this.mContext = context;
-        arrayList = new ArrayList<Data>();
+        arrayList = new ArrayList<Review>();
     }
-
-    public void additem(String market_text ,String replace_text, String userid, String created, String review, float star, int[] img){
-        Data addinfo = new Data();
-        addinfo.market_text = market_text+" > ";
-        addinfo.replace_text = replace_text;
-        addinfo.userid = userid;
-        addinfo.created = created;
-        addinfo.review = review;
-        addinfo.star = star;
-        addinfo.img = img;
-
-        arrayList.add(addinfo);
-        notifyItemInserted(arrayList.size()-1);
+    public void addItem(Review review){
+        arrayList.add(review);
     }
-    public void additem(String market_text ,String replace_text, String userid, String created, String review, float star,int[] img, String img_url){
-        Data addinfo = new Data();
-        addinfo.market_text = market_text+" > ";
-        addinfo.replace_text = replace_text;
-        addinfo.userid = userid;
-        addinfo.created = created;
-        addinfo.review = review;
-        addinfo.star = star;
-        addinfo.img = img;
-        addinfo.img_url = img_url;
+    public void addItem(String content, String date_record, String image, int image_count, String market_text, String replace_text, float star, String user_id) {
+        Review review = new Review(content,date_record,image,image_count,market_text,replace_text,star,user_id);
 
-        arrayList.add(addinfo);
-        notifyItemInserted(arrayList.size()-1);
+        arrayList.add(review);
+        //  notifyItemInserted(arrayList.size()-1);
     }
     public class ProgressViewHolder extends RecyclerView.ViewHolder{
         public ProgressBar progressBar;
@@ -71,8 +56,8 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public class DataViewHolder extends RecyclerView.ViewHolder{
         public TextView market_text;
         public TextView replace_text;
-        public TextView userid;
-        public TextView created;
+        public TextView user_id;
+        public TextView data_record;
         public TextView review;
         public RatingBar star;
         public ImageView img_1;
@@ -85,8 +70,8 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             super(itemView);
             this.market_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_market);
             this.replace_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_replace);
-            this.userid = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
-            this.created = (TextView) itemView.findViewById(R.id.reviewlist_item_text_created);
+            this.user_id = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
+            this.data_record = (TextView) itemView.findViewById(R.id.reviewlist_item_text_record);
             this.review = (TextView) itemView.findViewById(R.id.reviewlist_item_text_review);
             this.star = (RatingBar) itemView.findViewById(R.id.reviewlist_item_ratingbar);
             this.img_1 = (ImageView) itemView.findViewById(R.id.reviewlist_item_img_review1);
@@ -102,23 +87,17 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof DataViewHolder) {
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
-            Data reviewData = arrayList.get(position);
-            holder.market_text.setText(reviewData.market_text);
- /*       holder.market_text.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Intent intent =  new Intent(mContext, MarketMainList.class);
-                mContext.startActivity(intent);
-            }
-        });*/
-            holder.replace_text.setText(reviewData.replace_text);
-            holder.userid.setText(reviewData.userid);
-            holder.created.setText(reviewData.created);
-            holder.review.setText(reviewData.review);
-            holder.star.setRating(reviewData.star);
-            int count = reviewData.img.length;
-
+            Review review = arrayList.get(position);
+            holder.market_text.setText(review.getMarket_text());
+            holder.replace_text.setText(review.getReplace_text());
+            holder.user_id.setText(review.getUser_id());
+            holder.data_record.setText(review.getDate_record());
+            holder.review.setText(review.getContent());
+            holder.star.setRating(review.getStar());
+            int count = review.getImage_count();
+            StorageReference islandRef;
+            StorageReference islandRef2;
+            StorageReference islandRef3;
             switch (count) {
                 case 0:
                     holder.img_1.setVisibility(View.GONE);
@@ -126,38 +105,42 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 1:
-                    holder.img_1.setImageResource(reviewData.img[0]);
+                    islandRef = rootReference.child(review.getImage()+"1");
+                    setImage(islandRef,holder.img_1);
                     holder.img_1.setVisibility(View.VISIBLE);
                     holder.img_2.setVisibility(View.GONE);
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 2:
-                    holder.img_1.setImageResource(reviewData.img[0]);
+                    islandRef = rootReference.child(review.getImage()+"1");
+                    islandRef2 = rootReference.child(review.getImage()+"2");
+                    setImage(islandRef,holder.img_1);
+                    setImage(islandRef2,holder.img_2);
                     holder.img_1.setVisibility(View.VISIBLE);
-                    holder.img_2.setImageResource(reviewData.img[1]);
                     holder.img_2.setVisibility(View.VISIBLE);
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 3:
-                    holder.img_1.setImageResource(reviewData.img[0]);
+                    islandRef = rootReference.child(review.getImage()+"1");
+                    islandRef2 = rootReference.child(review.getImage()+"2");
+                    islandRef3 = rootReference.child(review.getImage()+"3");
+                    setImage(islandRef,holder.img_1);
+                    setImage(islandRef2,holder.img_2);
+                    setImage(islandRef3,holder.img_3);
                     holder.img_1.setVisibility(View.VISIBLE);
-                    holder.img_2.setImageResource(reviewData.img[1]);
                     holder.img_2.setVisibility(View.VISIBLE);
-                    holder.img_3.setImageResource(reviewData.img[2]);
                     holder.img_3.setVisibility(View.VISIBLE);
-                    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
-                    StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
-
-                    StorageReference islandRef = rootReference.child(reviewData.img_url+"1");
-                    System.out.println("이미지 출력 : " + reviewData.img_url+"1" );
-                    Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader())
-                            .load(islandRef).thumbnail(0.1f).override(200,300)
-                            .into(holder.img_2);
                     break;
             }
         }
     }
-
+    public void setImage(StorageReference storageReference, ImageView imageView){
+        if(storageReference != null && imageView != null) {
+            Glide.with(mContext.getApplicationContext()).using(firebaseImageLoader)
+                    .load(storageReference).thumbnail(0.1f).override(200, 300)
+                    .into(imageView);
+        }
+    }
     @Override
     public int getItemViewType(int position) {  // position에 해당하는 viewtype을 리턴
         // Just as an example, return 0 or 2 depending on position
@@ -197,21 +180,17 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
     public void startProgress(){
-        arrayList.add(null);
-        notifyItemInserted(arrayList.size()-1);
+        if(progressPos == -1) {
+            arrayList.add(null);
+            progressPos = arrayList.size() - 1;
+            notifyItemInserted(progressPos);
+        }
     }
     public void endProgress(){
-        arrayList.remove(arrayList.size()-1);
-        notifyItemRemoved(arrayList.size());
-    }
-    public class Data{
-        public String market_text;
-        public String replace_text;
-        public String userid;
-        public String created;
-        public String review;
-        public float star;
-        public int[] img;
-        public String img_url;
+        if(progressPos != -1) {
+            arrayList.remove(progressPos);
+            notifyItemRemoved(progressPos);
+            progressPos = -1;
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +19,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.androidtown.sijang.Data.MarketRank_Data;
+import org.androidtown.sijang.Data.Market_Data;
+import org.androidtown.sijang.MarketView.MarketList_Adapter;
 import org.androidtown.sijang.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,8 +37,9 @@ public class Main_RankFragment extends Fragment {
 
 
     private List<MarketRank_Data> datas = new ArrayList<>();
+    private List<MarketRank_Data> list = new ArrayList<>();
     private ListView ranklistview;
-
+    private Main_RankAdapter main_rankAdapter;
     // Write a message to the database
     private FirebaseDatabase database;
     private FirebaseStorage firebaseStorage;
@@ -59,24 +65,49 @@ public class Main_RankFragment extends Fragment {
         firebaseStorage = FirebaseStorage.getInstance();
 
         bbsRef = database.getReference("시장전체");
+        bbsRef.addValueEventListener(rankListener);
 
-        System.out.println("캬캬캬캬");
-        bbsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                System.out.println("가나다라마바사 ");
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    MarketRank_Data marketRank_data = snapshot.getValue(MarketRank_Data.class); // 컨버팅되서 Bbs로........
-                    System.out.println("시장 이름 : " + marketRank_data.get시장이름());
-                    System.out.println("데이터 경도 : " + marketRank_data.get경도());
-                    System.out.println("데이터 위도 : " + marketRank_data.get위도());
-                    datas.add(marketRank_data);
-                }
+        main_rankAdapter = new Main_RankAdapter(list, this.getContext());
+
+        ranklistview.setAdapter(main_rankAdapter);
+    }
+
+    ValueEventListener rankListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                MarketRank_Data marketRank_data = snapshot.getValue(MarketRank_Data.class); // 컨버팅되서 Bbs로........
+                datas.add(marketRank_data);
             }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+            MiniComparator comp = new MiniComparator();
+            Collections.sort(datas, comp);
+            list.add(datas.get(0));
+            list.add(datas.get(1));
+            list.add(datas.get(2));
+
+            main_rankAdapter.notifyDataSetChanged();
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+}
+
+class MiniComparator implements Comparator<MarketRank_Data> {
+    @Override
+    public int compare(MarketRank_Data o1, MarketRank_Data o2) {
+        long first = o1.get리뷰수();
+        long second = o2.get리뷰수();
+
+        if(first>second){
+            return -1;
+        } else if (first<second){
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }

@@ -82,9 +82,9 @@ public class MyInfoActivity extends AppCompatActivity {
             switch(position)
             {
                 case 0:
-                    return myInfoReviewFragment;
-                case 1:
                     return myInfoFavoriteFragment;
+                case 1:
+                    return myInfoReviewFragment;
                 default:
                     return null;
             }
@@ -96,7 +96,6 @@ public class MyInfoActivity extends AppCompatActivity {
         super.onBackPressed();
     }
 }
-
 
 
 
