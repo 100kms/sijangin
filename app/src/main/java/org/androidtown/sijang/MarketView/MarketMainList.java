@@ -87,7 +87,7 @@ public class MarketMainList extends AppCompatActivity {
         marketName.setText(marketname);
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.Mymap);
-
+        
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -104,7 +104,7 @@ public class MarketMainList extends AppCompatActivity {
                 //LatLng SEOUL2 = new LatLng(a,b);
                 //double c = SEOUL2.latitude ;
 
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
                 //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fire_latitude, fire_longitude), 13));
                 //googleMap.addMarker(new MarkerOptions().position(new LatLng(fire_latitude, fire_longitude)).title(marketname).snippet("설명")).showInfoWindow();
                 System.out.println("나의 위도 : " + mylatitude);
@@ -153,7 +153,8 @@ public class MarketMainList extends AppCompatActivity {
                                 marker2.snippet("설명");
 
                                 gmap.addMarker(marker1).showInfoWindow();
-                                gmap.addMarker(marker2).showInfoWindow();
+                                //gmap.addMarker(marker2).showInfoWindow();
+
 
                                 Route(gmap);
                                 //gmap.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude)).title(marketname).snippet("설명")).showInfoWindow();

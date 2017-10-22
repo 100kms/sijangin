@@ -84,6 +84,11 @@ public class MarketList_Adapter extends BaseAdapter {
                 intent.putExtra("market_name",market_data.get시장이름());
                 intent.putExtra("place", place);
 
+                System.out.println("앜 : " + market_data.get경도());
+                System.out.println("앜 : " + market_data.get위도());
+                System.out.println("앜 : " + market_data.get주소());
+                System.out.println("앜 : " + market_data.get내용());
+
                 intent.putExtra("경도", market_data.get경도());
                 intent.putExtra("위도", market_data.get위도());
                 intent.putExtra("주소", market_data.get주소());

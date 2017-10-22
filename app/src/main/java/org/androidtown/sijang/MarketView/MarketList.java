@@ -45,7 +45,7 @@ public class MarketList extends MainActivity {
 
         Intent intent = getIntent();
         String place = intent.getStringExtra("place");
-
+        place = "은서마";
         marketRef = database.getReference("시장").child(place);
         marketRef.addValueEventListener(marketListener);
 

@@ -81,17 +81,18 @@ public class DataBase_Write extends AppCompatActivity {
                 String title2 = e_title.getText().toString();
                 String content2 = e_content.getText().toString();
                 //review_marketRef = database.getReference("지도").child(title2).child(content2);
-                review_marketRef = database.getReference("시장").child(title2).child(content2);
+                review_marketRef = database.getReference("review").child(title2).child(content2);
                 //String market_key = review_marketRef.push().getKey();
 
                 Map<String, String> reviewValues = new HashMap<>();
-                reviewValues.put("경도", "123");
-                reviewValues.put("교통수단", "버스");
-                reviewValues.put("내용", "내용입니다");
-                reviewValues.put("사진1", "a");
-                reviewValues.put("사진2", "b");
-                reviewValues.put("시장이름", "asd");
-                reviewValues.put("위도", "123");
+                reviewValues.put("content", "내용");
+                reviewValues.put("data_record", "2017-10-01");
+                reviewValues.put("image", "-KwPJueK9Yn2Hs6TJffg/");
+                reviewValues.put("image_count", "3");
+                reviewValues.put("market_text", "가시장");
+                reviewValues.put("replace_text", "나음식");
+                reviewValues.put("star", "3.5");
+                reviewValues.put("user_id", "keealsgu");
 
 
 

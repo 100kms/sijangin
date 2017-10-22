@@ -3,14 +3,12 @@ package org.androidtown.sijang.MainView;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -20,24 +18,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.balysv.materialmenu.MaterialMenuDrawable;
 
+import org.androidtown.sijang.MarketView.MarketList;
 import org.androidtown.sijang.MyInfoActivity;
 import org.androidtown.sijang.R;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    MainFragment mainFragment;
+    Main_RankFragment mainFragment;
     MainFragment mainFragment2;
     MainFragment mainFragment3;
-    MainFragment mainFragment4;
+    MainMapFragment mainFragment4;
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private LinearLayout linearLayout;
@@ -71,28 +69,29 @@ public class MainActivity extends AppCompatActivity {
                 super.handleMessage(msg);
                 int message = msg.getData().getInt("message");
                 switch (message){
-                    case 1://close drawer
+                    case 1: {//close drawer
                         drawerLayout.closeDrawer(linearLayout);
                         String data = msg.getData().getString("data");
                         Intent intent = null;
-                            if(data.equals(drawerMneu[0])) {//myMenu
-                                intent = new Intent(getApplicationContext(), MyInfoActivity.class);
-                                startActivity(intent);
-                            }
-                            else if(data.equals(drawerMneu[1])) {// "공지사항",
+                        if (data.equals(drawerMneu[0])) {//myMenu
+                            intent = new Intent(getApplicationContext(), MyInfoActivity.class);
+                            startActivity(intent);
+                        } else if (data.equals(drawerMneu[1])) {// "공지사항",
+                             intent = new Intent(getApplicationContext(), MarketList.class);
+                            startActivity(intent);
+                        } else if (data.equals(drawerMneu[2])) {//   "시장IN 정보",
 
-                            }
-                            else if(data.equals(drawerMneu[2])) {//   "시장IN 정보",
+                        } else if (data.equals(drawerMneu[3])) {//"로그아웃",
 
-                            }
-                            else if(data.equals(drawerMneu[3])) {//"로그아웃",
-
-                            }
-                            else{
-                                Toast.makeText(getApplicationContext(),"Message Error",Toast.LENGTH_SHORT).show();
-                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Message Error", Toast.LENGTH_SHORT).show();
+                        }
 
                         break;
+                    }
+                    case 4 : {
+                        String data = msg.getData().getString("data");
+                    }
                 }
             }
         };
@@ -135,10 +134,10 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager)findViewById(R.id.main_viewPager);
 
-        mainFragment = new MainFragment();
+        mainFragment = new Main_RankFragment();
         mainFragment2 = new MainFragment();
         mainFragment3 = new MainFragment();
-        mainFragment4 = new MainFragment();
+        mainFragment4 = new MainMapFragment();
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
