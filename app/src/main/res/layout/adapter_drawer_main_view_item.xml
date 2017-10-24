@@ -10,8 +10,11 @@
     android:weightSum="1">
 
     <LinearLayout
+        android:id="@+id/drawer_main_LinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
         <ImageView
             android:id="@+id/drawer_main_imageView"
             android:layout_width="wrap_content"
@@ -28,6 +31,14 @@
             android:paddingTop="10dp"
             android:textSize="15dp"
             android:layout_weight="1"/>
+        <ImageView
+            android:id="@+id/drawer_main_right_imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="#ffffff"
+            android:src="@drawable/main_drawer_right"
+            android:layout_weight="0.2"/>
+
     </LinearLayout>
     <View
         android:padding="0dp"

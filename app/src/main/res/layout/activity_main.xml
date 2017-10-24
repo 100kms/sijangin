@@ -13,8 +13,8 @@
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#efadad"
-        android:titleTextColor="#efadad"/>
+        android:background="@color/colorPrimaryDark"
+        />
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/main_drawer_layout"
         android:layout_width="match_parent"
@@ -30,9 +30,9 @@
                 android:id="@+id/main_tabLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#efadad"
+                android:background="@color/colorPrimaryDark"
                 app:tabTextColor="#ffffff"
-                app:tabSelectedTextColor="#64b8e8"
+                app:tabSelectedTextColor="#ff000000"
                 android:minHeight="?attr/actionBarSize" />
 
             <android.support.v4.view.ViewPager
@@ -43,9 +43,9 @@
         <LinearLayout
             android:id="@+id/main_drawer_linear_layout"
             android:layout_width="200dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#00ffffff"
+            android:background="#FFffffff"
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
