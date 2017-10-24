@@ -21,8 +21,8 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -54,7 +54,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 
 public class MainMapFragment extends Fragment implements OnMapReadyCallback {
-
+    private String gps;
     private Handler handler ;
     public MainMapFragment(){
 
@@ -109,6 +109,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_main_map, container, false);
+        gps = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
 
         //chkGpsService();
 
@@ -117,12 +118,26 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         //Log.d(gps, "aaaa");
 
         //gpscheck();
+        //RefreshThread th = new RefreshThread();
+        //th.start();
 
-        Button mbtn = (Button)view.findViewById(R.id.mbtn);
+        mbtn = (Button)view.findViewById(R.id.mbtn);
+        if(((gps.matches(".*gps.*") && gps.matches(".*network.*")))){
+            mbtn.setText("on");
+            mbtn.setBackgroundResource(R.drawable.ic_pin_drop_black_24dp);
+        }
         mbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gpscheck();
+                if(mbtn.getText().equals("off")) {
+                    mbtn.setBackgroundResource(R.drawable.ic_layers_clear_black_24dp);
+                    gpscheck();
+                }
+                else if(mbtn.getText().equals("on")){
+                    mbtn.setBackgroundResource(R.drawable.ic_pin_drop_black_24dp);
+                    RefreshThread th = new RefreshThread();
+                    th.start();
+                }
             }
         });
         // gps 여부 체크
@@ -179,7 +194,8 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
 
                     index++;
                     if(index== names.length){
-                        Sort();
+                        //Sort();
+                        getLastLocation();
                         index=0;
                         System.out.println("데이터 사이즈 : " + datas.size());
                         System.out.println("이름길이 사이즈 : " + names.length);
@@ -224,13 +240,14 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             System.out.println("내위치 경도: " + mylongitude);
             System.out.println("내위치 위도 : " + mylatitude);
 
-        LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
+            LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
             gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
             gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소())).showInfoWindow();
             gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("▼")).showInfoWindow();
 
     }
 
+    // 내 위치 찾기
     @SuppressWarnings("MissingPermission")
     @AfterPermissionGranted(RC_LOCATION)
     public void getLastLocation(){
@@ -242,7 +259,9 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
                 @Override
 
                 public void onComplete(@NonNull Task<Location> task) {
-                    System.out.println("333333" + task.isSuccessful() + "  " + task.getResult());
+                    System.out.println("333333");
+                    System.out.println("task success : " + task.isSuccessful());
+                    System.out.println("task getResult : " + task.getResult());
                     if(task.isSuccessful() && task.getResult() != null){
                         System.out.println("444444");
                         mLastLocation = task.getResult();
@@ -258,6 +277,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
                                 System.out.println("1나의 위도 : " + mylatitude);
                                 System.out.println("1나의 경도 : " + mylongitude);
 
+                                Sort();
                             }
 
 
@@ -272,6 +292,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         else{
             EasyPermissions.requestPermissions(this, "This app needs access to your location to know where you are", RC_LOCATION, perms);
         }
+
     }
 
 
@@ -283,10 +304,12 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         double fire_latitude = temp_latitude;
         double fire_longitude = temp_longitude;
         LatLng place = new LatLng(fire_latitude, fire_longitude);
-        getLastLocation();
+        //getLastLocation();
         //LatLng SEOUL = new LatLng(37.56,126.97);
         //LatLng SEOUL2 = new LatLng(a,b);
         //double c = SEOUL2.latitude ;
+       // gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
+//        gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소())).showInfoWindow();
 
         //gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
         //gmap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(fire_latitude, fire_longitude), 13));
@@ -299,22 +322,36 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("two-1");
         //FragmentManager fragmentManager = getActivity().getSupportFragmentManager()
         System.out.println("two-2");
-        MapFragment mapFragment = (MapFragment)getActivity().getFragmentManager().findFragmentById(R.id.Mainmap);
+        SupportMapFragment mapFragment = (SupportMapFragment)this.getChildFragmentManager().findFragmentById(R.id.Mainmap);
+        //MapFragment mapFragment = (MapFragment)getChildFragmentManager().findFragmentById(R.id.Mainmap);
         System.out.println("two-3");
         mapFragment.getMapAsync(this);
         System.out.println("two-4");
     }
 
     class RefreshThread extends Thread{
+        String gps;
+        public RefreshThread(){
 
+        }
         public void run(){
             while(true) {
-                try {
-                    Thread.sleep(5000);
-                    refresh();
-                    //ft.detach(getActivity().onAttachFragment();).attach(this).commit();
-                } catch (Exception e) {
 
+                try {
+                    gps = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+                    if(((gps.matches(".*gps.*") && gps.matches(".*network.*")))) {
+                        System.out.println("쥐피에스 들어옴");
+                        getLastLocation();
+                        return;
+                    }
+                    /*else if(!((gps.matches(".*gps.*") && gps.matches(".*network.*")))) {
+                        return;
+                    }
+                    */
+
+                } catch (Exception e) {
+                    return;
                 }
             }
 
@@ -337,15 +374,26 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         super.onActivityResult(requestCode, resultCode, data);
         System.out.println("결과 : " + requestCode + "   "+ resultCode);
         if(requestCode==1234 && resultCode==0){
-            //여기에 리프레쉬 기능 함수들 넣기??
+            System.out.println("리퀘스트 들어옴");
+            //내 위치 데이터를 가져오기위한 5초의 지연시간을 줌
+            String gps = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), android.provider.Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+
+            if ((gps.matches(".*gps.*") && gps.matches(".*network.*"))) {
+                mbtn.setText("on");
+            }
+            //RefreshThread th = new RefreshThread();
+            //th.start();
+
+            //getLastLocation();
 
         }
     }
 
     public void refresh(){
         //FragmentTransaction ft = getFragmentManager().beginTransaction();
-        FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.detach(this).attach(this).commit();
+        FragmentTransaction ft = this.getChildFragmentManager().beginTransaction();
+        //FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+        ft.detach((SupportMapFragment)this.getChildFragmentManager().findFragmentById(R.id.Mainmap)).attach((SupportMapFragment)this.getChildFragmentManager().findFragmentById(R.id.Mainmap)).commit();
     }
 
 
