@@ -15,13 +15,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,7 +35,6 @@ import org.androidtown.sijang.R;
 import org.androidtown.sijang.Util.ImageUtil;
 
 import java.io.File;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -46,27 +49,31 @@ public class Review_Write extends AppCompatActivity {
     private EditText e_title;
     private EditText e_content;
     private Button create;
-    private Button cancel;
     private Button add;
     private Button del;
     private ImageView image1;
     private ImageView image2;
     private ImageView image3;
     private RatingBar ratingBar;
-    private TextView rating_score;
     private String imagePath;
     private Uri imageUri1, imageUri2, imageUri3;
+    private boolean flag = true;
 
     private String id;
     private String name;
+    private String marketname;
     private int add_count = 0;
+    private double star;
+    private String getTime;
+    private String img_count;
+    private long child_count = 0;
 
-    FirebaseDatabase database;
-    FirebaseStorage firebaseStorage;
-    StorageReference rootReference;
-    DatabaseReference review_marketRef;
-    DatabaseReference review_userRef;
-    DatabaseReference review_allRef;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();;
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference  rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+    DatabaseReference review_allRef = database.getReference().child("review").child("전체");
+    Map<String, Object> reviewValues = new HashMap<>();
+    DatabaseReference reviewRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,15 +86,15 @@ public class Review_Write extends AppCompatActivity {
         id = pref.getString("user_id", "");
         name = pref.getString("user_name", "");
 
+        Intent gIntent = getIntent();
+        marketname = gIntent.getStringExtra("marketname");
+
         e_title = (EditText)findViewById(R.id.write_edit_title);
         e_content = (EditText)findViewById(R.id.write_edit_content);
 
         create = (Button)findViewById(R.id.write_btn_ok);
-        cancel = (Button)findViewById(R.id.write_btn_cancel);
         add = (Button)findViewById(R.id.write_btn_add);
         del = (Button)findViewById(R.id.write_btn_del);
-
-        rating_score = (TextView)findViewById(R.id.write_text_rating);
 
         image1 = (ImageView)findViewById(R.id.write_image_one);
         image2 = (ImageView)findViewById(R.id.write_image_two);
@@ -153,14 +160,21 @@ public class Review_Write extends AppCompatActivity {
             }
         });
 
-        database = FirebaseDatabase.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
 
-        rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
-        review_marketRef = database.getReference("리뷰").child("시장별").child("변수시장");
-        review_userRef = database.getReference("리뷰").child("개인별").child("변수아이디");
-        review_allRef = database.getReference("리뷰").child("전체");
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+                ratingBar.setRating(rating);
+                star = rating;
+            }
+        });
 
+        reviewRef = database.getReference("시장전체").child(marketname);
+
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        getTime = sdf.format(date);
 
         create.setOnClickListener(new View.OnClickListener(){
 
@@ -169,121 +183,174 @@ public class Review_Write extends AppCompatActivity {
                 String title = e_title.getText().toString();
                 String content = e_content.getText().toString();
 
-                String market_key = review_marketRef.push().getKey();
-                String user_key = review_userRef.push().getKey();
-                String all_key = review_allRef.push().getKey();
-
-                Map<String, String> reviewValues = new HashMap<>();
                 reviewValues.put("title", title);
                 reviewValues.put("content", content);
-                reviewValues.put("id", id);
+                reviewValues.put("user_id", id);
                 reviewValues.put("name", name);
-                reviewValues.put("market_key", market_key);
-                reviewValues.put("all_key", all_key);
-                reviewValues.put("user_key", user_key);
+                reviewValues.put("marketname", marketname);
+                reviewValues.put("star", star);
+                reviewValues.put("date", getTime);
 
 
+                review_allRef.addValueEventListener(countListener);
 
-                DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");
-                Date nowDate = new Date();
-                String tempDate = sdFormat.format(nowDate);
-
-                if(imageUri1!=null){
-                    count="1";
-                    StorageReference riversRef1 = rootReference.child(all_key+"/1");
-                    UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
-                    System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>" + imageUri1);
-
-                    // Register observers to listen for when the download is done or if it fails
-                    uploadTask1.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(getApplicationContext(), "1-1에러" + imageUri1, Toast.LENGTH_SHORT).show();
-                            // Handle unsuccessful uploads
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "1-2에러" + imageUri1, Toast.LENGTH_SHORT).show();
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        }
-                    });
-                }
-
-                if(imageUri2!=null) {
-                    count="2";
-                    StorageReference riversRef2 = rootReference.child(all_key + "/2");
-                    UploadTask uploadTask2 = riversRef2.putFile(imageUri2);
-
-                    // Register observers to listen for when the download is done or if it fails
-                    uploadTask2.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(getApplicationContext(), "2-1에러" + imageUri2, Toast.LENGTH_SHORT).show();
-                            // Handle unsuccessful uploads
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "2-2에러" + imageUri2, Toast.LENGTH_SHORT).show();
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        }
-                    });
-                }
-                if(imageUri3!=null){
-                    count="3";
-                    StorageReference riversRef3 = rootReference.child(all_key + "/3");
-                    UploadTask uploadTask3 = riversRef3.putFile(imageUri3);
-
-                    // Register observers to listen for when the download is done or if it fails
-                    uploadTask3.addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            Toast.makeText(getApplicationContext(), "3-1에러" + imageUri3, Toast.LENGTH_SHORT).show();
-                            // Handle unsuccessful uploads
-                        }
-                    }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(getApplicationContext(), "3-2에러" + imageUri3, Toast.LENGTH_SHORT).show();
-                            // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                            //Uri downloadUrl = taskSnapshot.getDownloadUrl();
-                        }
-                    });
-                }
-                reviewValues.put("count", count);
-
-                DatabaseReference market_keyRef = review_marketRef.child(market_key);
-                market_keyRef.setValue(reviewValues);
-                DatabaseReference user_keyRef = review_userRef.child(user_key);
-                user_keyRef.setValue(reviewValues);
-                DatabaseReference all_keyRef = review_allRef.child(all_key);
-                all_keyRef.setValue(reviewValues);
+                onStarClicked(reviewRef);
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener(){
+    }
 
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-                ratingBar.setRating(rating);
-                rating_score.setText(String.valueOf(rating));
+    ValueEventListener countListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            long child_count = dataSnapshot.getChildrenCount();
+            send(child_count);
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+    public void send(long count){
+        System.out.println(count);
+        if(flag){
+            switch (add_count){
+                case 1 :
+                    if(imageUri1!=null){
+                        img_count="1";
+                        StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
+                        UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
+
+                        // Register observers to listen for when the download is done or if it fails
+                        uploadTask1.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "1-1에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "1-2에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                    }
+                    break;
+                case 2 :
+                    if(imageUri2!=null) {
+                        img_count="2";
+                        StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
+                        UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
+                        StorageReference riversRef2 = rootReference.child(String.valueOf(count)+"/2");
+                        UploadTask uploadTask2 = riversRef2.putFile(imageUri2);
+
+                        uploadTask1.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "1-1에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "1-2에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                        // Register observers to listen for when the download is done or if it fails
+                        uploadTask2.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "2-1에러" + imageUri2, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "2-2에러" + imageUri2, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                    }
+                    break;
+                case 3 :
+                    if(imageUri3!=null){
+                        img_count="3";
+                        StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
+                        UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
+                        StorageReference riversRef2 = rootReference.child(String.valueOf(count)+"/2");
+                        UploadTask uploadTask2 = riversRef2.putFile(imageUri2);
+                        StorageReference riversRef3 = rootReference.child(String.valueOf(count)+"/3");
+                        UploadTask uploadTask3 = riversRef3.putFile(imageUri3);
+
+                        uploadTask1.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "1-1에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "1-2에러" + imageUri1, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                        // Register observers to listen for when the download is done or if it fails
+                        uploadTask2.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "2-1에러" + imageUri2, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "2-2에러" + imageUri2, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                        // Register observers to listen for when the download is done or if it fails
+                        uploadTask3.addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception exception) {
+                                Toast.makeText(getApplicationContext(), "3-1에러" + imageUri3, Toast.LENGTH_SHORT).show();
+                                // Handle unsuccessful uploads
+                            }
+                        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(getApplicationContext(), "3-2에러" + imageUri3, Toast.LENGTH_SHORT).show();
+                                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                                //Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                            }
+                        });
+                    }
+                    break;
             }
-        });
-
-
+            reviewValues.put("img_count", img_count);
+            DatabaseReference review_allRef2 = review_allRef.child(String.valueOf(count));
+            review_allRef2.setValue(reviewValues);
+            flag = false;
+        }
     }
 
     public void add_imageview(int add_count){
 
-        image1 = (ImageView)findViewById(R.id.write_image_one);
-        image2 = (ImageView)findViewById(R.id.write_image_two);
-        image3 = (ImageView)findViewById(R.id.write_image_three);
+//        image1 = (ImageView)findViewById(R.id.write_image_one);
+//        image2 = (ImageView)findViewById(R.id.write_image_two);
+//        image3 = (ImageView)findViewById(R.id.write_image_three);
 
         switch (add_count){
             case 0 :
@@ -318,11 +385,9 @@ public class Review_Write extends AppCompatActivity {
                 if(requestCode==101) {
                     updateImageView(image1);
                     imageUri1 = Uri.fromFile(new File(getPath(data.getData())));
-                    image2.setVisibility(View.VISIBLE);
                 }else if(requestCode==102) {
                     updateImageView(image2);
                     imageUri2 = Uri.fromFile(new File(getPath(data.getData())));
-                    image3.setVisibility(View.VISIBLE);
                 }else if(requestCode==103){
                     updateImageView(image3);
                     imageUri3 = Uri.fromFile(new File(getPath(data.getData())));}
@@ -351,6 +416,29 @@ public class Review_Write extends AppCompatActivity {
         iv.setImageBitmap(roundBitmap);
         resizeBitmap.recycle();
     }
+
+    private void onStarClicked(DatabaseReference reviewRef) {
+        reviewRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                MarketRank_Data marketRank_data = mutableData.getValue(MarketRank_Data.class);
+                if (marketRank_data == null) {
+                    return Transaction.success(mutableData);
+                }
+
+                marketRank_data.set리뷰수(marketRank_data.get리뷰수()+1);
+
+                mutableData.setValue(marketRank_data);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+            }
+        });
+    }
+
 }
 /* 파이어베이스에 데이터 집어넣는 클래스
 

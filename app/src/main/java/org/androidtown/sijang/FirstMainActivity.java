@@ -2,8 +2,11 @@ package org.androidtown.sijang;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,6 +44,22 @@ public class FirstMainActivity extends FragmentActivity {
             Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
             startActivity(intent);
         }
+
+
+        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            }, 466);
+        }
+
+        if ((ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED))
+        {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            }, 466);
+        }
+
 
 
         Button empty_btn = (Button)findViewById(R.id.empty_btn);

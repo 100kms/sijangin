@@ -58,7 +58,6 @@ public class DataBase_Write extends AppCompatActivity {
         e_content = (EditText)findViewById(R.id.write_edit_content);
 
         create = (Button)findViewById(R.id.write_btn_ok);
-        cancel = (Button)findViewById(R.id.write_btn_cancel);
         add = (Button)findViewById(R.id.write_btn_add);
         del = (Button)findViewById(R.id.write_btn_del);
 

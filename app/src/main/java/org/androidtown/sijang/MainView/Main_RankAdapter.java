@@ -62,6 +62,7 @@ public class Main_RankAdapter extends BaseAdapter {
         }
         TextView market_name = (TextView) convertView.findViewById(R.id.fragment_main_rank_item_market);
         ImageView rank = (ImageView) convertView.findViewById(R.id.fragment_main_rank_item_rank);
+        ImageView market_img = (ImageView) convertView.findViewById(R.id.fragment_main_rank_item_img);
 
         MarketRank_Data marketRank_data = list.get(position);
         market_name.setText(marketRank_data.get시장이름());
@@ -71,8 +72,14 @@ public class Main_RankAdapter extends BaseAdapter {
 
         System.out.println("==========================="+position);
 
-        StorageReference marketImageRef = rootReference.child("메달/"+position+".PNG");
-        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(rank);
+        StorageReference marketImageRef = rootReference.child(marketRank_data.get시장이름()+"/0.jpg");
+        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(market_img);
+
+        switch (position){
+            case 0 : rank.setImageResource(R.drawable.goldmedal); break;
+            case 1 : rank.setImageResource(R.drawable.goldmedal); break;
+            case 2: rank.setImageResource(R.drawable.goldmedal); break;
+        }
 
         return convertView;
 

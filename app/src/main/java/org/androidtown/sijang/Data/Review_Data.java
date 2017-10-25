@@ -12,6 +12,16 @@ public class Review_Data {
     public String user_key;
     public String id;
     public String name;
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String rating;
     public String count;
 
 

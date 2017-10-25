@@ -9,6 +9,8 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.androidtown.sijang.Data.Review_Data;
+import org.androidtown.sijang.Data.Review_Write;
 import org.androidtown.sijang.R;
 
 import java.io.IOException;
@@ -81,6 +84,18 @@ public class MarketMainList extends AppCompatActivity {
         longitude = gIntent.getDoubleExtra("경도", 0.0);
         String address = gIntent.getStringExtra("주소");
         String content = gIntent.getStringExtra("내용");
+
+        Button write_rv = (Button)findViewById(R.id.marketmainlist_btn_review);
+
+        write_rv.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), Review_Write.class);
+                intent.putExtra("marketname", marketname);
+                startActivity(intent);
+            }
+        });
 
         TextView marketName = (TextView) findViewById(R.id.marketmainlist_text_name);
         getLastLocation();

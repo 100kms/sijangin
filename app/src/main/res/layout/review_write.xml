@@ -8,92 +8,139 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/write_edit_title"
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/board"
-                android:hint ="제목"/>
+                android:layout_height="wrap_content"
+                android:background="@drawable/board">
+
+                <EditText
+                    android:id="@+id/write_edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/round"
+                    android:hint="제목"
+                    android:lines="1"
+                    android:maxLength="10"/>
+
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <TextView
+                    android:id="@+id/write_text_pic"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:text = "사진칸 추가/제거"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_centerVertical="true"
+                    android:textSize="20dp"/>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/write_text_pic">
+
+                    <Button
+                        android:id="@+id/write_btn_add"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/imageplus" />
+
+                    <Button
+                        android:id="@+id/write_btn_del"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/imageremove" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
+                android:padding="10dp"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/write_btn_add"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="사진칸 추가"
-                    android:layout_weight="1" />
+                    android:layout_height="match_parent"
+                    android:background="@drawable/board"
+                    android:layout_weight="1">
 
-                <Button
-                    android:id="@+id/write_btn_del"
+                    <ImageView
+                        android:id="@+id/write_image_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cameraplus" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="사진칸 삭제"
-                    android:layout_weight="1"/>
+                    android:layout_height="match_parent"
+                    android:background="@drawable/board"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/write_image_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cameraplus"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/board"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/write_image_three"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/cameraplus"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
 
             </LinearLayout>
 
-            <LinearLayout
+            <com.wrapp.floatlabelededittext.FloatLabeledEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
 
-                <ImageView
-                    android:id="@+id/write_image_one"
+                <EditText
+                    android:id="@+id/write_edit_content"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:paddingRight="30dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/mainlogo1"/>
+                    android:layout_height="300dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="top"
+                    android:hint="내용을 입력해주세요" />
 
-                <ImageView
-                    android:id="@+id/write_image_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:paddingRight="30dp"
-                    android:scaleType="fitXY"
-                    android:visibility="gone"
-                    android:src="@drawable/mainlogo1"/>
-
-                <ImageView
-                    android:id="@+id/write_image_three"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:paddingRight="30dp"
-                    android:scaleType="fitXY"
-                    android:visibility="gone"
-                    android:src="@drawable/mainlogo1"/>
-
-
-            </LinearLayout>
-
-            <EditText
-                android:id="@+id/write_edit_content"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:hint="내용을 입력해주세요"
-                android:background="@drawable/board"
-                android:gravity="top"/>
-
-            <fragment
-                android:id="@+id/reviewmap_map"
-                class="com.google.android.gms.maps.MapFragment"
-                android:layout_width="match_parent"
-                android:layout_height="300dp" />
+            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -115,37 +162,15 @@
 
             </LinearLayout>
 
-
-
-            <LinearLayout
+            <Button
+                android:id="@+id/write_btn_ok"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/write_btn_cancel"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="취소"/>
-
-                <Button
-                    android:id="@+id/write_btn_ok"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:text="등록"/>
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:text="등록" />
 
         </LinearLayout>
 
     </ScrollView>
-
-
-
 
 
 </LinearLayout>
