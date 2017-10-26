@@ -14,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.utils.L;
-
 import org.androidtown.sijang.R;
 
 import java.util.ArrayList;
@@ -49,13 +47,13 @@ public class MainDrawerViewAdapter extends RecyclerView.Adapter<MainDrawerViewAd
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     int action=event.getAction();
-                    if(action == MotionEvent.ACTION_DOWN) {
+                    if(action == MotionEvent.ACTION_MOVE && v.isPressed()) {
                         linearLayout.setBackgroundColor(Color.parseColor("#c6c4c4"));
                         imageView.setBackgroundColor(Color.parseColor("#c6c4c4"));
                         textView.setBackgroundColor(Color.parseColor("#c6c4c4"));
                         right_imageView.setBackgroundColor(Color.parseColor("#c6c4c4"));
                     }
-                    else if(action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_OUTSIDE){
+                    else{
 
                         linearLayout.setBackgroundColor(Color.parseColor("#ffffffff"));
                         imageView.setBackgroundColor(Color.parseColor("#ffffffff"));

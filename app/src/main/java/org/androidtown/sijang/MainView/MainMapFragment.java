@@ -2,17 +2,11 @@ package org.androidtown.sijang.MainView;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +20,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,17 +30,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
-import org.androidtown.sijang.Data.Latitude;
 import org.androidtown.sijang.Data.Market_Data;
 import org.androidtown.sijang.R;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -103,7 +93,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
         database = FirebaseDatabase.getInstance();
         mbtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,16 +114,16 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetWorkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (isGpsEnabled && isNetWorkEnabled) {
-            mbtn.setText("on");
-            mbtn.setBackgroundResource(R.drawable.main_map_gps_on);
+            //mbtn.setText("on");
+            mbtn.setBackgroundResource(R.drawable.gps_on);
             getLastLocation();
             if (gmap != null && mylatitude != -1 && mylatitude != -1) {
                 gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mylatitude, mylongitude), 15));
             }
         }
         if (!isGpsEnabled) {
-            mbtn.setText("off");
-            mbtn.setBackgroundResource(R.drawable.main_map_gps_off);
+            //mbtn.setText("off");
+            mbtn.setBackgroundResource(R.drawable.gps_off);
         }
         if (!isNetWorkEnabled) {
 
@@ -184,6 +174,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("데이터 사이즈 :" + datas.size());
 
         for (int j = 0; j < datas.size(); j++) {
+            gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(j).get위도(), datas.get(j).get경도())).title(datas.get(j).get시장이름()).snippet(datas.get(j).get주소()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).alpha(0.7f));
             pita = Math.pow((mylatitude - datas.get(j).get위도()), 2) + Math.pow((mylongitude - datas.get(j).get경도()), 2);
             calcnum = Math.sqrt(pita);
             System.out.println("calcnum : " + calcnum);
@@ -198,10 +189,12 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("내위치 위도 : " + mylatitude);
 
         LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
-        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 16));
-        gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소())).showInfoWindow();
-        gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("▼")).showInfoWindow();
-
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 14));
+        gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).alpha(0.7f)).showInfoWindow();
+        //gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("　　▼　　").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)).alpha(0.7f)).showInfoWindow();
+        gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("　　▼　　")).showInfoWindow();
+        //mbtn.setBackgroundResource(R.drawable.main_map_gps_on);
+        mbtn.setBackgroundResource(R.drawable.gps_on);
     }
 
     // 내 위치 찾기
@@ -214,8 +207,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             System.out.println("22222");
             mFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                 @Override
-
-                public void onComplete(@NonNull Task<Location> task) {
+                public void onComplete(Task<Location> task) {
                     System.out.println("333333");
                     System.out.println("task success : " + task.isSuccessful());
                     System.out.println("task getResult : " + task.getResult());
@@ -258,15 +250,16 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetWorkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if (isGpsEnabled && isNetWorkEnabled) {
-            mbtn.setBackgroundResource(R.drawable.main_map_gps_on);
+            //mbtn.setBackgroundResource(R.drawable.main_map_gps_on);
             return;
         }
         if (!isGpsEnabled) {
-            mbtn.setBackgroundResource(R.drawable.main_map_gps_off);
+            //mbtn.setBackgroundResource(R.drawable.main_map_gps_off);
+            mbtn.setBackgroundResource(R.drawable.gps_off);
             Toast.makeText(getApplicationContext(), "GPS가 꺼져있습니다.", Toast.LENGTH_SHORT).show();
         }
         if (!isNetWorkEnabled) {
-            Toast.makeText(getApplicationContext(), "Network가 꺼져있습니다.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Network가 꺼져있습니다.", Toast.LENGTH_SHORT).show();
         }
 
 
@@ -278,6 +271,8 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("결과 : " + requestCode + "   " + resultCode);
         if (requestCode == 1234 && resultCode == 0) {
             System.out.println("리퀘스트 들어옴");
+            mbtn.setBackgroundResource(R.drawable.main_map_gps_loading);
+            Toast.makeText(getApplicationContext(), "GPS정보를 불러들이고 있습니다. 위치버튼을 다시 눌러주십시오", Toast.LENGTH_LONG).show();
             gpscheck();
         }
     }

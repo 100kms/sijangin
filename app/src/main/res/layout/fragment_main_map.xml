@@ -16,16 +16,15 @@
             android:id="@+id/mbtn"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:text="off"
             android:background="@drawable/ic_layers_clear_black_24dp"
             />
 
         <fragment
-        android:id="@+id/Mainmap"
-        class="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+            android:id="@+id/Mainmap"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
 
     </FrameLayout>
 </LinearLayout>

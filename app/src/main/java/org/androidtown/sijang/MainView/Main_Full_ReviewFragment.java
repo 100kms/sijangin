@@ -1,4 +1,4 @@
-package org.androidtown.sijang.MyinfoView;
+package org.androidtown.sijang.MainView;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import org.androidtown.sijang.MyinfoView.ReviewRecyclerAdapter;
 import org.androidtown.sijang.R;
 import org.androidtown.sijang.ReviewView.Review;
 
@@ -24,8 +25,8 @@ import org.androidtown.sijang.ReviewView.Review;
  * Created by CYSN on 2017-10-05.
  */
 
-public class MyInfoReviewFragment extends Fragment {
-    private static MyInfoReviewFragment instance = null;
+public class Main_Full_ReviewFragment extends Fragment {
+    private static Main_Full_ReviewFragment instance = null;
     private RecyclerView recyclerView;
     private FirebaseDatabase database;
     private FirebaseStorage firebaseStorage;
@@ -35,13 +36,14 @@ public class MyInfoReviewFragment extends Fragment {
     private int review_index = 0;
     private int review_read_index = 0;
     private boolean isMoreLoading = true;
+    private int review_fullCount = 0;
     int[] img = {};
     int[] img1 = {R.drawable.img1, R.drawable.img2};
     int[] img2 = {R.drawable.hyuk1};
     int[] img3 = {R.drawable.img1, R.drawable.img2, R.drawable.img3};
-    public static MyInfoReviewFragment getInstance(){
+    public static Main_Full_ReviewFragment getInstance(){
         if(instance == null){
-            instance = new MyInfoReviewFragment();
+            instance = new Main_Full_ReviewFragment();
         }
         return instance;
     }
@@ -99,6 +101,32 @@ public class MyInfoReviewFragment extends Fragment {
 
     public void getData() {
         reviewRecyclerAdapter.startProgress();
+        /*bbsRef = database.getReference("review").child("전체");//이걸로 아이디 csm인 데이터 가져 올 수 있음!!!★★★★★★
+        Query mQuery = bbsRef.orderByChild("user_id").equalTo("csm");*/
+        bbsRef = database.getReference("review").child("전체");
+        bbsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                review_fullCount = (int)dataSnapshot.getChildrenCount();
+                Log.i("kkkkkk",dataSnapshot.getChildrenCount() + "개!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+   /*     bbsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.i("kkkkkk",dataSnapshot.getChildrenCount() + "개!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
         for (int i = review_read_index; i < review_read_index+10; i++) {
             bbsRef = database.getReference("review").child("전체").child(Integer.toString(i));
             bbsRef.addValueEventListener(new ValueEventListener() {
@@ -113,7 +141,8 @@ public class MyInfoReviewFragment extends Fragment {
                         review_index = 0;
                         return;
                     }
-                    Log.i("kkkkk",dataSnapshot.getKey() + "임! " + review.getUser_id() + " dddd " + review.getContent() + "!!" + review.getImg_count());
+
+                    Log.i("kkkkk",review.getUser_id() + " dddd " + review.getContent() + "!!" + review.getImg_count());
                     reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
                     review_index++;
                     if(review_index == review_read_index+9){

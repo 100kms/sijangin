@@ -6,24 +6,25 @@ package org.androidtown.sijang.ReviewView;
 
 public class Review {
     private String content;
-    private String date_record;
-    private String image;
-    private int image_count;
-    private String market_text;
-    private String replace_text;
-    private float star;
+    private String date;
+    private int img_count=0;
+    private String marketname;
+    private String name;
+    private double star;
+    private String title;
     private String user_id;
     public Review(){
 
     }
-    public Review(String content, String date_record, String image, int image_count, String market_text, String replace_text, float star, String user_id) {
+
+    public Review(String content, String date, int img_count, String marketname, String name, double star, String title, String user_id) {
         this.content = content;
-        this.date_record = date_record;
-        this.image = image;
-        this.image_count = image_count;
-        this.market_text = market_text;
-        this.replace_text = replace_text;
+        this.date = date;
+        this.img_count = img_count;
+        this.marketname = marketname;
+        this.name = name;
         this.star = star;
+        this.title = title;
         this.user_id = user_id;
     }
 
@@ -35,52 +36,52 @@ public class Review {
         this.content = content;
     }
 
-    public String getDate_record() {
-        return date_record;
+    public String getDate() {
+        return date;
     }
 
-    public void setDate_record(String date_record) {
-        this.date_record = date_record;
+    public void setDate(String date) {
+        this.date = date;
     }
 
-    public String getImage() {
-        return image;
+    public int getImg_count() {
+        return img_count;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImg_count(int img_count) {
+        this.img_count = img_count;
     }
 
-    public int getImage_count() {
-        return image_count;
+    public String getMarketname() {
+        return marketname;
     }
 
-    public void setImage_count(int image_count) {
-        this.image_count = image_count;
+    public void setMarketname(String marketname) {
+        this.marketname = marketname;
     }
 
-    public String getMarket_text() {
-        return market_text;
+    public String getName() {
+        return name;
     }
 
-    public void setMarket_text(String market_text) {
-        this.market_text = market_text;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getReplace_text() {
-        return replace_text;
-    }
-
-    public void setReplace_text(String replace_text) {
-        this.replace_text = replace_text;
-    }
-
-    public float getStar() {
+    public double getStar() {
         return star;
     }
 
-    public void setStar(float star) {
+    public void setStar(double star) {
         this.star = star;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUser_id() {

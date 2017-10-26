@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     Main_RankFragment mainFragment;
     Main_Category_Fragment mainFragment2;
-    MainFragment mainFragment3;
+    Main_Full_ReviewFragment mainFragment3;
     MainMapFragment mainFragment4;
 
     protected Location mLastLocation;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                             intent = new Intent(getApplicationContext(), MyInfoActivity.class);
                             startActivity(intent);
                         } else if (data.equals(drawerMneu[1])) {// "공지사항",
-                             intent = new Intent(getApplicationContext(), MarketList.class);
+                            intent = new Intent(getApplicationContext(), MarketList.class);
                             startActivity(intent);
                         } else if (data.equals(drawerMneu[2])) {//   "시장IN 정보",
 
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
         String b = pref.getString("user_name", "");
         Toast.makeText(getApplicationContext(), a + " : " + b, Toast.LENGTH_SHORT).show();
 
-     Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
         toggle = new ActionBarDrawerToggle(this,drawerLayout,R.string.app_name, R.string.app_name);
         ActionBar actionBar = getSupportActionBar();
@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainFragment = new Main_RankFragment();
         mainFragment2 = new Main_Category_Fragment();
-        mainFragment3 = new MainFragment();
+        mainFragment3 = new Main_Full_ReviewFragment();
         mainFragment4 = new MainMapFragment();
         viewPager.setAdapter(new PageAdapter(getSupportFragmentManager()));
         viewPager.setCurrentItem(0);

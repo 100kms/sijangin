@@ -33,6 +33,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
     private StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
     private FirebaseImageLoader firebaseImageLoader = new FirebaseImageLoader();
+    private String image_index="0/";
     public ReviewRecyclerAdapter(Context context){
         this.mContext = context;
         arrayList = new ArrayList<Review>();
@@ -40,11 +41,9 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void addItem(Review review){
         arrayList.add(review);
     }
-    public void addItem(String content, String date_record, String image, int image_count, String market_text, String replace_text, float star, String user_id) {
-        Review review = new Review(content,date_record,image,image_count,market_text,replace_text,star,user_id);
-
+    public void addItem(Review review, String index){
         arrayList.add(review);
-        //  notifyItemInserted(arrayList.size()-1);
+        image_index = index + "/";
     }
     public class ProgressViewHolder extends RecyclerView.ViewHolder{
         public ProgressBar progressBar;
@@ -55,7 +54,6 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
     public class DataViewHolder extends RecyclerView.ViewHolder{
         public TextView market_text;
-        public TextView replace_text;
         public TextView user_id;
         public TextView data_record;
         public TextView review;
@@ -69,7 +67,6 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public DataViewHolder(Context context, View itemView, ReviewRecyclerAdapter myRecyclerAdapter) {
             super(itemView);
             this.market_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_market);
-            this.replace_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_replace);
             this.user_id = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
             this.data_record = (TextView) itemView.findViewById(R.id.reviewlist_item_text_record);
             this.review = (TextView) itemView.findViewById(R.id.reviewlist_item_text_review);
@@ -88,13 +85,12 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(viewHolder instanceof DataViewHolder) {
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
             Review review = arrayList.get(position);
-            holder.market_text.setText(review.getMarket_text());
-            holder.replace_text.setText(review.getReplace_text());
+            holder.market_text.setText(review.getMarketname());
             holder.user_id.setText(review.getUser_id());
-            holder.data_record.setText(review.getDate_record());
+            holder.data_record.setText(review.getDate());
             holder.review.setText(review.getContent());
-            holder.star.setRating(review.getStar());
-            int count = review.getImage_count();
+            holder.star.setRating((float)review.getStar());
+            int count = review.getImg_count();
             StorageReference islandRef;
             StorageReference islandRef2;
             StorageReference islandRef3;
@@ -105,15 +101,15 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 1:
-                    islandRef = rootReference.child(review.getImage()+"1");
+                    islandRef = rootReference.child(image_index+"1");
                     setImage(islandRef,holder.img_1);
                     holder.img_1.setVisibility(View.VISIBLE);
                     holder.img_2.setVisibility(View.GONE);
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 2:
-                    islandRef = rootReference.child(review.getImage()+"1");
-                    islandRef2 = rootReference.child(review.getImage()+"2");
+                    islandRef = rootReference.child(image_index+"1");
+                    islandRef2 = rootReference.child(image_index+"2");
                     setImage(islandRef,holder.img_1);
                     setImage(islandRef2,holder.img_2);
                     holder.img_1.setVisibility(View.VISIBLE);
@@ -121,9 +117,9 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 3:
-                    islandRef = rootReference.child(review.getImage()+"1");
-                    islandRef2 = rootReference.child(review.getImage()+"2");
-                    islandRef3 = rootReference.child(review.getImage()+"3");
+                    islandRef = rootReference.child(image_index+"1");
+                    islandRef2 = rootReference.child(image_index+"2");
+                    islandRef3 = rootReference.child(image_index+"3");
                     setImage(islandRef,holder.img_1);
                     setImage(islandRef2,holder.img_2);
                     setImage(islandRef3,holder.img_3);
