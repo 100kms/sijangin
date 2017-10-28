@@ -2,10 +2,10 @@ package org.androidtown.sijang.MainView;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -59,6 +60,8 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     private double mylatitude = -1;
     private double mylongitude = -1;
 
+    MarkerOptions default_marker;
+
     private int index = 0;
 
     private List<Market_Data> datas = new ArrayList<>();
@@ -91,7 +94,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity().getApplicationContext());
         database = FirebaseDatabase.getInstance();
@@ -118,7 +121,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
             mbtn.setBackgroundResource(R.drawable.gps_on);
             getLastLocation();
             if (gmap != null && mylatitude != -1 && mylatitude != -1) {
-                gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mylatitude, mylongitude), 15));
+                gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(mylatitude, mylongitude), 13));
             }
         }
         if (!isGpsEnabled) {
@@ -188,13 +191,24 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("내위치 경도: " + mylongitude);
         System.out.println("내위치 위도 : " + mylatitude);
 
+        //GPS켜지면 디폴트 마커 삭제
+        default_marker.position(new LatLng(37, 127)).title("날 어떻게 찾았지?").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(1f);
+        default_marker.visible(false);
+        gmap.addMarker(default_marker);
+
         LatLng place = new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도());
-        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 14));
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
         gmap.addMarker(new MarkerOptions().position(new LatLng(datas.get(realnum).get위도(), datas.get(realnum).get경도())).title(datas.get(realnum).get시장이름()).snippet(datas.get(realnum).get주소()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).alpha(0.7f)).showInfoWindow();
         //gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("　　▼　　").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)).alpha(0.7f)).showInfoWindow();
-        gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("　　▼　　")).showInfoWindow();
+
+
+        // 원 그리기
+        onCircle(datas.get(realnum).get위도(), datas.get(realnum).get경도());
+        gmap.addMarker(new MarkerOptions().position(new LatLng(mylatitude, mylongitude)).title("현재 내 위치").snippet("　　▼　　").icon(BitmapDescriptorFactory.fromResource(R.drawable.my_location2))).showInfoWindow();
         //mbtn.setBackgroundResource(R.drawable.main_map_gps_on);
         mbtn.setBackgroundResource(R.drawable.gps_on);
+
+
     }
 
     // 내 위치 찾기
@@ -236,6 +250,12 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
 
     public void onMapReady(final GoogleMap map) {
         gmap = map;
+
+        default_marker = new MarkerOptions();
+        default_marker.position(new LatLng(37.603227, 127.024964)).title("GPS를 켜주세요").snippet("왼쪽 위 버튼").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)).alpha(0.8f);
+        gmap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(37.603227, 127.024964), 15));
+        gmap.addMarker(default_marker).showInfoWindow();
+
     }
 
 
@@ -271,9 +291,17 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
         System.out.println("결과 : " + requestCode + "   " + resultCode);
         if (requestCode == 1234 && resultCode == 0) {
             System.out.println("리퀘스트 들어옴");
-            mbtn.setBackgroundResource(R.drawable.main_map_gps_loading);
-            Toast.makeText(getApplicationContext(), "GPS정보를 불러들이고 있습니다. 위치버튼을 다시 눌러주십시오", Toast.LENGTH_LONG).show();
+            //mbtn.setBackgroundResource(R.drawable.main_map_gps_loading);
+            //mbtn.setVisibility(View.INVISIBLE);
+            Toast.makeText(getApplicationContext(), "위치버튼을 다시 눌러주십시오", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "위치버튼을 다시 눌러주십시오", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "위치버튼을 다시 눌러주십시오", Toast.LENGTH_LONG).show();
             gpscheck();
         }
+    }
+
+    public void onCircle(double mlatitude, double mlogitude){
+        CircleOptions circleOptions = new CircleOptions().center(new LatLng(mlatitude, mlogitude)).radius(200).strokeWidth(2f).strokeColor(Color.parseColor("#993823")).fillColor(Color.parseColor("#77FF9696"));
+        this.gmap.addCircle(circleOptions);
     }
 }
