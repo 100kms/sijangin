@@ -35,10 +35,6 @@ public class MyInfoReviewFragment extends Fragment {
     private int review_index = 0;
     private int review_read_index = 0;
     private boolean isMoreLoading = true;
-    int[] img = {};
-    int[] img1 = {R.drawable.img1, R.drawable.img2};
-    int[] img2 = {R.drawable.hyuk1};
-    int[] img3 = {R.drawable.img1, R.drawable.img2, R.drawable.img3};
     public static MyInfoReviewFragment getInstance(){
         if(instance == null){
             instance = new MyInfoReviewFragment();

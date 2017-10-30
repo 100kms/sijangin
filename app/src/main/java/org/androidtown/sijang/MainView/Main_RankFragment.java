@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,8 +18,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import org.androidtown.sijang.Data.MarketRank_Data;
-import org.androidtown.sijang.Data.Market_Data;
-import org.androidtown.sijang.MarketView.MarketList_Adapter;
 import org.androidtown.sijang.R;
 
 import java.util.ArrayList;
@@ -75,6 +72,9 @@ public class Main_RankFragment extends Fragment {
     ValueEventListener rankListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+
+            list.clear();
+            datas.clear();
 
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 MarketRank_Data marketRank_data = snapshot.getValue(MarketRank_Data.class); // 컨버팅되서 Bbs로........

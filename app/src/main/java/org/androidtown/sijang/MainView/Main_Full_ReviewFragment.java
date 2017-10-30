@@ -37,10 +37,6 @@ public class Main_Full_ReviewFragment extends Fragment {
     private int review_read_index = 0;
     private boolean isMoreLoading = true;
     private int review_fullCount = 0;
-    int[] img = {};
-    int[] img1 = {R.drawable.img1, R.drawable.img2};
-    int[] img2 = {R.drawable.hyuk1};
-    int[] img3 = {R.drawable.img1, R.drawable.img2, R.drawable.img3};
     public static Main_Full_ReviewFragment getInstance(){
         if(instance == null){
             instance = new Main_Full_ReviewFragment();
@@ -116,17 +112,7 @@ public class Main_Full_ReviewFragment extends Fragment {
 
             }
         });
-   /*     bbsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.i("kkkkkk",dataSnapshot.getChildrenCount() + "개!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
         for (int i = review_read_index; i < review_read_index+10; i++) {
             bbsRef = database.getReference("review").child("전체").child(Integer.toString(i));
             bbsRef.addValueEventListener(new ValueEventListener() {
@@ -142,7 +128,6 @@ public class Main_Full_ReviewFragment extends Fragment {
                         return;
                     }
 
-                    Log.i("kkkkk",review.getUser_id() + " dddd " + review.getContent() + "!!" + review.getImg_count());
                     reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
                     review_index++;
                     if(review_index == review_read_index+9){

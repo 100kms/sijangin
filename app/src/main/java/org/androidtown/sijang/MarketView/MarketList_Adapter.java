@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -75,24 +77,20 @@ public class MarketList_Adapter extends BaseAdapter {
         rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
 
 
-        /*StorageReference marketImageRef = rootReference.child(market_data.get시장이름()+"/1");
-        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(market_img);*/
+        StorageReference marketImageRef = rootReference.child(market_data.get시장이름()+"/0.jpg");
+        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(market_img);
 
         relativeLayout.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, MarketMainList.class);
                 intent.putExtra("market_name",market_data.get시장이름());
                 intent.putExtra("place", place);
-
-                System.out.println("앜 : " + market_data.get경도());
-                System.out.println("앜 : " + market_data.get위도());
-                System.out.println("앜 : " + market_data.get주소());
-                System.out.println("앜 : " + market_data.get내용());
-
                 intent.putExtra("경도", market_data.get경도());
                 intent.putExtra("위도", market_data.get위도());
                 intent.putExtra("주소", market_data.get주소());
                 intent.putExtra("내용", market_data.get내용());
+                intent.putExtra("교통수단", market_data.get교통수단());
+
                 //기타값추가
                 mContext.startActivity(intent);
             }

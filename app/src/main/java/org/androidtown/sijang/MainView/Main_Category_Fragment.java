@@ -24,6 +24,7 @@ import org.androidtown.sijang.R;
 public class Main_Category_Fragment extends Fragment {
 
     private GridView gv;
+    private GridView gv2;
     Intent intent;
 
     @Override
@@ -33,6 +34,11 @@ public class Main_Category_Fragment extends Fragment {
         int imgs[] = {
                 R.drawable.marketpic, R.drawable.bun2, R.drawable.bun3, R.drawable.bun4,
                 R.drawable.bun5, R.drawable.koreanfood1, R.drawable.koreanfood2, R.drawable.koreanfood3
+        };
+
+        int foodimgs[] = {
+                R.drawable.all, R.drawable.korea, R.drawable.chiken,
+                R.drawable.noodle, R.drawable.meat, R.drawable.bunsik
         };
 
         String sijang1[] = {
@@ -45,10 +51,18 @@ public class Main_Category_Fragment extends Fragment {
                 "서초", "송파"
         };
 
+        String food[] = {
+                "all", "한식", "치킨", "면류", "구이류", "분식"
+        };
+
         GridAdapter adapter = new GridAdapter(getContext().getApplicationContext(), R.layout.grid_item, imgs, sijang1, sijang2);
+        GridAdapter2 adapter2 = new GridAdapter2(getContext().getApplicationContext(), R.layout.grid_fooditem, foodimgs, food);
 
         GridView gv = (GridView)view.findViewById(R.id.category_grid);
         gv.setAdapter(adapter);
+
+        GridView gv2 = (GridView)view.findViewById(R.id.category_grid2);
+        gv2.setAdapter(adapter2);
 
         gv.setOnTouchListener(new View.OnTouchListener(){
 
@@ -158,6 +172,54 @@ public class Main_Category_Fragment extends Fragment {
             TextView tx2 = (TextView)convertView.findViewById(R.id.grid_text2);
             tx1.setText(sijang1[position]);
             tx2.setText(sijang2[position]);
+
+            return convertView;
+        }
+
+    }
+
+    public class GridAdapter2 extends BaseAdapter {
+
+        Context context;
+        int layout; //item xml
+        int img[];
+        String food[];
+        LayoutInflater inflater;
+
+        GridAdapter2(Context context, int layout, int[] img, String[] food){
+            this.context = context;
+            this.layout = layout;
+            this.img = img;
+            this.food = food;
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public int getCount() {
+            return img.length;
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return img[position];
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            if(convertView == null){
+                convertView = inflater.inflate(layout, null);
+            }
+            ImageView iv = (ImageView)convertView.findViewById(R.id.grid_image_food);
+            iv.setImageResource(img[position]);
+
+            TextView tx1 = (TextView)convertView.findViewById(R.id.grid_text_food);
+            tx1.setText(food[position]);
 
             return convertView;
         }

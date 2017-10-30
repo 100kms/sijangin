@@ -37,7 +37,7 @@ public class FirstMainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_main);
         check_pref = getSharedPreferences("user_info", MODE_PRIVATE);
-        if(check_pref.getString("user_id","").equalsIgnoreCase("")){
+        if(check_pref.getString("user_id","").equalsIgnoreCase("") || check_pref.getString("user_id","").equalsIgnoreCase("guest")){
             callback = new SessionCallback();
             Session.getCurrentSession().addCallback(callback);
         }else{
@@ -67,6 +67,11 @@ public class FirstMainActivity extends FragmentActivity {
         empty_btn.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        pref = getSharedPreferences("user_info", MODE_PRIVATE);
+                        editor = pref.edit();
+                        editor.putString("user_name", "guest");
+                        editor.putString("user_id", "guest");
+                        editor.commit();
                         Intent intent = new Intent(FirstMainActivity.this, MainActivity.class);
                         startActivity(intent);
                     }

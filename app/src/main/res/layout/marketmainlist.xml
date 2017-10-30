@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,74 +13,93 @@
 
 
         <LinearLayout
+            android:id="@+id/marketmainlist_layout_info"
             android:layout_width="match_parent"
             android:layout_height="500dp"
-            android:id="@+id/marketmainlist_layout_info"
             android:orientation="vertical">
 
-            <ImageView
-                android:id = "@+id/marketmainlist_image_main"
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/marketmainlist_carousel"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="fitXY"/>
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="3dp"
+                app:slideInterval="2000" />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:orientation="vertical"
-                android:background="#ffcc4d">
+                android:background="#ffcc4d"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
                     android:id="@+id/marketmainlist_text_name"
-                    android:textSize="20dp"
-                    android:layout_weight="1"/>
-
-                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="교통수단 : 지하철 4호선 한성대 입구역"
-                    android:layout_weight="1"/>
+                    android:textSize="20dp" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:text="#땅땅치킨, #네네치킨"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="교통 수단 : "/>
+
+                    <TextView
+                        android:id="@+id/marketmainlist_text_traffic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/marketmainlist_text_context"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:background="#ffffff"
-                android:text="dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"/>
+                android:padding="10dp"
+                android:background="@drawable/market_back">
+
+                <TextView
+                    android:id="@+id/marketmainlist_text_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp" />
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/marketmainlist_btn_bookmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="#ffcc4d"
-                    android:text="MY 시장 지도"/>
+                    android:text="MY 시장 지도" />
 
                 <fragment
                     android:id="@+id/Mymap"
                     class="com.google.android.gms.maps.MapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
-                    />
+                    android:layout_height="400dp" />
 
             </LinearLayout>
 
@@ -103,27 +123,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:text = "리뷰 쓰기"/>
-
-
+                        android:text="리뷰 쓰기" />
                 </RelativeLayout>
-
-                <ListView
-                    android:id="@+id/marketmainlist_listview_review"
-                    android:layout_width="match_parent"
-                    android:layout_height="500dp">
-
-                </ListView>
-
-
-
             </LinearLayout>
-
         </LinearLayout>
-
-
     </ScrollView>
-
-
-
 </LinearLayout>

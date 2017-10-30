@@ -30,7 +30,6 @@
 
         <activity android:name=".MainView.MainActivity" />
         <activity android:name=".MarketView.MarketList"/>
-        <activity android:name=".FoodView.FoodMenuList" />
         <activity android:name=".FoodView.MarketInfo" />
         <activity android:name=".ReviewView.ReviewList" />
         <activity
@@ -63,7 +62,6 @@
         </activity>
         <activity android:name=".Data.Review_Write" />
         <activity android:name=".MyInfoActivity" />
-        <activity android:name=".Data.DataBase_Write"></activity>
     </application>
 
 </manifest>

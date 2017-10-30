@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -13,41 +14,51 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/board">
+                android:layout_height="40dp"
+                android:background="@drawable/review_back"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="제목"
+                    android:textSize="20dp" />
+
 
                 <EditText
                     android:id="@+id/write_edit_title"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/round"
-                    android:hint="제목"
                     android:lines="1"
-                    android:maxLength="10"/>
+                    android:maxLength="10" />
 
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+            </LinearLayout>
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="50dp"
+                android:background="@drawable/review_back">
 
                 <TextView
                     android:id="@+id/write_text_pic"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:text = "사진칸 추가/제거"
-                    android:textAlignment="center"
-                    android:layout_marginLeft="10dp"
                     android:layout_centerVertical="true"
-                    android:textSize="20dp"/>
+                    android:text="사진칸 추가/제거"
+                    android:textSize="20dp" />
 
                 <LinearLayout
                     android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@+id/write_text_pic">
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="30dp">
 
                     <Button
                         android:id="@+id/write_btn_add"
@@ -61,7 +72,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:background="@drawable/imageremove" />
+                        android:background="@drawable/imageminus" />
 
                 </LinearLayout>
 
@@ -71,14 +82,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:padding="10dp"
+                android:background="@drawable/review_back"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/board"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/board">
 
                     <ImageView
                         android:id="@+id/write_image_one"
@@ -92,8 +104,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/board"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/board">
 
                     <ImageView
                         android:id="@+id/write_image_two"
@@ -108,8 +121,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/board"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="2dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/board">
 
                     <ImageView
                         android:id="@+id/write_image_three"
@@ -124,41 +138,45 @@
 
             </LinearLayout>
 
-            <com.wrapp.floatlabelededittext.FloatLabeledEditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
+                android:background="@drawable/review_back">
 
-                <EditText
-                    android:id="@+id/write_edit_content"
+                <com.wrapp.floatlabelededittext.FloatLabeledEditText
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:gravity="top"
-                    android:hint="내용을 입력해주세요" />
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp">
 
-            </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+                    <EditText
+                        android:id="@+id/write_edit_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="top"
+                        android:hint="내용을 입력해주세요" />
+
+                </com.wrapp.floatlabelededittext.FloatLabeledEditText>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:background="@drawable/review_back">
 
                 <RatingBar
                     android:id="@+id/write_ratingbar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:max="5"
                     android:numStars="5"
                     android:stepSize="1" />
-
-                <TextView
-                    android:id="@+id/write_text_rating"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
 
             </LinearLayout>
 
@@ -166,7 +184,7 @@
                 android:id="@+id/write_btn_ok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="등록" />
+                android:text="리뷰 등록" />
 
         </LinearLayout>
 

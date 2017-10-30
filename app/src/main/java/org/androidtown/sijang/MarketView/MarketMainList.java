@@ -2,6 +2,7 @@ package org.androidtown.sijang.MarketView;
 
 import android.app.FragmentManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
@@ -11,9 +12,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.github.polok.routedrawer.RouteDrawer;
 import com.github.polok.routedrawer.RouteRest;
 import com.github.polok.routedrawer.model.Routes;
@@ -30,10 +35,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
 
 import org.androidtown.sijang.Data.Review_Data;
 import org.androidtown.sijang.Data.Review_Write;
@@ -41,8 +51,10 @@ import org.androidtown.sijang.R;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -52,16 +64,22 @@ import rx.functions.Func1;
 
 
 public class MarketMainList extends AppCompatActivity {
-    private FirebaseDatabase database;
-    private FirebaseStorage firebaseStorage;
-    private DatabaseReference reviewRef;
-    private StorageReference rootReference;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference  rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+    DatabaseReference review_allRef = database.getReference().child("즐겨찾기");
+    private DatabaseReference bookmarkRef;
+    private DatabaseReference bookmark_keyRef;
+    private  DatabaseReference bookmarkCheckRef;
     private ListView mainreview = null;
     //private MainReviewList_Adapter mainreview_adapter = null;
     private static final int RC_LOCATION = 1;
     FusedLocationProviderClient mFusedLocationClient;
     protected Location mLastLocation;
-
+    private SharedPreferences pref;
+    private CarouselView carouselView;
+    private long count=0;
+    private Map<String, Object> bookmarkValues = new HashMap<>();
     List<Review_Data> review_datas = new ArrayList<>();
     public GoogleMap gmap;
     private String place;
@@ -70,10 +88,19 @@ public class MarketMainList extends AppCompatActivity {
     private Double longitude;
     private Double mylatitude;
     private Double mylongitude;
+    private String user_id, address, content, traffic;
+    private StorageReference marketImageRef, marketImageRef2, marketImageRef1;
+    private boolean flag = true;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.marketmainlist);
+
+        pref = getSharedPreferences("user_info", MODE_PRIVATE);
+        user_id = pref.getString("user_id", "");
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -82,27 +109,93 @@ public class MarketMainList extends AppCompatActivity {
         marketname = gIntent.getStringExtra("market_name");
         latitude = gIntent.getDoubleExtra("위도", 0.0);
         longitude = gIntent.getDoubleExtra("경도", 0.0);
-        String address = gIntent.getStringExtra("주소");
-        String content = gIntent.getStringExtra("내용");
+        address = gIntent.getStringExtra("주소");
+        content = gIntent.getStringExtra("내용");
+        traffic = gIntent.getStringExtra("교통수단");
+
+        database = FirebaseDatabase.getInstance();
+
 
         Button write_rv = (Button)findViewById(R.id.marketmainlist_btn_review);
+
+        final Button bookmark = (Button)findViewById(R.id.marketmainlist_btn_bookmark);
+
+        bookmark.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(pref.getString("user_id", "").equals("guest")){
+                    Toast.makeText(getApplicationContext(), "로그인 후 즐겨찾기 등록이 가능합니다.", Toast.LENGTH_SHORT).show();
+                }else{
+                    bookmarkValues.put("user_id", user_id);
+                    bookmarkValues.put("marketName", marketname);
+                    bookmarkValues.put("state", "on");
+                    bookmarkValues.put("latitude", latitude);
+                    bookmarkValues.put("longitude", longitude);
+                    bookmarkValues.put("address", address);
+                    bookmarkValues.put("content", content);
+                    bookmarkValues.put("traffic", traffic);
+
+
+                    review_allRef.addValueEventListener(countListener);
+
+                }
+
+            }
+        });
 
         write_rv.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplication(), Review_Write.class);
-                intent.putExtra("marketname", marketname);
-                startActivity(intent);
+                if(pref.getString("user_id", "").equals("guest")){
+                    Toast.makeText(getApplicationContext(), "로그인 후 리뷰등록이 가능합니다.", Toast.LENGTH_SHORT).show();
+                }else{
+                    Intent intent = new Intent(getApplication(), Review_Write.class);
+                    intent.putExtra("marketname", marketname);
+                    startActivity(intent);
+                }
+
             }
         });
 
-        TextView marketName = (TextView) findViewById(R.id.marketmainlist_text_name);
+        TextView marketNameView = (TextView) findViewById(R.id.marketmainlist_text_name);
+        TextView trafficView = (TextView) findViewById(R.id.marketmainlist_text_traffic);
+        TextView contentView = (TextView) findViewById(R.id.marketmainlist_text_content);
+
         getLastLocation();
-        marketName.setText(marketname);
+        marketNameView.setText(marketname);
+        trafficView.setText(traffic);
+        contentView.setText(content);
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.Mymap);
-        
+
+        FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+        StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
+
+        marketImageRef = rootReference.child(marketname+"/0.jpg");
+        marketImageRef1 = rootReference.child(marketname+"/1.jpg");
+        marketImageRef2 = rootReference.child(marketname+"/2.jpg");
+
+
+
+        carouselView = (CarouselView) findViewById(R.id.marketmainlist_carousel);
+        carouselView.setPageCount(3);
+        carouselView.setImageListener(new ImageListener() {
+            @Override
+            public void setImageForPosition(int position, ImageView imageView) {
+                switch (position){
+                    case 0 :
+                        Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(imageView);
+                        break;
+                    case 1 :
+                        Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef1).into(imageView);
+                        break;
+                    case 2 :
+                        Glide.with(getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef2).into(imageView);
+                        break;
+                }
+            }
+        });
 
         mapFragment.getMapAsync(new OnMapReadyCallback() {
             @Override
@@ -130,6 +223,29 @@ public class MarketMainList extends AppCompatActivity {
             }
         });
     }
+
+    ValueEventListener countListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+
+            long child_count = dataSnapshot.getChildrenCount();
+            save(child_count);
+        }
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    };
+
+    public void save(long child_count){
+        if(flag){
+            bookmarkRef = database.getReference().child("즐겨찾기").child(Long.toString(child_count));
+            bookmarkRef.setValue(bookmarkValues);
+            flag=false;
+        }
+
+    }
+
 
     @SuppressWarnings("MissingPermission")
     @AfterPermissionGranted(RC_LOCATION)
@@ -225,69 +341,3 @@ public class MarketMainList extends AppCompatActivity {
     }
 
 }
-      /*  database = FirebaseDatabase.getInstance();
-        firebaseStorage = FirebaseStorage.getInstance();
-
-        reviewRef = database.getReference("리뷰").child("시장별").child(market_name);
-        reviewRef.addValueEventListener(reviewListener);
-
-        mainreview = (ListView) findViewById(R.id.marketmainlist_listview_review);
-       // mainreview_adapter = new Market(review_datas, this);
-
-        mainreview.setAdapter(mainreview_adapter);
-
-
-
-
-        Button write = (Button)findViewById(R.id.marketmainlist_btn_review);
-
-        write.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MarketMainList.this, Review_Write.class);
-                startActivity(intent);
-            }
-        });
-
-
-    }
-    ValueEventListener reviewListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-
-            review_datas.clear();
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                Review_Data review_data = snapshot.getValue(Review_Data.class);
-                review_datas.add(review_data);
-            }
-            Collections.reverse(review_datas);
-            mainreview_adapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-        }
-    };
-
-
-    public static void setListViewHeightBasedOnChildren(ListView listView){
-        ListAdapter listAdapter = listView.getAdapter();
-        if(listAdapter == null){
-            return;
-        }
-
-        int totalHeight = 0;
-        for(int i = 0; i<listAdapter.getCount(); i++){
-            View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 0);
-            totalHeight += listItem.getMeasuredHeight();
-        }
-
-        ViewGroup.LayoutParams params = listView.getLayoutParams();
-        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
-        listView.setLayoutParams(params);
-        listView.requestLayout();
-    }
-}*/

@@ -26,7 +26,7 @@
         android:layout_height="187dp"
         android:layout_marginBottom="100dp"
         android:layout_gravity="center"
-        android:background="@drawable/marketlogopic3" />
+        android:background="@drawable/icon" />
 
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/com_kakao_login"

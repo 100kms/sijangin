@@ -43,7 +43,7 @@
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/where"
+                    android:src="@drawable/imageplus"
                     android:background="#00000000"
                     android:id="@+id/searchfoodmenulist_item_ImageBtn_where_id"/>
 
@@ -55,7 +55,7 @@
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/market"
+                    android:src="@drawable/imageminus"
                     android:background="#00000000"
                     android:id="@+id/searchfoodmenulist_item_ImageBtn_market_id"
                     android:onClick=""/>

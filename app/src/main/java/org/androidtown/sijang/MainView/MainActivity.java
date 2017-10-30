@@ -32,6 +32,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import org.androidtown.sijang.FirstMainActivity;
 import org.androidtown.sijang.MarketView.MarketList;
 import org.androidtown.sijang.MyInfoActivity;
 import org.androidtown.sijang.R;
@@ -70,7 +71,8 @@ public class MainActivity extends AppCompatActivity {
     private MainDrawerViewAdapter mainDrawerViewAdapter;
     private MaterialMenuDrawable materialMenu;
     private boolean isDrawerOpened = false;
-    private int              actionBarMenuState;
+    private int actionBarMenuState;
+    private SharedPreferences.Editor prefedit;
 
 
 
@@ -81,6 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         getLastLocation();
+
+        SharedPreferences pref = getSharedPreferences("user_info", MODE_PRIVATE);
+        prefedit = pref.edit();
 
         recyclerView = (RecyclerView) findViewById(R.id.main_drawer_recycler_view);
         drawerLayout = (DrawerLayout)findViewById(R.id.main_drawer_layout);
@@ -105,7 +110,12 @@ public class MainActivity extends AppCompatActivity {
                         } else if (data.equals(drawerMneu[2])) {//   "시장IN 정보",
 
                         } else if (data.equals(drawerMneu[3])) {//"로그아웃",
+                            prefedit.putString("user_id", "");
+                            prefedit.putString("user_name", "");
+                            prefedit.commit();
 
+                            intent = new Intent(getApplicationContext(), FirstMainActivity.class);
+                            startActivity(intent);
                         } else {
                             Toast.makeText(getApplicationContext(), "Message Error", Toast.LENGTH_SHORT).show();
                         }
@@ -129,12 +139,6 @@ public class MainActivity extends AppCompatActivity {
             mainDrawerViewAdapter.addItem(drawerMneu[i]);
             Log.i("kkkkkk",drawerMneu[i]);
         }
-
-
-        SharedPreferences pref = getSharedPreferences("user_info", MODE_PRIVATE);
-        String a = pref.getString("user_id", "");
-        String b = pref.getString("user_name", "");
-        Toast.makeText(getApplicationContext(), a + " : " + b, Toast.LENGTH_SHORT).show();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
