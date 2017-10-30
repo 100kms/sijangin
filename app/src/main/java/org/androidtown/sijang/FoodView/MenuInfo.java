@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,7 +52,6 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
     StorageReference rootReference;
     DatabaseReference bbsRef;
     DatabaseReference bookmark_Ref;
-    Button favoritebtn;
     Latitude ltt;
     double temp_longitude;
     double temp_latitude;
@@ -73,9 +71,6 @@ public class MenuInfo extends Activity implements OnMapReadyCallback {
         String market = intent.getStringExtra("market_key");
         String store = intent.getStringExtra("store_key");
 
-
-
-        favoritebtn = (Button)findViewById(R.id.favorite_btn);
 
         // 1. 파이어베이스 연결 - DB Connection
         database = FirebaseDatabase.getInstance();

@@ -14,6 +14,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.androidtown.sijang.FoodView.SearchFoodMenuList;
 import org.androidtown.sijang.MarketView.MarketList;
 import org.androidtown.sijang.R;
 
@@ -26,6 +27,7 @@ public class Main_Category_Fragment extends Fragment {
     private GridView gv;
     private GridView gv2;
     Intent intent;
+    Intent intent2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +39,8 @@ public class Main_Category_Fragment extends Fragment {
         };
 
         int foodimgs[] = {
-                R.drawable.all, R.drawable.korea, R.drawable.chiken,
-                R.drawable.noodle, R.drawable.meat, R.drawable.bunsik
+                R.drawable.foodmenulist_all, R.drawable.foodmenulist_bob, R.drawable.foodmenulist_chi,
+                R.drawable.foodmenulist_mid, R.drawable.foodmenulist_fork, R.drawable.foodmenulist_beun
         };
 
         String sijang1[] = {
@@ -51,12 +53,9 @@ public class Main_Category_Fragment extends Fragment {
                 "서초", "송파"
         };
 
-        String food[] = {
-                "all", "한식", "치킨", "면류", "구이류", "분식"
-        };
 
         GridAdapter adapter = new GridAdapter(getContext().getApplicationContext(), R.layout.grid_item, imgs, sijang1, sijang2);
-        GridAdapter2 adapter2 = new GridAdapter2(getContext().getApplicationContext(), R.layout.grid_fooditem, foodimgs, food);
+        GridAdapter2 adapter2 = new GridAdapter2(getContext().getApplicationContext(), R.layout.grid_fooditem, foodimgs);
 
         GridView gv = (GridView)view.findViewById(R.id.category_grid);
         gv.setAdapter(adapter);
@@ -124,6 +123,45 @@ public class Main_Category_Fragment extends Fragment {
             }
         });
 
+        gv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "0");
+                        startActivity(intent2);
+                        break;
+                    case 1:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "1");
+                        startActivity(intent2);
+                        break;
+                    case 2:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "2");
+                        startActivity(intent2);
+                        break;
+                    case 3:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "3");
+                        startActivity(intent2);
+                        break;
+                    case 4:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "4");
+                        startActivity(intent2);
+                        break;
+                    case 5:
+                        intent2 = new Intent(getActivity().getApplicationContext(), SearchFoodMenuList.class);
+                        intent2.putExtra("MenuSelect", "5");
+                        startActivity(intent2);
+                        break;
+
+                }
+            }
+        });
+
         return view;
     }
 
@@ -183,14 +221,12 @@ public class Main_Category_Fragment extends Fragment {
         Context context;
         int layout; //item xml
         int img[];
-        String food[];
         LayoutInflater inflater;
 
-        GridAdapter2(Context context, int layout, int[] img, String[] food){
+        GridAdapter2(Context context, int layout, int[] img){
             this.context = context;
             this.layout = layout;
             this.img = img;
-            this.food = food;
             inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
@@ -217,9 +253,6 @@ public class Main_Category_Fragment extends Fragment {
             }
             ImageView iv = (ImageView)convertView.findViewById(R.id.grid_image_food);
             iv.setImageResource(img[position]);
-
-            TextView tx1 = (TextView)convertView.findViewById(R.id.grid_text_food);
-            tx1.setText(food[position]);
 
             return convertView;
         }

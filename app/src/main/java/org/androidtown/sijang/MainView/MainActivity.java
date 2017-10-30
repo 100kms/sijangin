@@ -1,5 +1,6 @@
 package org.androidtown.sijang.MainView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -11,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -31,10 +33,11 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.FirstMainActivity;
 import org.androidtown.sijang.MarketView.MarketList;
-import org.androidtown.sijang.MyInfoActivity;
+import org.androidtown.sijang.MyinfoView.MyInfoActivity;
 import org.androidtown.sijang.R;
 
 import java.io.IOException;
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
     private FusedLocationProviderClient mFusedLocationClient;
 
     private TabLayout tabLayout;
+    private final long FINISH_INTERVAL_TIME = 2000;
+    private long backPressedTime = 0;
     private ViewPager viewPager;
     private LinearLayout linearLayout;
     public static String[] drawerMneu = {
@@ -109,7 +114,12 @@ public class MainActivity extends AppCompatActivity {
                             startActivity(intent);
                         } else if (data.equals(drawerMneu[2])) {//   "시장IN 정보",
 
-                        } else if (data.equals(drawerMneu[3])) {//"로그아웃",
+                        }
+                        else if (data.equals("로그인")) {
+                            intent = new Intent(getApplicationContext(), FirstMainActivity.class);
+                            startActivity(intent);
+                        }
+                        else if (data.equals("로그아웃")) {//"로그아웃",
                             prefedit.putString("user_id", "");
                             prefedit.putString("user_name", "");
                             prefedit.commit();
@@ -134,11 +144,18 @@ public class MainActivity extends AppCompatActivity {
         //recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setAdapter(mainDrawerViewAdapter);
-
+        if(pref.getString("user_id", "").equals("guest")){
+            drawerMneu[3] = "로그인";
+        }
+        else{
+            drawerMneu[3] = "로그아웃";
+        }
+        Log.i("kkkkkk","=========" + pref.getString("user_id", "") + "!!");
         for(int i=0; i<drawerMneu.length; i++){
             mainDrawerViewAdapter.addItem(drawerMneu[i]);
             Log.i("kkkkkk",drawerMneu[i]);
         }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(toolbar);
@@ -271,4 +288,24 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected  void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void onBackPressed(){
+        long tempTime = System.currentTimeMillis();
+        long intervalTime = tempTime - backPressedTime;
+
+        if(0 <= intervalTime && FINISH_INTERVAL_TIME >= intervalTime) {
+            super.onBackPressed();
+            ActivityCompat.finishAffinity(this);
+        }
+        else
+        {
+            backPressedTime = tempTime;
+            Toast.makeText(getApplicationContext(),"뒤로 버튼을 한 번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+        }
+    }
 }

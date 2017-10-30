@@ -55,6 +55,7 @@ dependencies {
     compile 'com.synnapps:carouselview:0.1.4'
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'jp.wasabeef:blurry:2.1.1'
+    compile 'com.tsengvn:Typekit:1.0.0'
     testCompile 'junit:junit:4.12'
 }
 

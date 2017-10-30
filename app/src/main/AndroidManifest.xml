@@ -31,7 +31,7 @@
         <activity android:name=".MainView.MainActivity" />
         <activity android:name=".MarketView.MarketList"/>
         <activity android:name=".FoodView.MarketInfo" />
-        <activity android:name=".ReviewView.ReviewList" />
+        <activity android:name=".MarketView.MarketReviewFragment"/>
         <activity
             android:name=".FoodView.MenuInfo"
             android:theme="@android:style/Theme.Dialog" />
@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Data.Review_Write" />
-        <activity android:name=".MyInfoActivity" />
+        <activity android:name=".MyinfoView.MyInfoActivity" />
     </application>
 
 </manifest>

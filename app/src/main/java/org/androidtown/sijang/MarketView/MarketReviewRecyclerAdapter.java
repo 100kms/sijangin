@@ -1,4 +1,4 @@
-package org.androidtown.sijang.MyinfoView;
+package org.androidtown.sijang.MarketView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by CYSN on 2017-09-26.
  */
 
-public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class MarketReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext = null;
     private ArrayList<Review> arrayList;
     private final int NORMAL_TYPE = 1;
@@ -34,14 +34,16 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private StorageReference rootReference = firebaseStorage.getReferenceFromUrl("gs://fir-test-92325.appspot.com");
     private FirebaseImageLoader firebaseImageLoader = new FirebaseImageLoader();
     private String image_index="0/";
-    public ReviewRecyclerAdapter(Context context){
+    public MarketReviewRecyclerAdapter(Context context){
         this.mContext = context;
         arrayList = new ArrayList<Review>();
     }
-    public synchronized void addItem(Review review, String index){
+    public void addItem(Review review){
+        arrayList.add(review);
+    }
+    public void addItem(Review review, String index){
         arrayList.add(review);
         image_index = index + "/";
-        notifyItemInserted(getItemCount()-1);
     }
     public class ProgressViewHolder extends RecyclerView.ViewHolder{
         public ProgressBar progressBar;
@@ -60,9 +62,9 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public ImageView img_2;
         public ImageView img_3;
         public Context context;
-        public ReviewRecyclerAdapter myRecyclerAdapter;
+        public MarketReviewRecyclerAdapter myRecyclerAdapter;
 
-        public DataViewHolder(Context context, View itemView, ReviewRecyclerAdapter myRecyclerAdapter) {
+        public DataViewHolder(Context context, View itemView, MarketReviewRecyclerAdapter myRecyclerAdapter) {
             super(itemView);
             this.market_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_market);
             this.user_id = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
@@ -184,7 +186,6 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         if(progressPos != -1) {
             arrayList.remove(progressPos);
             notifyItemRemoved(progressPos);
-            notifyItemRangeChanged(0,arrayList.size());
             progressPos = -1;
         }
     }

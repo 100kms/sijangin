@@ -1,4 +1,4 @@
-package org.androidtown.sijang;
+package org.androidtown.sijang.MyinfoView;
 
 
 import android.os.Bundle;
@@ -10,10 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 
-import org.androidtown.sijang.MyinfoView.MyInfoFavoriteFragment;
-import org.androidtown.sijang.MyinfoView.MyInfoReviewFragment;
-
-import java.io.File;
+import org.androidtown.sijang.R;
 
 /**
  * Created by CYSN on 2017-10-05.

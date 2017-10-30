@@ -5,14 +5,11 @@
     android:layout_height="match_parent"
     android:background="#ffffff">
 
-    <TextView
-        android:id="@+id/marketList_text_title"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/market_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="시장리스트"
-        android:textColor="#000000"
-        android:textSize="30dp"
-        />
+        android:background="@color/colorPrimaryDark" />
 
     <ListView
         android:layout_weight="1"

@@ -1,5 +1,7 @@
 package org.androidtown.sijang.MyinfoView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -35,16 +37,21 @@ public class MyInfoReviewFragment extends Fragment {
     private int review_index = 0;
     private int review_read_index = 0;
     private boolean isMoreLoading = true;
-    public static MyInfoReviewFragment getInstance(){
-        if(instance == null){
+    private SharedPreferences pref;
+    private int getAllReviewCount = 0;
+    private long mtime=0;
+    public static MyInfoReviewFragment getInstance() {
+        if (instance == null) {
             instance = new MyInfoReviewFragment();
         }
         return instance;
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_userinfo_review, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.myInfo_myReviewView);
+
         return view;
     }
 
@@ -54,7 +61,7 @@ public class MyInfoReviewFragment extends Fragment {
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
         reviewRecyclerAdapter = new ReviewRecyclerAdapter(getContext());
-
+        pref = getActivity().getSharedPreferences("user_info", Context.MODE_PRIVATE);
         //아이디에 맞는 데이터 데이터베이스에서 읽어와서 넣는방식으로 바꿔야함!
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -71,7 +78,7 @@ public class MyInfoReviewFragment extends Fragment {
                 int totalItemCount = recyclerView.getLayoutManager().getItemCount();
                 int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
                 //Log.i("kkkkk",visibleItemCount + " " +  totalItemCount + " " + firstVisibleItem);
-                if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + 1)) {
+                if (!isMoreLoading && (totalItemCount - visibleItemCount) <= (firstVisibleItem + 1)) {
                     isMoreLoading = true;
                     Log.i("kkkkkk", review_read_index + "!!start");
                     getData();
@@ -95,40 +102,94 @@ public class MyInfoReviewFragment extends Fragment {
 
     public void getData() {
         reviewRecyclerAdapter.startProgress();
-        for (int i = review_read_index; i < review_read_index+10; i++) {
-            bbsRef = database.getReference("review").child("전체").child(Integer.toString(i));
-            bbsRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    review = dataSnapshot.getValue(Review.class); // 컨버팅되서 Bbs로........
+        bbsRef = database.getReference("review").child("전체");//이걸로 아이디 csm인 데이터 가져 올 수 있음!!!★★★★★★
+        bbsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               String user_id =  pref.getString("user_id","");
+                for(DataSnapshot item: dataSnapshot.getChildren())
+                {
+                    String fire_user_id=(String)item.child("user_id").getValue();
+                    Log.i("kkkkk",fire_user_id + " ! " + user_id + " ! " + dataSnapshot.getKey());
+                    if(fire_user_id.equals(user_id)){
+                        Log.i("kkkkk","hello");
+                        review = item.getValue(Review.class);
+                        reviewRecyclerAdapter.addItem(review,dataSnapshot.getKey());
+                    }
+                }
+                reviewRecyclerAdapter.endProgress();
+            }
 
-                    if(review == null){
-                        reviewRecyclerAdapter.endProgress();
-                        reviewRecyclerAdapter.notifyItemRangeChanged(review_read_index, review_read_index+9);
-                        review_read_index+=review_index;
-                        review_index = 0;
-                        return;
-                    }
-                    Log.i("kkkkk",dataSnapshot.getKey() + "임! " + review.getUser_id() + " dddd " + review.getContent() + "!!" + review.getImg_count());
-                    reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
-                    review_index++;
-                    if(review_index == review_read_index+9){
-                        reviewRecyclerAdapter.endProgress();
-                        reviewRecyclerAdapter.notifyItemRangeChanged(review_read_index, review_read_index+9);
-                        review_index = 0;
-                        review_read_index+=10;
-                        isMoreLoading = false;
-                    }
-                    // change메서드 안에서 onMapReady를 불러와주는 역할을 넣음
-                    // 여기다 넣은것은 이 데이터를 가져오는것이 생명주기를 무시하고, 액티비티 자체가 실행될때 데이터를 가져오기 때문에 데이터를 먼저가져오고 맵을 그리는 순으로 만들기 위해서이다
-                    // 이렇게 안하면, 데이터를 먼저 가져오라고 해도 맵을 먼저 그려버리고 그 뒤에 액티비티자체가 실행이 다되고 데이터를 가져오기 때문에
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+       /* bbsRef.orderByChild("user_id").equalTo(pref.getString("user_id","")).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+
+
+                mtime = System.currentTimeMillis();
+                reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
+                reviewRecyclerAdapter.notifyItemInserted(reviewRecyclerAdapter.getItemCount()-1);
+                Log.i("kkkkkkkkk", dataSnapshot.exists() + " ");
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
+            }
+        });*/
+       /* mQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               *//* List<Review> list = new ArrayList<Review>();
+                list =  dataSnapshot.getValue(ArrayList<Review>.class);*//*
+                review = dataSnapshot.getValue(Review.class); // 컨버팅되서 Bbs로........
+                Log.i("ddddddddddddddddddd","dddddddddddd");
+                if(review == null){
+                    reviewRecyclerAdapter.endProgress();
+                    reviewRecyclerAdapter.notifyItemRangeChanged(review_read_index, review_read_index+9);
+                    review_read_index+=review_index;
+                    review_index = 0;
+                    return;
                 }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
+
+                reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
+                review_index++;
+                if(review_index == review_read_index+9){
+                    reviewRecyclerAdapter.endProgress();
+                    reviewRecyclerAdapter.notifyItemRangeChanged(review_read_index, review_read_index+9);
+                    review_index = 0;
+                    review_read_index+=10;
+                    isMoreLoading = false;
                 }
-            });
-        }
+                // change메서드 안에서 onMapReady를 불러와주는 역할을 넣음
+                // 여기다 넣은것은 이 데이터를 가져오는것이 생명주기를 무시하고, 액티비티 자체가 실행될때 데이터를 가져오기 때문에 데이터를 먼저가져오고 맵을 그리는 순으로 만들기 위해서이다
+                // 이렇게 안하면, 데이터를 먼저 가져오라고 해도 맵을 먼저 그려버리고 그 뒤에 액티비티자체가 실행이 다되고 데이터를 가져오기 때문에
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("MainActivity", "loadPost:onCancelled", databaseError.toException());
+            }
+        });*/
     }
 }

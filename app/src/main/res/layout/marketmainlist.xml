@@ -66,14 +66,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:padding="10dp"
-                android:background="@drawable/market_back">
+                android:background="@drawable/backimage3">
 
                 <TextView
                     android:id="@+id/marketmainlist_text_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp" />
+                    android:padding="25dp" />
 
             </LinearLayout>
 
@@ -81,7 +80,14 @@
             <Button
                 android:id="@+id/marketmainlist_btn_bookmark"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="즐겨찾기"/>
+
+            <Button
+                android:id="@+id/marketmainlist_btn_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="리뷰보기"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,11 +101,46 @@
                     android:background="#ffcc4d"
                     android:text="MY 시장 지도" />
 
-                <fragment
-                    android:id="@+id/Mymap"
-                    class="com.google.android.gms.maps.MapFragment"
+                <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="400dp" />
+                    android:layout_height="500dp"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/market_mbtn"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:background="@drawable/gps_on"
+                        />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp">
+
+                        <fragment
+                            android:id="@+id/Mymap"
+                            class="com.google.android.gms.maps.MapFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/imagetrans"
+                            android:layout_alignTop="@+id/Mymap"
+                            android:layout_alignBottom="@+id/Mymap"
+                            android:layout_alignEnd="@+id/Mymap"
+                            android:layout_alignRight="@+id/Mymap"
+                            android:layout_alignLeft="@+id/Mymap"
+                            android:layout_alignStart="@+id/Mymap"
+                            android:src="#00000000"/>
+
+                    </RelativeLayout>
+
+
+                </FrameLayout>
 
             </LinearLayout>
 

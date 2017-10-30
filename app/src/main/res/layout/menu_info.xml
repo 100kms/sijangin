@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="Notice"
+            android:text="위치 보기"
             android:textSize="20sp"
             android:textColor="#fff"
             android:gravity="center"
@@ -25,26 +25,8 @@
         android:id="@+id/map"
         class="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-         />
+        android:layout_height="250dp" />
 
-    <!-- Notice
-    <LinearLayout
-        android:padding="24dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/txtText"
-            android:textSize="15sp"
-            android:textColor="#000"
-            android:alpha="0.87"
-            android:gravity="center"
-            android:layout_marginBottom="3dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-    Notice -->
 
     <View
         android:background="#66bdbdbd"
@@ -58,17 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="53dp"
-            android:text="즐겨찾기"
-            android:textSize="15sp"
-            android:textColor="#ff7a00"
-            android:padding="16dp"
-            android:gravity="center"
-            android:background="#00000000"
-            android:id="@+id/favorite_btn"
-            android:onClick="mfavorite"/>
         <Button
             android:text="확인"
             android:textSize="15sp"

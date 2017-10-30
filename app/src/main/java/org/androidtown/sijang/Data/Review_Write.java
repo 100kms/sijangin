@@ -65,7 +65,7 @@ public class Review_Write extends AppCompatActivity {
     private int add_count = 0;
     private double star;
     private String getTime;
-    private String img_count;
+    private int img_count;
     private long child_count = 0;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -222,7 +222,7 @@ public class Review_Write extends AppCompatActivity {
             switch (add_count){
                 case 1 :
                     if(imageUri1!=null){
-                        img_count="1";
+                        img_count=1;
                         StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
                         UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
 
@@ -245,7 +245,7 @@ public class Review_Write extends AppCompatActivity {
                     break;
                 case 2 :
                     if(imageUri2!=null) {
-                        img_count="2";
+                        img_count=2;
                         StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
                         UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
                         StorageReference riversRef2 = rootReference.child(String.valueOf(count)+"/2");
@@ -284,7 +284,7 @@ public class Review_Write extends AppCompatActivity {
                     break;
                 case 3 :
                     if(imageUri3!=null){
-                        img_count="3";
+                        img_count=3;
                         StorageReference riversRef1 = rootReference.child(String.valueOf(count)+"/1");
                         UploadTask uploadTask1 = riversRef1.putFile(imageUri1);
                         StorageReference riversRef2 = rootReference.child(String.valueOf(count)+"/2");

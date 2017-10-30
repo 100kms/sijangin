@@ -254,46 +254,8 @@ public class SearchFoodMenuList extends AppCompatActivity
                 convertView = inflater.inflate(R.layout.searchfoodmenulist_item, parent, false);
 
                 holder.item_thumbnail = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageView_food_image_id);
-                // holder.item_title = (TextView) convertView.findViewById(R.id.textView1);
 
                 holder.where_imgbtn = (ImageView) convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_where_id);
-
-                /*
-                holder.where_imgbtn.setOnClickListener(new View.OnClickListener() {
-                    String s = "Tag";
-
-                    // 위치보기
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), MenuInfo.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //Log.d(s, "as" + position);
-                        System.out.println(">>>>>>>>" + urlList.get(position).url);
-                        System.out.println(">>>>>>>>" + urlList.get(position).storename);
-                        System.out.println(">>>>>>>>" + urlList.get(position).marketname);
-                        System.out.println(">>>>>>>>>>>>>>>" + urlList.get(position));
-                        intent.putExtra("zkey", urlList.get(position).marketname);
-
-                        startActivity(intent);
-                    }
-
-                });
-                */
-                holder.market_imgbtn = (ImageView)convertView.findViewById(R.id.searchfoodmenulist_item_ImageBtn_market_id);
-                holder.market_imgbtn.setOnClickListener(new View.OnClickListener() {
-                    String s = "Tag";
-
-                    // 시장 보기
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), MarketInfo.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        //Log.d(s, "as" + position);
-                        startActivity(intent);
-                    }
-
-                });
-
 
                 convertView.setTag(holder);
             }

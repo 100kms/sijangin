@@ -2,7 +2,9 @@ package org.androidtown.sijang.MarketView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -45,9 +47,14 @@ public class MarketList extends MainActivity {
 
         Intent intent = getIntent();
         String place = intent.getStringExtra("place");
-        //place = "은서마";
         marketRef = database.getReference("시장").child(place);
         marketRef.addValueEventListener(marketListener);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.market_toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.main_menu_drawable);
+        actionBar.setDisplayHomeAsUpEnabled(true);
 
 
         marketlist = (ListView) findViewById(R.id.marketList_listview);
