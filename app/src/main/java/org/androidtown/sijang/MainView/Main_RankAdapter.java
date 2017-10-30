@@ -77,7 +77,7 @@ public class Main_RankAdapter extends BaseAdapter {
         System.out.println("==========================="+position);
 
         StorageReference marketImageRef = rootReference.child(marketRank_data.get시장이름()+"/0.jpg");
-        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).into(market_img);
+        Glide.with(mContext.getApplicationContext()).using(new FirebaseImageLoader()).load(marketImageRef).thumbnail(0.7f).into(market_img);
 
 
         switch (position){

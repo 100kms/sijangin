@@ -12,6 +12,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -145,7 +146,11 @@ public class MarketMainList extends AppCompatActivity {
         traffic = gIntent.getStringExtra("교통수단");
 
         database = FirebaseDatabase.getInstance();
-
+        Toolbar toolbar = (Toolbar)findViewById(R.id.marketmain_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("시장 정보");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
         Button write_rv = (Button)findViewById(R.id.marketmainlist_btn_review);
         Button reviewRead = (Button)findViewById(R.id.marketmainlist_btn_read);

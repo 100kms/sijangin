@@ -1,38 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/marketpic"
+    android:background="@drawable/marketpic5"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.androidtown.sijang.FirstMainActivity">
 
     <Button
         android:id="@+id/empty_btn"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
-        android:layout_marginBottom="10dp"
-        android:layout_x="58dp"
-        android:layout_y="566dp"
+        android:layout_width="270dp"
+        android:layout_height="40dp"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/com_kakao_login"
         android:background="#91191818"
-        android:text="Click to Start"
+        android:text="게스트로 로그인"
         android:textColor="#fafafa"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+       />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="192dp"
         android:layout_height="187dp"
-        android:layout_marginBottom="100dp"
-        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:layout_marginBottom="180dp"
         android:background="@drawable/icon" />
 
     <com.kakao.usermgmt.LoginButton
         android:id="@+id/com_kakao_login"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:layout_margin="40dp"/>
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/imageView"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="15dp"
+     />
 
-</FrameLayout>
+</RelativeLayout>
