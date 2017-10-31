@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
                             intent = new Intent(getApplicationContext(), MyInfoActivity.class);
                             startActivity(intent);
                         } else if (data.equals(drawerMneu[1])) {// "공지사항",
-                            intent = new Intent(getApplicationContext(), MarketList.class);
+                            intent = new Intent(getApplicationContext(), MainDrawerNotice.class);
                             startActivity(intent);
                         } else if (data.equals(drawerMneu[2])) {//   "시장IN 정보",
 

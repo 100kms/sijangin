@@ -31,6 +31,11 @@ public class FirstMainActivity extends FragmentActivity {
     SharedPreferences check_pref;
     SharedPreferences.Editor editor;
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

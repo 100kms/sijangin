@@ -217,7 +217,7 @@ public class MainMapFragment extends Fragment implements OnMapReadyCallback {
     public void getLastLocation() {
         String[] perms = {android.Manifest.permission.ACCESS_FINE_LOCATION};
         System.out.println("111111");
-        if (EasyPermissions.hasPermissions(getActivity().getApplicationContext(), perms)) {
+        if (EasyPermissions.hasPermissions(getContext(), perms)) {
             System.out.println("22222");
             mFusedLocationClient.getLastLocation().addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                 @Override

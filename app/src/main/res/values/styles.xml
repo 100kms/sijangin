@@ -7,5 +7,8 @@
         <item name="colorPrimaryDark">#FFF66F6F</item>
         <item name="colorAccent">#FFF66F6F</item>
     </style>
-
+    <style name="Theme.MyDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
 </resources>

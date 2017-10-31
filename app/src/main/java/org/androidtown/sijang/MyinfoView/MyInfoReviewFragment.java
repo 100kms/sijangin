@@ -110,11 +110,11 @@ public class MyInfoReviewFragment extends Fragment {
                 for(DataSnapshot item: dataSnapshot.getChildren())
                 {
                     String fire_user_id=(String)item.child("user_id").getValue();
-                    Log.i("kkkkk",fire_user_id + " ! " + user_id + " ! " + dataSnapshot.getKey());
+                    Log.i("kkkkk",fire_user_id + " ! " + user_id + " ! " + item.getKey());
                     if(fire_user_id.equals(user_id)){
                         Log.i("kkkkk","hello");
                         review = item.getValue(Review.class);
-                        reviewRecyclerAdapter.addItem(review,dataSnapshot.getKey());
+                        reviewRecyclerAdapter.addItem(review,item.getKey());
                     }
                 }
                 reviewRecyclerAdapter.endProgress();
