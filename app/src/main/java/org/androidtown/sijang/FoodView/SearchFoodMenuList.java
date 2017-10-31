@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,8 +42,13 @@ public class SearchFoodMenuList extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.searchfoodmenulist);
-        //setContentView(R.layout.fragment_list);
         setImageLoader(options, config, this);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.foodmenu_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("시장속 음식별 가게");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
         SearchFood sf[][] = new SearchFood[6][10];
         sf[1][0] = new SearchFood("drawable://" + R.drawable.koreanfood1, "광장", "순희네빈대떡");
@@ -179,26 +186,6 @@ public class SearchFoodMenuList extends AppCompatActivity
                 break;
         }
 
-        // urlList.add("drawable://" + R.drawable.test6);
-
-        /*
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-        urlList.add("http://imgnews.naver.net/image/thumb120/001/2014/10/12/7180761.jpg");
-*/
-
-
 
         mListView = (ListView) findViewById(R.id.searchfoodmenulist_listView);
         mAdapter = new ListViewAdapter(this);
@@ -308,5 +295,16 @@ public class SearchFoodMenuList extends AppCompatActivity
         options = new DisplayImageOptions.Builder().considerExifParams(true).cacheInMemory(true)
                 .build();
         ImageLoader.getInstance().init(config);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

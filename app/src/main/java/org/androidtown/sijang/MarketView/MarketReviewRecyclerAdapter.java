@@ -57,6 +57,7 @@ public class MarketReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
         public TextView user_id;
         public TextView data_record;
         public TextView review;
+        public TextView title;
         public RatingBar star;
         public ImageView img_1;
         public ImageView img_2;
@@ -69,6 +70,7 @@ public class MarketReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
             this.market_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_market);
             this.user_id = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
             this.data_record = (TextView) itemView.findViewById(R.id.reviewlist_item_text_record);
+            this.title = (TextView) itemView.findViewById(R.id.reviewlist_item_text_title);
             this.review = (TextView) itemView.findViewById(R.id.reviewlist_item_text_review);
             this.star = (RatingBar) itemView.findViewById(R.id.reviewlist_item_ratingbar);
             this.img_1 = (ImageView) itemView.findViewById(R.id.reviewlist_item_img_review1);
@@ -86,6 +88,7 @@ public class MarketReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
             Review review = arrayList.get(position);
             holder.market_text.setText(review.getMarketname());
+            holder.title.setText(review.getTitle());
             holder.user_id.setText(review.getName());
             holder.data_record.setText(review.getDate());
             holder.review.setText(review.getContent());

@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -98,7 +100,7 @@ public class MarketMainList extends AppCompatActivity {
     private Double longitude;
     private Double mylatitude;
     private Double mylongitude;
-    private String user_id, address, content, traffic;
+    private String user_id, address, content, traffic, user_name;
     private StorageReference marketImageRef, marketImageRef2, marketImageRef1;
     private boolean flag = true;
 
@@ -236,11 +238,14 @@ public class MarketMainList extends AppCompatActivity {
         TextView marketNameView = (TextView) findViewById(R.id.marketmainlist_text_name);
         TextView trafficView = (TextView) findViewById(R.id.marketmainlist_text_traffic);
         TextView contentView = (TextView) findViewById(R.id.marketmainlist_text_content);
+        TextView addressView = (TextView)findViewById(R.id.marketmainlist_text_address);
 
         getLastLocation();
         marketNameView.setText(marketname);
         trafficView.setText(traffic);
         contentView.setText(content);
+        contentView.setMovementMethod(new ScrollingMovementMethod());
+        addressView.setText(address);
         FragmentManager fragmentManager = getFragmentManager();
         MapFragment mapFragment = (MapFragment)fragmentManager.findFragmentById(R.id.Mymap);
 
@@ -441,6 +446,17 @@ public class MarketMainList extends AppCompatActivity {
     @Override
     protected  void attachBaseContext(Context newBase){
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

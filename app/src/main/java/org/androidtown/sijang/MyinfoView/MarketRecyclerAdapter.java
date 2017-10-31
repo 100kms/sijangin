@@ -81,10 +81,10 @@ public class MarketRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
             final Favorite favorite = arrayList.get(position);
             holder.marketName.setText(favorite.getMarketName());
-            holder.user_id.setText(favorite.getUser_id());
+            holder.user_id.setText(favorite.getAddress());
 
             StorageReference islandRef;
-            islandRef = rootReference.child(image_index+"0.jpg");
+            islandRef = rootReference.child(favorite.getMarketName()+"/0.jpg");
             setImage(islandRef,holder.market_img);
 
             holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

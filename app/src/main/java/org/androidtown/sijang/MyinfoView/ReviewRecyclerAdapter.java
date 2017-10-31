@@ -2,7 +2,6 @@ package org.androidtown.sijang.MyinfoView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +56,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public TextView user_id;
         public TextView data_record;
         public TextView review;
+        public TextView title;
         public RatingBar star;
         public ImageView img_1;
         public ImageView img_2;
@@ -67,6 +67,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
         public DataViewHolder(Context context, View itemView, ReviewRecyclerAdapter myRecyclerAdapter) {
             super(itemView);
             this.market_text = (TextView) itemView.findViewById(R.id.reviewlist_item_text_market);
+            this.title = (TextView) itemView.findViewById(R.id.reviewlist_item_text_title);
             this.user_id = (TextView) itemView.findViewById(R.id.reviewlist_item_text_userid);
             this.data_record = (TextView) itemView.findViewById(R.id.reviewlist_item_text_record);
             this.review = (TextView) itemView.findViewById(R.id.reviewlist_item_text_review);
@@ -86,6 +87,7 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
             ReviewData reviewData = arrayList.get(position);
             holder.market_text.setText(reviewData.getReview().getMarketname());
+            holder.title.setText(reviewData.getReview().getTitle());
             holder.user_id.setText(reviewData.getReview().getName());
             holder.data_record.setText(reviewData.getReview().getDate());
             holder.review.setText(reviewData.getReview().getContent());

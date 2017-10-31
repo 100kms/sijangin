@@ -21,12 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            >
+            android:paddingTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/reviewlist_item_text_market"
                     android:layout_width="wrap_content"
@@ -34,8 +34,14 @@
                     android:textSize="20dp"
                     android:textStyle="bold"
                     android:textColor="#000000"
-                    android:layout_marginLeft="10dp"
-                    />
+                    android:layout_marginLeft="10dp" />
+
+                <TextView
+                    android:id="@+id/reviewlist_item_text_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:textSize="20dp"
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -84,27 +90,6 @@
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <Button
-                            android:id="@+id/reviewlist_item_btn_area"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@drawable/review_etc_btn"
-                            android:text="위치 검색" />
-
-                        <Button
-                            android:id="@+id/reviewlist_item_btn_bookmark"
-                            android:layout_width="wrap_content"
-                            android:layout_height="30dp"
-                            android:background="@drawable/review_etc_btn"
-                            android:text="찜 등록" />
-                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
@@ -124,26 +109,27 @@
                     <ImageView
                         android:id="@+id/reviewlist_item_img_review1"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="150dp"
-                        android:paddingRight="30dp"
+                        android:layout_gravity="center"
                         android:scaleType="fitXY"
                         android:visibility="gone"/>
+
                     <ImageView
                         android:id="@+id/reviewlist_item_img_review2"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
                         android:layout_height="150dp"
-                        android:paddingRight="30dp"
+                        android:layout_gravity="center"
                         android:scaleType="fitXY"
                         android:visibility="gone"/>
 
                     <ImageView
                         android:id="@+id/reviewlist_item_img_review3"
                         android:layout_weight="1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="200dp"
+                        android:layout_gravity="center"
                         android:layout_height="150dp"
-                        android:paddingRight="30dp"
                         android:scaleType="fitXY"
                         android:visibility="gone"/>
 

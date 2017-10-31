@@ -23,7 +23,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -36,7 +35,6 @@ import com.google.android.gms.tasks.Task;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.FirstMainActivity;
-import org.androidtown.sijang.MarketView.MarketList;
 import org.androidtown.sijang.MyinfoView.MyInfoActivity;
 import org.androidtown.sijang.R;
 
@@ -78,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     private boolean isDrawerOpened = false;
     private int actionBarMenuState;
     private SharedPreferences.Editor prefedit;
-
 
 
     @Override
@@ -150,10 +147,9 @@ public class MainActivity extends AppCompatActivity {
         else{
             drawerMneu[3] = "로그아웃";
         }
-        Log.i("kkkkkk","=========" + pref.getString("user_id", "") + "!!");
+
         for(int i=0; i<drawerMneu.length; i++){
             mainDrawerViewAdapter.addItem(drawerMneu[i]);
-            Log.i("kkkkkk",drawerMneu[i]);
         }
 
 

@@ -2,9 +2,12 @@ package org.androidtown.sijang.MarketView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -13,7 +16,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
-import org.androidtown.sijang.MainView.MainActivity;
 import org.androidtown.sijang.R;
 import org.androidtown.sijang.ReviewView.Review;
 
@@ -21,7 +23,7 @@ import org.androidtown.sijang.ReviewView.Review;
  * Created by CYSN on 2017-10-05.
  */
 
-public class MarketReviewFragment extends MainActivity {
+public class MarketReviewFragment extends AppCompatActivity {
     private static MarketReviewFragment instance = null;
     private RecyclerView recyclerView;
     private FirebaseDatabase database;
@@ -43,11 +45,17 @@ public class MarketReviewFragment extends MainActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reviewlist);
-        recyclerView = (RecyclerView) findViewById(R.id.reviewListRecyclerView);
+        setContentView(R.layout.marketreviewlist);
+        recyclerView = (RecyclerView) findViewById(R.id.marketreviewListRecyclerView);
 
         Intent intent = getIntent();
         marketname = intent.getStringExtra("marketname");
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.marketreview_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(marketname + " 리뷰");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
         database = FirebaseDatabase.getInstance();
         firebaseStorage = FirebaseStorage.getInstance();
@@ -99,7 +107,7 @@ public class MarketReviewFragment extends MainActivity {
             bbsRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    review = dataSnapshot.getValue(Review.class); // 컨버팅되서 Bbs로........
+                    review = dataSnapshot.getValue(Review.class);// 컨버팅되서 Bbs로........
 
                     if(review == null){
                         marketReviewRecyclerAdapter.endProgress();
@@ -110,7 +118,7 @@ public class MarketReviewFragment extends MainActivity {
                     }
 
                     if(review.getMarketname().equals(marketname)){
-                        marketReviewRecyclerAdapter.addItem(review, review.getMarketname());
+                        marketReviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
                         review_index++;
                         if(review_index == review_read_index+9){
                             marketReviewRecyclerAdapter.endProgress();
@@ -133,5 +141,21 @@ public class MarketReviewFragment extends MainActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed(){
+        finish();
     }
 }

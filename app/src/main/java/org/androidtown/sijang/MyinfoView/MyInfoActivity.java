@@ -1,6 +1,8 @@
 package org.androidtown.sijang.MyinfoView;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +10,11 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.Button;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.R;
 
@@ -25,6 +31,8 @@ public class MyInfoActivity extends AppCompatActivity {
     private MyInfoFavoriteFragment myInfoFavoriteFragment;
     private ViewPager viewPager;
     private TabLayout tabLayout;
+    private Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +41,12 @@ public class MyInfoActivity extends AppCompatActivity {
         myFavoriteBtn = (Button) findViewById(R.id.myInfo_myFavoriteView);
         viewPager = (ViewPager)findViewById(R.id.myInfo_ViewPager);
         tabLayout = (TabLayout) findViewById(R.id.myInfo_TabLayout);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.myInfo_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("내 정보");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
         myInfoReviewFragment = MyInfoReviewFragment.getInstance();
         myInfoFavoriteFragment = MyInfoFavoriteFragment.getInstance();
@@ -89,9 +103,21 @@ public class MyInfoActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    protected  void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 
 

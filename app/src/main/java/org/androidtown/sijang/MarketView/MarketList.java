@@ -18,7 +18,6 @@ import com.google.firebase.storage.StorageReference;
 import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.Data.Market_Data;
-import org.androidtown.sijang.MainView.MainActivity;
 import org.androidtown.sijang.R;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class MarketList extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.market_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("마켓 리스트");
+        getSupportActionBar().setTitle("지역별 시장");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
@@ -89,8 +88,7 @@ public class MarketList extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case android.R.id.home :
-                intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -99,11 +97,5 @@ public class MarketList extends AppCompatActivity {
     @Override
     protected  void attachBaseContext(Context newBase){
         super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
-    }
-
-    @Override
-    public void onBackPressed(){
-        intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
     }
 }

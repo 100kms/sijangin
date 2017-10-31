@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#cccccc">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/marketmain_toolbar"
         android:layout_width="match_parent"
@@ -48,6 +49,25 @@
                     android:textSize="20dp" />
 
                 <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="교통 수단 : "/>
+
+                <TextView
+                    android:id="@+id/marketmainlist_text_traffic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -56,15 +76,16 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="교통 수단 : "/>
+                        android:layout_marginLeft="10dp"
+                        android:text="주소 : "/>
 
                     <TextView
-                        android:id="@+id/marketmainlist_text_traffic"
+                        android:id="@+id/marketmainlist_text_address"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp" />
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
 
             </LinearLayout>
 
@@ -77,22 +98,37 @@
                     android:id="@+id/marketmainlist_text_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="25dp" />
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="3dp"
+                    android:scrollbars="vertical"
+                    android:padding="27dp" />
 
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/marketmainlist_btn_bookmark"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="즐겨찾기"/>
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/marketmainlist_btn_read"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="리뷰보기"/>
+                <Button
+                    android:id="@+id/marketmainlist_btn_bookmark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="즐겨 찾기"/>
+
+                <Button
+                    android:id="@+id/marketmainlist_btn_read"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="리뷰 보기"/>
+
+                <Button
+                    android:id="@+id/marketmainlist_btn_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="리뷰 쓰기" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -108,8 +144,7 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="500dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_height="400dp"
                     android:orientation="vertical">
 
                     <Button
@@ -149,29 +184,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="500dp"
-                android:orientation="vertical">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="#ffcc4d">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="최신 리뷰" />
-
-                    <Button
-                        android:id="@+id/marketmainlist_btn_review"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="리뷰 쓰기" />
-                </RelativeLayout>
-            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

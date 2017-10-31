@@ -1,5 +1,6 @@
 package org.androidtown.sijang.Data;
 
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +11,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.MainView.MainActivity;
 import org.androidtown.sijang.R;
@@ -80,14 +84,18 @@ public class Review_Write extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.review_write);
 
-        System.out.println("============== add_count : " + add_count);
-
         SharedPreferences pref = getSharedPreferences("user_info", MODE_PRIVATE);
         id = pref.getString("user_id", "");
         name = pref.getString("user_name", "");
 
         Intent gIntent = getIntent();
         marketname = gIntent.getStringExtra("marketname");
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.write_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(marketname + " 리뷰 쓰기");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu_back);
 
         e_title = (EditText)findViewById(R.id.write_edit_title);
         e_content = (EditText)findViewById(R.id.write_edit_content);
@@ -433,6 +441,22 @@ public class Review_Write extends AppCompatActivity {
                                    DataSnapshot dataSnapshot) {
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id){
+            case android.R.id.home :
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected  void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
     }
 
 }

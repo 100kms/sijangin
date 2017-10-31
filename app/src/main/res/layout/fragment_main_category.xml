@@ -32,7 +32,7 @@
                     android:layout_height="wrap_content"
                     android:text="지역별 시장 가기"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="30dp"
                     android:textSize="20dp"/>
 
             </LinearLayout>
@@ -58,19 +58,20 @@
                     android:scaleType="fitXY"
                     android:layout_gravity="center"
                     android:layout_marginLeft="45dp"
-                    android:src="@drawable/location" />
+                    android:src="@drawable/food" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="시장속 음식별 가게"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginLeft="30dp"
                     android:textSize="20dp"/>
 
             </LinearLayout>
 
             <GridView
+                android:layout_marginTop="5dp"
                 android:id="@+id/category_grid2"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
