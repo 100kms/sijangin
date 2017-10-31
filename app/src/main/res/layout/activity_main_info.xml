@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:padding="15dp"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:text="시장IN 정보"/>
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="192dp"
+        android:layout_height="187dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/icon" />
+    />
+
+    <TextView
+        android:id="@+id/t0"
+        android:paddingTop="5dp"
+        android:layout_below="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="13dp"
+        android:text="만든이들"/>
+
+
+    <TextView
+        android:id="@+id/t1"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/t0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textSize="15dp"
+        android:text="팀장 : 가천대학교 컴퓨터공학과 김민수"/>
+
+    <TextView
+        android:id="@+id/t2"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/t1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text="팀원 : 한성대학교 컴퓨터공학부 최용석"/>
+
+    <TextView
+        android:id="@+id/t3"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/t2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text="팀원 : 동서울대학 컴퓨터공학부 김민혁"/>
+
+    <TextView
+        android:id="@+id/t4"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/t3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text="팀원 : 한성대학교 컴퓨터공학부 최용석"/>
+
+    <TextView
+        android:id="@+id/t5"
+        android:paddingTop="15dp"
+        android:layout_below="@+id/t4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="15dp"
+        android:text="팀원 : 한성대학교 컴퓨터공학부 안형우"
+        android:paddingBottom="20dp"/>
+
+
+</RelativeLayout>

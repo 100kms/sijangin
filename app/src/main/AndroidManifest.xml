@@ -64,7 +64,8 @@
         <activity android:name=".MyinfoView.MyInfoActivity" />
         <activity android:name=".MainView.MainDrawerNotice"
             android:theme="@style/Theme.MyDialog"/>
-
+        <activity android:name=".MainView.MainInfo"
+            android:theme="@style/Theme.MyDialog"/>
     </application>
 
 </manifest>

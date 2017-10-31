@@ -1,5 +1,6 @@
 package org.androidtown.sijang.MainView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.tsengvn.typekit.TypekitContextWrapper;
 
 import org.androidtown.sijang.R;
 
@@ -30,12 +33,19 @@ public class MainDrawerNotice extends AppCompatActivity {
 
         arrayList = new ArrayList<>();
         listView = (ListView)findViewById(R.id.notice_Listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.activity_main_notice_item,R.id.main_notice_textView);
 
         arrayAdapter.add("디자인 UI가 최신화되었습니다. - 2017.10.30");
         arrayAdapter.add("어플리케이션 편의성 개선 - 2017.10.28");
         arrayAdapter.add("카카오톡 로그인기능 추가 - 2017.10.25");
         listView.setAdapter(arrayAdapter);
+        listView.setDividerHeight(1);
+
     }
+    @Override
+    protected  void attachBaseContext(Context newBase){
+        super.attachBaseContext(TypekitContextWrapper.wrap(newBase));
+    }
+
 }
 

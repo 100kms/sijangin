@@ -13,12 +13,6 @@
         android:layout_height="match_parent">
 
 
-        <ImageView
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@drawable/main_map_loading"
-            />
-
         <Button
             android:id="@+id/mbtn"
             android:layout_marginTop="5dp"
