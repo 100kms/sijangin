@@ -2,6 +2,7 @@ package org.androidtown.sijang.MyinfoView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 
 public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext = null;
-    private ArrayList<Review> arrayList;
+    private ArrayList<ReviewData> arrayList;
     private final int NORMAL_TYPE = 1;
     private final int PROGRESS_TYPE = 2;
     private int progressPos = -1;
@@ -36,11 +37,12 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     private String image_index="0/";
     public ReviewRecyclerAdapter(Context context){
         this.mContext = context;
-        arrayList = new ArrayList<Review>();
+        arrayList = new ArrayList<ReviewData>();
     }
     public synchronized void addItem(Review review, String index){
-        arrayList.add(review);
         image_index = index + "/";
+        arrayList.add(new ReviewData(review,image_index));
+
         notifyItemInserted(getItemCount()-1);
     }
     public class ProgressViewHolder extends RecyclerView.ViewHolder{
@@ -82,13 +84,13 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         if(viewHolder instanceof DataViewHolder) {
             DataViewHolder holder =  ((DataViewHolder)viewHolder);
-            Review review = arrayList.get(position);
-            holder.market_text.setText(review.getMarketname());
-            holder.user_id.setText(review.getName());
-            holder.data_record.setText(review.getDate());
-            holder.review.setText(review.getContent());
-            holder.star.setRating((float)review.getStar());
-            int count = review.getImg_count();
+            ReviewData reviewData = arrayList.get(position);
+            holder.market_text.setText(reviewData.getReview().getMarketname());
+            holder.user_id.setText(reviewData.getReview().getName());
+            holder.data_record.setText(reviewData.getReview().getDate());
+            holder.review.setText(reviewData.getReview().getContent());
+            holder.star.setRating((float)reviewData.getReview().getStar());
+            int count = reviewData.getReview().getImg_count();
             StorageReference islandRef;
             StorageReference islandRef2;
             StorageReference islandRef3;
@@ -99,15 +101,15 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 1:
-                    islandRef = rootReference.child(image_index+"1");
+                    islandRef = rootReference.child(reviewData.image_URL+"1");
                     setImage(islandRef,holder.img_1);
                     holder.img_1.setVisibility(View.VISIBLE);
                     holder.img_2.setVisibility(View.GONE);
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 2:
-                    islandRef = rootReference.child(image_index+"1");
-                    islandRef2 = rootReference.child(image_index+"2");
+                    islandRef = rootReference.child(reviewData.image_URL+"1");
+                    islandRef2 = rootReference.child(reviewData.image_URL+"2");
                     setImage(islandRef,holder.img_1);
                     setImage(islandRef2,holder.img_2);
                     holder.img_1.setVisibility(View.VISIBLE);
@@ -115,9 +117,9 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
                     holder.img_3.setVisibility(View.GONE);
                     break;
                 case 3:
-                    islandRef = rootReference.child(image_index+"1");
-                    islandRef2 = rootReference.child(image_index+"2");
-                    islandRef3 = rootReference.child(image_index+"3");
+                    islandRef = rootReference.child(reviewData.image_URL+"1");
+                    islandRef2 = rootReference.child(reviewData.image_URL+"2");
+                    islandRef3 = rootReference.child(reviewData.image_URL+"3");
                     setImage(islandRef,holder.img_1);
                     setImage(islandRef2,holder.img_2);
                     setImage(islandRef3,holder.img_3);
@@ -186,6 +188,19 @@ public class ReviewRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             notifyItemRemoved(progressPos);
             notifyItemRangeChanged(0,arrayList.size());
             progressPos = -1;
+        }
+    }
+    class ReviewData{
+        private Review review;
+        private String image_URL;
+
+        public ReviewData(Review review, String image_URL) {
+            this.review = review;
+            this.image_URL = image_URL;
+        }
+
+        public Review getReview() {
+            return review;
         }
     }
 }

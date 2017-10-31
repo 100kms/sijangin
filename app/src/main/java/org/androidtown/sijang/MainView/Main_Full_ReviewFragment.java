@@ -72,10 +72,8 @@ public class Main_Full_ReviewFragment extends Fragment {
                 int visibleItemCount = recyclerView.getChildCount();
                 int totalItemCount = recyclerView.getLayoutManager().getItemCount();
                 int firstVisibleItem = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstVisibleItemPosition();
-                //Log.i("kkkkk",visibleItemCount + " " +  totalItemCount + " " + firstVisibleItem);
                 if (!isMoreLoading && (totalItemCount - visibleItemCount)<= (firstVisibleItem + 1)) {
                     isMoreLoading = true;
-                    Log.i("kkkkkk", review_read_index + "!!start");
                     getData();
                 }
 
@@ -99,7 +97,7 @@ public class Main_Full_ReviewFragment extends Fragment {
         reviewRecyclerAdapter.startProgress();
         /*bbsRef = database.getReference("review").child("전체");//이걸로 아이디 csm인 데이터 가져 올 수 있음!!!★★★★★★
         Query mQuery = bbsRef.orderByChild("user_id").equalTo("csm");*/
-        bbsRef = database.getReference("review").child("전체");
+       /* bbsRef = database.getReference("review").child("전체");
         bbsRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -111,7 +109,7 @@ public class Main_Full_ReviewFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
         for (int i = review_read_index; i < review_read_index+10; i++) {
             bbsRef = database.getReference("review").child("전체").child(Integer.toString(i));
@@ -127,7 +125,7 @@ public class Main_Full_ReviewFragment extends Fragment {
                         review_index = 0;
                         return;
                     }
-
+                    Log.i("kkkkkkkkkk",dataSnapshot.getKey() + " " + review.getImg_count() + review.getContent());
                     reviewRecyclerAdapter.addItem(review, dataSnapshot.getKey());
                     review_index++;
                     if(review_index == review_read_index+9){
