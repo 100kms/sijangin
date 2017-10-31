@@ -34,8 +34,8 @@ public class Main_Category_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_category, container, false);
 
         int imgs[] = {
-                R.drawable.marketpic, R.drawable.bun2, R.drawable.bun3, R.drawable.bun4,
-                R.drawable.bun5, R.drawable.koreanfood1, R.drawable.koreanfood2, R.drawable.koreanfood3
+                R.drawable.marketpic, R.drawable.marketpic, R.drawable.marketpic, R.drawable.marketpic,
+                R.drawable.marketpic, R.drawable.marketpic, R.drawable.marketpic, R.drawable.marketpic
         };
 
         int foodimgs[] = {
